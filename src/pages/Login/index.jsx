@@ -1,4 +1,4 @@
-import './index.css';
+import './Login.css';
 import email from './email.png';
 import pass from './password.png';
 import per from './person.png';
@@ -6,6 +6,7 @@ import image2 from './cbak2.jpg';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ForgotPasswordModal from '../popup';
+
 
 const Login = () => {
   const navigate = useNavigate(); 

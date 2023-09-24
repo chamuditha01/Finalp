@@ -7,7 +7,7 @@ import header_bg from './header-bg.jpg'
 
 const Header = () => {return(
     <div className="header" style = {{
-        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${header_bg}) center/cover no-repeat`
+        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${header_bg}) center/cover no-repeat`,margin:'0px'
     }}>
        
 

@@ -28,6 +28,7 @@ function Navbar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <NavItems NavItem id={"nav"} name={'Home'} path={'/'} />
               <NavItems NavItem id={"nav"} name={'Service'} path={'/service'} />
+              
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -40,7 +41,7 @@ function Navbar() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/shop">
                       Pet shop
                     </a>
                   </li>

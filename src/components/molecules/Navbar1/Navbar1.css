@@ -1,0 +1,54 @@
+#home{
+    font-size: 20px;
+    margin-top: 0;
+}
+#home:hover{
+    color: rgb(83, 83, 255);
+}
+#nav{
+    margin-top: 5px;
+}
+#nav:hover{
+    color: #000080;
+}
+#bar{
+    background-color: #a7b6f9;
+}
+#b1{
+    margin-left: 10px;
+    border-color:rgb(83, 83, 255) ;
+    color: rgb(83, 83, 255);
+}
+#b1:hover{
+    background-color: #000080;
+    color: white;
+    border-color: white;
+}
+#noti:hover{
+   
+    color: rgb(134, 134, 241);
+}
+#reg{
+    
+    margin-top: 5px;
+}
+#reg:hover{
+    color: white;
+}
+
+#d{
+    margin-bottom: 20px;
+    background-color: transparent;
+}
+.custom-navbar{
+    background-color: transparent;
+}
+#nav1{
+    margin: 0px;
+    height: 25px;
+}
+#btn{
+    margin: 8px;
+    height: 40px;
+    width: 50px;
+}

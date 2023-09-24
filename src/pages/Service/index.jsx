@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from "../../components/molecules/Navbar";
 import image1 from './cbak1.jpg';
 import Carousel from "../../components/atoms/carousel";
-import './index.css';
+import './Service.css';
 import ServiceItem from '../../components/atoms/Serviceitem';
 
 

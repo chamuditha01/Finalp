@@ -1,9 +1,9 @@
 
-import './styles.css'
+import './Home.css'
 import Header from "../../components/molecules/Header/Header";
-import Footer from '../../components/molecules/Footer/Footer';
-import Doctor from '../../components/molecules/Doctor';
 
+import Doctor from '../../components/molecules/Doctor';
+import Footer from '../../components/molecules/Footer/Footer';
 const Home =()=>{ 
   return(
     <div>
