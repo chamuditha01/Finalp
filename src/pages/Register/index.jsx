@@ -1,6 +1,6 @@
 import React from 'react';
 import image2 from './cbak2.jpg';
-import './Register.css';
+import './index.css';
 
 const Register = () => {
   return (

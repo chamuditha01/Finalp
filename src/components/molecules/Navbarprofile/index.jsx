@@ -1,6 +1,6 @@
 import NavItems from "../../atoms/Navitems";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Navprofile.css';
+import './styles.css';
 import logo from './logo.jpg'
 import per from './login.png'
 

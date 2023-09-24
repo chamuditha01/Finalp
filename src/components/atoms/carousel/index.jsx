@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Carousel.css'
+import './index.css'
 
 const Carousel = () => {
   return (

@@ -1,5 +1,5 @@
 
-import './Home.css'
+import './styles.css'
 import Header from "../../components/molecules/Header/Header";
 
 import Doctor from '../../components/molecules/Doctor';

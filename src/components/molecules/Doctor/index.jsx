@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Doc.css'; 
+import './index.css'; 
 import image1 from './cbak1.jpg';
 
 const Doctor = () => {

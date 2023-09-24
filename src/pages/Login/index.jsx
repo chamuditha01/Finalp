@@ -1,4 +1,4 @@
-import './Login.css';
+import './index.css';
 import email from './email.png';
 import pass from './password.png';
 import per from './person.png';
