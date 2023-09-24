@@ -1,0 +1,149 @@
+.round{ width: 200px; 
+  height: 200px;  
+  object-fit: cover; 
+  border-radius: 100px;}
+
+.social-icon2 {
+    width: 200px; 
+    height: 200px;  
+    border-radius: 50px;
+    object-fit: cover; 
+  }
+  .container3{
+    background-color: rgb(104, 104, 104);
+    padding: 100px;
+
+    
+  }
+  .para
+  {
+    padding: 20px; 
+    border-radius: 10px;
+    background-color:rgb(168, 167, 167);
+    text-align: center;
+    font-size: medium;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+  }
+  
+.container3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;
+  
+  
+  
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; 
+  
+}
+
+.footer__title1{color: rgb(0, 0, 0);
+  font-weight: bolder;
+}
+.read-more-btn{
+  font-size:medium;
+  font-weight: bolder;
+  color: blue;
+}
+.text {
+  display: flex;
+  align-items: center; 
+}
+
+.paragraphs {
+  flex: 3; 
+  text-align: left;
+  padding-left: 200px;
+}
+
+.image {
+  margin-left: 20px; 
+  width: 50%;
+  height: 50%;
+  border-radius: 30px;
+}
+ .pading1{padding-top:  0px;}
+
+
+
+.welcome-section {
+  text-align: center;
+}
+
+.header-image {
+  max-width: 100%; 
+  display: block;
+  margin: 0 auto 20px; 
+}
+
+
+
+
+
+.stats__content{
+    gap: 6rem;
+}
+.stats__item--left .img{
+    width: 60px;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    width: 400px;
+    border-radius: 30px;
+    
+}
+.stats__item--right .value{
+    display: block;
+    margin-bottom: 0.6rem; 
+    font-size: xx-large;
+    color: black;
+  font-weight: 500;
+
+border-radius: 30px;
+padding: 40px;
+}
+
+
+@media screen and (min-width: 768px){
+    .stats__content{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 992px){
+    .stats__content{
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 2rem;
+       
+    }
+    .stats__item{
+        text-align: left;
+        align-items: center;
+        display: flex;
+       
+    }
+    .stats__item .img{
+        margin-bottom: 0;
+        margin-right: 2rem;
+        width: 400px;
+        
+    }
+}
+.icon{width: 50px;}.image-with-text {
+  display: flex; 
+  align-items: center; 
+}
+
+.text {
+  margin-left: 10px; 
+}
+.imgg{border-radius: 200px;
+  outline: 5px solid rgb(0, 44, 140);}
+  
