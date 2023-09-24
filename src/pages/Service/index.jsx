@@ -4,6 +4,7 @@ import image1 from './cbak1.jpg';
 import Carousel from "../../components/atoms/carousel";
 import './index.css';
 import ServiceItem from '../../components/atoms/Serviceitem';
+import Footer from '../../components/molecules/Footer/Footer';
 
 
 const Service = () => {
@@ -57,6 +58,7 @@ const Service = () => {
           </ul>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

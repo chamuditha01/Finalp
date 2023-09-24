@@ -25,7 +25,13 @@
   height: auto;
 }
 
-
+#per{
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  margin: -7px;
+  margin-left: -5px;
+}
 
 
 .custom-navbar .navbar-nav .nav-link {
@@ -88,4 +94,6 @@ background-color: aliceblue;}
   margin-right: 100px; 
 }
 
-
+#nav{
+  margin-top: 8px;
+}

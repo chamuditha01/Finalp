@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import logo from './logo.jpg'
 import per from './login.png'
+import Menu from "../../atoms/MenuItems";
 
-function Navbarprofile() {
+function NavbarPetDashboard() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg custom-navbar">
+      <nav className="navbar navbar-expand-lg custom-navbar ">
         <div className="container-fluid">
          
-          <a className="navbar-brand" href="/profile">
+          <a className="navbar-brand" href="/">
             <img src={logo} alt="Logo" />
           </a>
           <button
@@ -26,8 +27,9 @@ function Navbarprofile() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <NavItems NavItem id={"nav"} name={'Home'} path={'/profile'} />
-              <NavItems NavItem id={"nav"} name={'Service'} path={'/profile'} />
+              <NavItems NavItem id={"nav"} name={'Home'} path={'/'} />
+              <NavItems NavItem id={"nav"} name={'Pet Shop'} path={'/shop'} />
+              <NavItems NavItem id={"nav"} name={'Book Cage'} path={'/Cage'} />
               <li className="nav-item dropdown">
                 <a
                 style={{marginTop:'8px'}}
@@ -37,35 +39,24 @@ function Navbarprofile() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                 Menu
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Pet shop
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Donation
-                    </a>
-                  </li>
+                  <Menu name={'Pet Shop'} path='/shop'></Menu>
+                  <Menu name={'Donate'} path='/Donate'></Menu>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Blog
-                    </a>
-                  </li>
+                  <Menu name={'Appointment'} path='/Appointment'></Menu>
+                  <Menu name={'Book Cage'} path='/Cage'></Menu>
                 </ul>
               </li>
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0 right">
              
-              <NavItems NavItem id={"nav"} name={'Register'} path={'/profile'} />
               
-              <NavItems NavItem id={"nav"} name={'Log Out'} path={'/'}  />
+              
+              <NavItems NavItem id={"nav"} name={'Create Profile'} path={'/Create'}  />
               <a className="top" href="/">
               <img id="per" src={per} alt="" /></a>
             </ul>
@@ -76,4 +67,4 @@ function Navbarprofile() {
   );
 }
 
-export default Navbarprofile;
+export default NavbarPetDashboard;

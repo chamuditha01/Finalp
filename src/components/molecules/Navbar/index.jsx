@@ -7,7 +7,7 @@ import per from './login.png'
 function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
+      <nav className="navbar navbar-expand-lg custom-navbar ">
         <div className="container-fluid">
          
           <a className="navbar-brand" href="/">
@@ -31,6 +31,7 @@ function Navbar() {
               
               <li className="nav-item dropdown">
                 <a
+                style={{marginTop:'8px'}}
                   className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
@@ -67,7 +68,7 @@ function Navbar() {
               
               <NavItems NavItem id={"nav"} name={'Login'} path={'/login'}  />
               <a className="top" href="/login">
-              <img src={per} alt="" /></a>
+              <img id="per" src={per} alt="" /></a>
             </ul>
           </div>
         </div>
