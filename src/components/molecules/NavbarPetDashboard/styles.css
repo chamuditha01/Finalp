@@ -4,7 +4,9 @@
 
   
 }
-
+.btn-group {
+  margin-right: 10px; 
+}
 
 .navbar-brand img {
   margin-left: 50px;

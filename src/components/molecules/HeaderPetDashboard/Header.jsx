@@ -1,8 +1,9 @@
 import React from "react";
 import "./Header.css";
 import headerbg from './photo-1522241112606-b5d35a468795.jpeg'
-import header_bg from "./header-bg.jpg";
+import Rec from "../../atoms/Item 1";
 import NavbarPetDashboard from "../NavbarPetDashboard";
+import CarouselForm from "../CarselForm";
 
 const HeaderPetDashboard = () => {
   return (
@@ -17,9 +18,12 @@ const HeaderPetDashboard = () => {
       <div className="container2">
         <NavbarPetDashboard/>
         
+      
         <div className="header__content text__center text__light flex flex__center">
           <div style={{marginRight: '20px'}} className="header__content--left"></div>
-          <div className="header__content--right">
+          
+          <Rec/>
+          <div style={{marginLeft:'20px'}} className="header__content--right">
             
             <h1 className="header__title fw__6">Create a Pet Profile</h1>
             <p className="para__text">
@@ -35,9 +39,7 @@ const HeaderPetDashboard = () => {
               companions throughout their lives. Please contact us on 0771289961
               for all your animal health care needs.
             </p>
-            <a href="/register" className="btn__blue">
-              Create Profile
-            </a>
+            
           </div>
         </div>
       </div>
