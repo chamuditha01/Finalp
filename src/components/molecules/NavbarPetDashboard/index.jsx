@@ -57,8 +57,23 @@ function NavbarPetDashboard() {
               
               
               <NavItems NavItem id={"nav"} name={'Create Profile'} path={'/Create'}  />
-              <a className="top" href="/">
-              <img id="per" src={per} alt="" /></a>
+              
+              
+              <div class="btn-group">
+                <button type="button" class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Veiw Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Jessy</a></li>
+                  <li><a class="dropdown-item" href="#">Shadow</a></li>
+                  <li><hr class="dropdown-divider"></hr></li>
+                  <li><a class="dropdown-item" href="/">log out</a></li>
+                </ul>
+              </div>
+              
+              
             </ul>
           </div>
         </div>
