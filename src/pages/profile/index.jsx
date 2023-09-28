@@ -4,7 +4,7 @@ import HeaderPetDashboard from '../../components/molecules/HeaderPetDashboard/He
 import Navbarprofile from '../../components/molecules/Navbarprofile';
 import imagebak from './cbak1.jpg'
 
-const Service = () => {
+const Profile = () => {
   return (
     <div>
      
@@ -16,4 +16,4 @@ const Service = () => {
       </div>
   );
 };
-export default Service;
+export default Profile;

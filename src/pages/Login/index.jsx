@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ForgotPasswordModal from '../popup';
 
-
 const Login = () => {
   const navigate = useNavigate(); 
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
@@ -25,8 +24,11 @@ const Login = () => {
     const password = document.getElementById('inputPassword4').value;
 
     if (username && emailValue && password) {
-     
-      navigate('/profile');
+
+      if (username === 'Manager') 
+      {
+      navigate('/Manager');
+      }
     } else {
       
       alert('Please fill in all required fields.');
