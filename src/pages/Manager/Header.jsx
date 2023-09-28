@@ -1,7 +1,8 @@
 import React from 'react'
 import './dt.css'
+import {MdOutlineDarkMode}from 'react-icons/md'
 import 
- {BsFillBellFill, BsFillEnvelopeFill,  BsSearch, BsJustify}
+ {  BsJustify}
  from 'react-icons/bs'
  import { AiOutlineLogout } from 'react-icons/ai';
  
@@ -18,7 +19,7 @@ function Header({OpenSidebar}) {
             <k  className='icon'/>
         </div>
         <div className='header-right'>
-            <a href="/"><BsFillBellFill className='icon'/></a>
+            <button className=' mode'><MdOutlineDarkMode className='icon'/></button>
             <a href="/" className="icon-link"><button className="icon-button"><AiOutlineLogout className='icon' /></button></a>
             
         </div>

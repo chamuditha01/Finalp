@@ -1,8 +1,7 @@
-/* styles.css */
 
   
  
-     /* Add margin for spacing between dropdown and table */
+    
    
   
   
@@ -12,15 +11,14 @@
     font-size: 16px;
   }
   
-  /* styles.css */
-/* ... (previous styles) */
+
 
 table {
     border-collapse: collapse;
     width: 100%;
     max-width: 800px;
     font-size: 18px;
-    text-align: center; /* Center align table content */
+    text-align: center; 
   }
   
   th, td {
@@ -30,10 +28,9 @@ table {
   
   th {
     background-color: #f2f2f2;
-    color: black; /* Change the font color to black */
+    color: black; 
   }
-  /* styles.css */
-/* ... (previous styles) */
+
 
 .approve-button {
     background-color: green;
@@ -57,8 +54,8 @@ table {
 
 .toggle-appointments-button {
     padding: 10px 20px;
-    background-color: #007bff; /* Blue background color */
-    color: #fff; /* White text color */
+    background-color: #007bff;
+    color: #fff; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -66,13 +63,13 @@ table {
   }
   
   .toggle-appointments-button.active {
-    background-color: #dc3545; /* Red background color when active (Close Appointments) */
+    background-color: #dc3545; 
   }
   .center-table-content {
     display: flex;
     justify-content: center;
    padding: 20px;
-     /* Adjust the value to leave space for the button */
+    
   }
   .h3{text-decoration: none;}
   .h1{ text-align: center;}
@@ -80,18 +77,18 @@ table {
        border-radius: 40px;
        height: 5rem;             
   }
- /* Add these styles to your CSS */
+
 .popup-container {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Background blur effect */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  z-index: 999; /* Adjust the z-index as needed */
+  z-index: 999; 
 }
 
 .popup {
@@ -99,13 +96,10 @@ table {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px; /* Adjust the maximum width as needed */
+  max-width: 400px; 
 }
 
-/* Add any other styles for your popup content here */
-/* styles.css */
 
-/* Default styles for larger screens */
 .container {
   margin: 30px auto;
   max-width: 800px;
@@ -124,7 +118,7 @@ table {
   font-size: 24px;
 }
 
-/* Add New and Save button styling */
+
 .add-new,
 .edit,
 .delete {
@@ -189,7 +183,6 @@ table th {
   color: #fff;
 }
 
-/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .container {
     padding: 10px;
@@ -216,7 +209,7 @@ table th {
     font-size: 20px;
   }
 }
-/* Add these styles to your existing CSS */
+
 
 .header11 {
   grid-area: header;
@@ -225,15 +218,15 @@ table th {
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  background-color: #1d2634; /* Dark blue background color */
+  background-color: #1d2634; 
   box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
 }
 
 .header11 .icon {
-  color: white; /* White icon color */
+  color: white; 
 }
-/* Add this CSS class to your existing stylesheet */
+
 .dark-blue-bg {
-  background-color: #1d2634; /* Dark blue background color */
+  background-color: #1d2634; 
 }
 

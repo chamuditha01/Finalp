@@ -109,18 +109,11 @@
   .sidebar-responsive {
     display: inline !important;
     position: absolute;
-    /*
-      we want the z-index of the sidebar higher so that
-      the charts are not showing over the sidebar 
-      on small screens
-    */
+
     z-index: 12 !important;
   }
   
-  /* End Sidebar  */
-  
-  
-  /* Main  */  
+ 
   .main-container {
     grid-area: main;
     overflow-y: auto;
@@ -159,11 +152,11 @@
   }
   
   .card:nth-child(3) {
-    background-color: #2e7d32;
+    background-color: #af0000;
   }
   
   .card:nth-child(4) {
-    background-color: #d50000;
+    background-color: #2e8400;
   }
   
   .card-inner {
@@ -185,10 +178,7 @@
     height: 300px;
   }
   
-  /* End Main  */
-  
-  
-  /* Medium <= 992px */
+
     
   @media screen and (max-width: 992px) {
     .grid-container {
@@ -212,7 +202,7 @@
       display: inline;
     }
   }
-  /* Small <= 768px */
+
     
   @media screen and (max-width: 768px) {
     .main-cards {
@@ -227,16 +217,14 @@
     }
   }
   
-  /* Extra Small <= 576px */
+ 
   
   @media screen and (max-width: 576px) {
     .hedaer-left {
       display: none;
     }
   }
- /* home.css */
 
-/* Desktop styles */
 .container {
   display: flex;
   justify-content: space-between;
@@ -252,7 +240,7 @@
   margin-right: 20px;
 }
 
-/* Tablet styles */
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -264,7 +252,7 @@
   }
 }
 
-/* Mobile styles */
+
 @media (max-width: 480px) {
   .container {
     padding: 10px;
@@ -276,3 +264,4 @@
     margin-bottom: 10px;
   }
 }
+

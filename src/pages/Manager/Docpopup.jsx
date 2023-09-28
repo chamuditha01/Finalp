@@ -2,9 +2,18 @@ import React, { useState } from 'react';
 import './dt.css'
 const EmployeeTable = () => {
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'John Doe', department: 'Administration', phone: '(171) 555-2222' },
-    { id: 2, name: 'Peter Parker', department: 'Customer Service', phone: '(313) 555-5735' },
-    { id: 3, name: 'Fran Wilson', department: 'Human Resources', phone: '(503) 555-9931' },
+    { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
+    { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
+    { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
+    { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
+    { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
+    { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
+    { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
+    { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
+    { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
+    { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
+    { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
+    { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
   ]);
 
   const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '' });
@@ -76,7 +85,7 @@ const EmployeeTable = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Department</th>
+              <th>specialist</th>
               <th>Phone</th>
               <th>Actions</th>
             </tr>

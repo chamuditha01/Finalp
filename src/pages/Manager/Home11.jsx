@@ -5,13 +5,11 @@ import Docpopup from './Docpopup';
 import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
 import './dt.css'
+import {GiClick} from 'react-icons/gi'
+import{BsCalendar2Date}from 'react-icons/bs'
+import{FaStethoscope} from'react-icons/fa'
+import {PiDogFill} from 'react-icons/pi'
 
-import {
-  BsFillArchiveFill,
-  BsFillGrid3X3GapFill,
-  BsPeopleFill,
-  BsFillBellFill
-} from 'react-icons/bs'
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
@@ -54,29 +52,29 @@ function Home11() {
       <div className='main-cards'>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Appointment')}>Clinic Appointment</a>
-            <BsFillArchiveFill className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('Appointment')}>Clinic Appointment  <GiClick className='card_icon' /></a>
+            <BsCalendar2Date className='card_icon' />
           </div>
           <h1>300</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment</a>
-            <BsFillBellFill className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment<GiClick className='card_icon' /></a>
+            <BsCalendar2Date className='card_icon' />
           </div>
           <h1>42</h1>
         </div>        
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('DocPopup')}>Doctor Availability</a>
-            <BsFillGrid3X3GapFill className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('DocPopup')}>Doctor Availability<GiClick className='card_icon' /></a>
+            <FaStethoscope className='card_icon' />
           </div>
           <h1>12</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('CagePopup')}>Cages availability</a>
-            <BsPeopleFill className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('CagePopup')}>Cages availability<GiClick className='card_icon' /></a>
+            <PiDogFill className='card_icon' />
           </div>
           <h1>33</h1>
         </div>

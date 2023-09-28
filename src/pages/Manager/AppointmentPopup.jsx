@@ -7,8 +7,17 @@ function AppointmentPopup() {
   const [appointmentStatuses, setAppointmentStatuses] = useState({});
 
   const homeVisitData = [
-    { date: '2023-09-30', patientName: 'John Doe', time: '7.30 am', payment: '1000.00lkr' },
-    { date: '2023-09-30', patientName: 'Jane Smith', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'akila', time: '7.30 am', payment: '1000.00lkr' },
+    { date: '2023-09-30', patientName: 'pasan', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'randula', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'tilanka', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'mahinda', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'chamuditha', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'pasana', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'pasa', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'pa', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'p', time: '8.00 am', payment: '1200.00lkr' },
+    { date: '2023-09-30', patientName: 'sa', time: '8.00 am', payment: '1200.00lkr' },
   ];
 
   const handleAction = (action, appointment) => {
