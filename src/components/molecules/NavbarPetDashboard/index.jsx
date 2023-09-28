@@ -2,8 +2,9 @@ import NavItems from "../../atoms/Navitems";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import logo from './logo.jpg'
-import per from './login.png'
+import per from './dog.png'
 import Menu from "../../atoms/MenuItems";
+
 
 function NavbarPetDashboard() {
   return (
@@ -12,7 +13,7 @@ function NavbarPetDashboard() {
         <div className="container-fluid">
          
           <a className="navbar-brand" href="/">
-            <img src={logo} alt="Logo" />
+            <img style={{marginLeft:'1px'}} src={logo} alt="Logo" />
           </a>
           <button
             className="navbar-toggler"
@@ -61,7 +62,7 @@ function NavbarPetDashboard() {
               
               <div class="btn-group">
                 <button type="button" class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
+                  <img style={{width:'40px', height:'40px', borderRadius:'50px', marginRight:'15px'}} id="per" src={per} alt="" />
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">Veiw Profile</a></li>
