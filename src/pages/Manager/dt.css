@@ -1,0 +1,239 @@
+/* styles.css */
+
+  
+ 
+     /* Add margin for spacing between dropdown and table */
+   
+  
+  
+  select {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* styles.css */
+/* ... (previous styles) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    font-size: 18px;
+    text-align: center; /* Center align table content */
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    color: black; /* Change the font color to black */
+  }
+  /* styles.css */
+/* ... (previous styles) */
+
+.approve-button {
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    padding: 8px;
+  }
+  
+  .reject-button {
+    background-color: rgb(203, 39, 39);
+    color: white;
+    border-radius: 20px;
+    padding: 8px;
+  }
+  
+  .approve-button.active,
+  .reject-button.active {
+    opacity: 0.7;
+  }
+
+
+.toggle-appointments-button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .toggle-appointments-button.active {
+    background-color: #dc3545; /* Red background color when active (Close Appointments) */
+  }
+  .center-table-content {
+    display: flex;
+    justify-content: center;
+   padding: 20px;
+     /* Adjust the value to leave space for the button */
+  }
+  .h3{text-decoration: none;}
+  .h1{ text-align: center;}
+  .btn{padding: 20px;
+       border-radius: 40px;
+       height: 5rem;             
+  }
+ /* Add these styles to your CSS */
+.popup-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Background blur effect */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 999; /* Adjust the z-index as needed */
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Adjust the maximum width as needed */
+}
+
+/* Add any other styles for your popup content here */
+/* styles.css */
+
+/* Default styles for larger screens */
+.container {
+  margin: 30px auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.table-wrapper {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.table-title h2 {
+  font-size: 24px;
+}
+
+/* Add New and Save button styling */
+.add-new,
+.edit,
+.delete {
+  margin-right: 10px;
+}
+
+.add-new i,
+.edit i,
+.delete {
+  margin-right: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.btn {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-info {
+  background-color: #5bc0de;
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #337ab7;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .table-wrapper {
+    padding: 10px;
+  }
+
+  .add-new,
+  .edit,
+  .delete {
+    margin: 5px 2px;
+    padding: 3px 8px;
+  }
+
+  input[type="text"] {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-title h2 {
+    font-size: 20px;
+  }
+}
+/* Add these styles to your existing CSS */
+
+.header11 {
+  grid-area: header;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  background-color: #1d2634; /* Dark blue background color */
+  box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+}
+
+.header11 .icon {
+  color: white; /* White icon color */
+}
+/* Add this CSS class to your existing stylesheet */
+.dark-blue-bg {
+  background-color: #1d2634; /* Dark blue background color */
+}
+
