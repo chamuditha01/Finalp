@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 import './dt.css';
 
 function Docdt() {
-  const [showHomeVisit, setShowHomeVisit] = useState(false); // Initially set to false
+  const [showHomeVisit, setShowHomeVisit] = useState(false); 
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [appointmentStatus, setAppointmentStatus] = useState(null);
 
   const homeVisitData = [
-    { date: '2023-09-30', patientName: 'John Doe', time: '7.30 am', payment: '1000.00lkr' },
-    { date: '2023-09-30', patientName: 'John Doe', time: '7.30 am', payment: '1000.00lkr' },
-    { date: '2023-09-30', patientName: 'John Doe', time: '7.30 am', payment: '1000.00lkr' },
-    { date: '2023-09-30', patientName: 'John Doe', time: '7.30 am', payment: '1000.00lkr' },
-    // Add more rows as needed
+    { date: '2023-09-30', patientName: 'Kevin', time: '7.30 am', payment: '1000.00lkr' },
+    { date: '2023-09-30', patientName: 'Kevin', time: '7.30 am', payment: '1000.00lkr' },
+    { date: '2023-09-30', patientName: 'Kevin', time: '7.30 am', payment: '1000.00lkr' },
+    { date: '2023-09-30', patientName: 'Kevin', time: '7.30 am', payment: '1000.00lkr' },
+    
   ];
 
   const handleAction = (action, appointment) => {
