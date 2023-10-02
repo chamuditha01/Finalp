@@ -56,9 +56,7 @@
   .menu-icon {
     display: none;
   }
-  /* End Header  */
-  
-  /* Sidebar  */
+
   #sidebar {
     grid-area: sidebar;
     height: 100%;

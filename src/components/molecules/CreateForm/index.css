@@ -1,0 +1,22 @@
+#form1 {
+    width: 300px;
+    height: 450px;
+    background: linear-gradient(to bottom, #00ffe5, #190045); 
+    margin-left: 90%;
+    border-color:  #00ffe5;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+  }
+  
+  @media (max-width: 992px) {
+    #form1 {
+      margin-left: 0px;
+      margin-bottom: 50px;
+      margin-top: 20px;
+    }
+  }
+  #l{
+    font-size: 12px;
+    color: #190045;
+  }

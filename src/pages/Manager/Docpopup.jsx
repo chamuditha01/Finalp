@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './dt.css'
 const EmployeeTable = () => {
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'John Doe', department: 'Administration', phone: '(171) 555-2222' },
-    { id: 2, name: 'Peter Parker', department: 'Customer Service', phone: '(313) 555-5735' },
-    { id: 3, name: 'Fran Wilson', department: 'Human Resources', phone: '(503) 555-9931' },
+    { id: 1, name: 'Kevin', department: 'Surgery', phone: '071 555-2222' },
+    { id: 2, name: 'Kevin', department: 'Surgery', phone: '076 555-5735' },
+    { id: 3, name: 'Kevin', department: 'Surgery ', phone: '075 555-9931' },
   ]);
 
   const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '' });
@@ -18,10 +18,10 @@ const EmployeeTable = () => {
   const handleAddEmployee = () => {
     if (newEmployee.name && newEmployee.department && newEmployee.phone) {
       if (newEmployee.id === null) {
-        // Adding a new employee
+        
         setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
       } else {
-        // Editing an existing employee
+       
         const updatedEmployees = employees.map((employee) =>
           employee.id === newEmployee.id ? newEmployee : employee
         );
@@ -75,6 +75,7 @@ const EmployeeTable = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
+              <th>Pet Id</th>
               <th>Name</th>
               <th>Department</th>
               <th>Phone</th>
@@ -120,6 +121,7 @@ const EmployeeTable = () => {
             )}
             {employees.map((employee) => (
               <tr key={employee.id}>
+                <td>{employee.id}</td>
                 <td>{employee.name}</td>
                 <td>{employee.department}</td>
                 <td>{employee.phone}</td>

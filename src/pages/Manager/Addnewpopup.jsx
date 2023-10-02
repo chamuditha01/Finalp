@@ -10,7 +10,7 @@ function Addnewpopup({ addNewEmployee }) {
 
   const handleAddEmployee = () => {
     if (newEmployee.name && newEmployee.department && newEmployee.phone) {
-      addNewEmployee(newEmployee); // Call the callback function to add the new employee
+      addNewEmployee(newEmployee);
       setNewEmployee({ name: '', department: '', phone: '' });
     }
   };
