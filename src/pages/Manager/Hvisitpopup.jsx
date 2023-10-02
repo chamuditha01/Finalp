@@ -7,6 +7,7 @@ function AppointmentPopup() {
   const [appointmentStatuses, setAppointmentStatuses] = useState({});
 
   const homeVisitData = [
+
     { date: '2023-09-30', patientName: 'ranil', time: '7.30 am', payment: '1000.00lkr' },
     { date: '2023-09-30', patientName: 'mahinda', time: '8.00 am', payment: '1200.00lkr' },
     { date: '2023-09-30', patientName: 'mahind', time: '8.00 am', payment: '1200.00lkr' },
@@ -20,6 +21,7 @@ function AppointmentPopup() {
     { date: '2023-09-30', patientName: 'hi', time: '8.00 am', payment: '1200.00lkr' },
     { date: '2023-09-30', patientName: 'manusha', time: '8.00 am', payment: '1200.00lkr' },
     { date: '2023-09-30', patientName: 'chandima', time: '8.00 am', payment: '1200.00lkr' }
+
   ];
 
   const handleAction = (action, appointment) => {
@@ -34,7 +36,7 @@ function AppointmentPopup() {
     <div>
       <h1 className='h1'>HOME VISIT</h1>
       <div className="center-table-content">
-        <div className="table-responsive"> {/* Add the table-responsive class */}
+        <div className="table-responsive"> 
           <table className="table table-success table-striped">
             <thead>
               <tr>

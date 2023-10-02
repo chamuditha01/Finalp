@@ -8,11 +8,13 @@ function Docdt() {
   const [appointmentStatus, setAppointmentStatus] = useState(null);
 
   const homeVisitData = [
+
     { date: '2023-09-30', patientName: 'akila', time: '7.30 am', payment: '1000.00lkr' },
     { date: '2023-09-30', patientName: 'pasan', time: '7.30 am', payment: '1000.00lkr' },
     { date: '2023-09-30', patientName: 'randula', time: '7.30 am', payment: '1000.00lkr' },
     { date: '2023-09-30', patientName: 'chamuditha', time: '7.30 am', payment: '1000.00lkr' },
    
+
   ];
 
   const handleAction = (action, appointment) => {
