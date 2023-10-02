@@ -5,13 +5,9 @@ import Alertpopup from './Alertpopup'
 import Hvisitpopup from './Hvisitpopup';
 import Stokepopup from './Stokepopup'
 import './dt.css'
-
-import {
-  BsFillArchiveFill,
-  BsFillGrid3X3GapFill,
-  BsPeopleFill,
-  BsFillBellFill
-} from 'react-icons/bs'
+import {GiClick} from 'react-icons/gi'
+import{BiStore} from 'react-icons/bi'
+import { BsFillBellFill} from 'react-icons/bs'
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
@@ -57,20 +53,20 @@ function Phome11() {
         <div className='card'>
           <div className='card-inner h3'>
            Sold Quanty
-            <BsPeopleFill className='card_icon' />
+            <BiStore className='card_icon' />
           </div>
           <h1>42</h1>
         </div>        
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Stokepopup')}>Stoke Quanty</a>
-            <BsFillGrid3X3GapFill className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('Stokepopup')}>Stoke Quanty<GiClick className='card_icon' /></a>
+            <BiStore className='card_icon' />
           </div>
           <h1>12</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Alertpopup')}>ALERT</a>
+            <a href="#" className='h3' onClick={() => togglePopup('Alertpopup')}>ALERT<GiClick className='card_icon' /></a>
             < BsFillBellFill className='card_icon' />
           </div>
           <h1>33</h1>
