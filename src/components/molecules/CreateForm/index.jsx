@@ -23,7 +23,7 @@ const Create = () => {
     <input  style={{width:'200px',marginLeft:'50px',borderRadius:'20px'}} type="name" class="form-control" id="Petname"></input>
   </div>
   <div class="col-12">
-    <label id="l" for="inputState" class="form-label">Type</label>
+    <label id="l" for="inputtype" class="form-label">Type</label>
     <select  style={{width:'200px',height:'30px',marginLeft:'50px',borderRadius:'20px'}} id="inputState" class="form-select">
       <option selected>Choose...</option>
       <option>Dog</option>
@@ -36,7 +36,7 @@ const Create = () => {
     <input style={{width:'200px',marginLeft:'50px',borderRadius:'20px'}} type="text" class="form-control" id="Breed" placeholder="Eg: German shepard"></input>
   </div>
   <div class="col-12">
-    <label for="inputCity" id="l" class="form-label">Age</label>
+    <label for="inputage" id="l" class="form-label">Age</label>
     <input  style={{width:'200px',marginLeft:'50px',borderRadius:'20px',textAlign:'center'}}type="number" class="form-control" id="Age"></input>
   </div>
   <div className="col-12">

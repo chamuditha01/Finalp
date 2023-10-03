@@ -12,7 +12,7 @@ const HeaderPetDashboard = () => {
       className="header"
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${headerbg}) center/cover no-repeat`
-      
+        
       }}
     >
       

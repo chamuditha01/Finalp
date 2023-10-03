@@ -9,6 +9,7 @@ import Profile from './pages/profile';
 import Navbarprofile from './components/molecules/Navbarprofile';
 import Manager from './pages/Manager/Manager';
 import Petshop from './pages/Manager/Petshop';
+import ClickProfile from './pages/ClickProfile';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/navbarprofile" element={<Navbarprofile/>} />
       <Route path="/Manager" element={<Manager/>} />
       <Route path="/petshop" element={<Petshop/>} />
+      <Route path="/ClickProfile" element={<ClickProfile/>}/>
       
       </Routes>
       </BrowserRouter>
