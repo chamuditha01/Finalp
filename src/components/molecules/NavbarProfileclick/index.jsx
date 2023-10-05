@@ -4,6 +4,7 @@ import './styles.css';
 import logo from './logo.jpg'
 import per from './dog.png'
 import Menu from "../../atoms/MenuItems";
+import PopupForm from "../OrderForm";
 
 function NavbarProfileclick() {
   return (
@@ -29,7 +30,7 @@ function NavbarProfileclick() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <NavItems NavItem id={"nav"} name={'Home'} path={'/Profile'} />
               
-              <NavItems NavItem id={"nav"} name={'Book Cage'} path={'/Cage'} />
+              <PopupForm/>
               <li className="nav-item dropdown">
                 <a
                 style={{marginTop:'8px'}}
@@ -48,7 +49,7 @@ function NavbarProfileclick() {
                     <hr className="dropdown-divider" />
                   </li>
                   <Menu name={'Appointment'} path='/Appointment'></Menu>
-                  <Menu name={'Book Cage'} path='/Cage'></Menu>
+                  
                 </ul>
               </li>
             </ul>
@@ -64,8 +65,8 @@ function NavbarProfileclick() {
                   <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Veiw Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                  <li><a class="dropdown-item" href="/ViewProfile">Veiw Profile</a></li>
+                  <li><a class="dropdown-item" href="/EditProfile">Edit Profile</a></li>
                   <li><a class="dropdown-item" href="/ClickProfile">Jessy</a></li>
                   <li><a class="dropdown-item" href="/ClickProfile">Shadow</a></li>
                   <li><hr class="dropdown-divider"></hr></li>

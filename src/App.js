@@ -10,6 +10,9 @@ import Navbarprofile from './components/molecules/Navbarprofile';
 import Manager from './pages/Manager/Manager';
 import Petshop from './pages/Manager/Petshop';
 import ClickProfile from './pages/ClickProfile';
+import PopupForm from './components/molecules/OrderForm';
+import ViewProfile from './components/molecules/ViewProfile';
+import EditProfile from './components/molecules/EditProfile';
 
 
 function App() {
@@ -27,7 +30,9 @@ function App() {
       <Route path="/Manager" element={<Manager/>} />
       <Route path="/petshop" element={<Petshop/>} />
       <Route path="/ClickProfile" element={<ClickProfile/>}/>
-      
+      <Route path="/PopupForm" element={<PopupForm/>}/>
+      <Route path="/ViewProfile" element={<ViewProfile/>}/>
+      <Route path="/EditProfile" element={<EditProfile/>}/>
       </Routes>
       </BrowserRouter>
      

@@ -4,6 +4,7 @@ const ClickProfile=()=>{
     return(
         <div>
         <HeaderProfileClick/>
+        
         </div>
     )
 }

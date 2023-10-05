@@ -4,6 +4,9 @@ import headerbg from './advice-please-fostering-a-pittie-with-a-very-traumatic-v
 import Rec from "../../atoms/Item 1";
 import NavbarProfileclick from "../NavbarProfileclick";
 import AppointmentScheduler from "../../atoms/Appointmentdatepicker";
+import Rec1 from "../../atoms/Item 1 copy";
+import img from './home-intro-image-1.jpg'
+import PopupForm from "../OrderForm";
 
 
 const HeaderProfileClick = () => {
@@ -39,11 +42,14 @@ const HeaderProfileClick = () => {
              reduces no-shows through reminder notifications, and 
              accommodates changes in appointments
             </p>
-            
           </div>
-        </div>
+          </div>
+          </div>
+          
+            
+        
       </div>
-    </div>
+    
   );
 };
 

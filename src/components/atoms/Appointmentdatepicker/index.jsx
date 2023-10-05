@@ -39,6 +39,7 @@ function AppointmentScheduler() {
   return (
     <div className="shed">
       <h2 id="a1">Appointment Scheduler</h2>
+      
       <label id="a">Select Appointment Date:</label><br></br>
       <DatePicker
         selected={selectedDate}
@@ -59,8 +60,10 @@ function AppointmentScheduler() {
         >
           Schedule
         </button>
+        
       </div>
-
+      
+      
       {showConfirmation && (
         <p id="b">Appointment submitted successfully! You will receive a message shortly confirming the scheduled time.</p>
       )}
