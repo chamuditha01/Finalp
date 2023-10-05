@@ -17,8 +17,18 @@ npm install react-slick slick-carousel react-hook-form
     padding: 3.6rem 0;
     max-width: 600px;
     margin: 0 auto;
-    text-align: center;
+    text-align: justify;
 }
+#a2{
+    font-size: 4.1rem;
+    line-height: 1.2;
+    text-align: center;
+    color: aliceblue; 
+}
+#a3{
+    margin-left: 25%;
+}
+
 
 
 @media(min-width: 992px){
@@ -34,6 +44,9 @@ npm install react-slick slick-carousel react-hook-form
     }
     .header__content--right .para__text{
         margin-left: 0;
+    }
+    #a3{
+        margin: 5px;
     }
 }
 
