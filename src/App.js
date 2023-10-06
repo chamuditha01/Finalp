@@ -13,6 +13,8 @@ import ClickProfile from './pages/ClickProfile';
 import PopupForm from './components/molecules/OrderForm';
 import ViewProfile from './components/molecules/ViewProfile';
 import EditProfile from './components/molecules/EditProfile';
+import DoctorPage from './pages/DoctorPage';
+import DoctorNot from './components/atoms/DoctorNot';
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
       <Route path="/PopupForm" element={<PopupForm/>}/>
       <Route path="/ViewProfile" element={<ViewProfile/>}/>
       <Route path="/EditProfile" element={<EditProfile/>}/>
+      <Route path="/DoctorPage"  element={<DoctorPage/>}/>
+      <Route path="/DoctorNot" element={<DoctorNot/>}/>
       </Routes>
       </BrowserRouter>
      
