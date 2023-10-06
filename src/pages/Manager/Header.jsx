@@ -1,10 +1,11 @@
 import React from 'react'
 import './dt.css'
-import {MdOutlineDarkMode}from 'react-icons/md'
+
 import 
- {  BsJustify}
+ {  BsJustify,BsFacebook,BsInstagram}
  from 'react-icons/bs'
  import { AiOutlineLogout } from 'react-icons/ai';
+
  
 
 
@@ -19,7 +20,8 @@ function Header({OpenSidebar}) {
             <k  className='icon'/>
         </div>
         <div className='header-right'>
-            <button className=' mode'><MdOutlineDarkMode className='icon'/></button>
+        <a href="https://web.facebook.com/dr.pethospital" className="icon-link"><button className="icon-button"><BsFacebook className='icon' /></button></a>
+        <a href="https://www.instagram.com/dr.pet_hospital/?hl=en" className="icon-link"><button className="icon-button"><BsInstagram className='icon' /></button></a>
             <a href="/" className="icon-link"><button className="icon-button"><AiOutlineLogout className='icon' /></button></a>
             
         </div>
