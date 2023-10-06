@@ -3,7 +3,7 @@
   border-color: rgb(88, 85, 85);
   background-color: rgb(255, 255, 255);
   border-style: solid;
-  width: 500px;
+  width: 400px;
   height: 500px;
   margin-left: 33%;
   margin-top: 30px;
@@ -18,4 +18,10 @@
 #l1{
   margin-left: 45%;
   font-size: 12px;
+}
+@media(max-width: 992px){
+  .pro1{
+    margin-left: 2%;
+    width: 300px;
+  }
 }

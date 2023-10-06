@@ -4,7 +4,8 @@ import img3 from './peakpx.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import NavbarProfileclick from '../NavbarProfileclick';
-import bg from './'
+import bg from './peakpx.jpg';
+import Footer from '../Footer/Footer';
 
 const EditProfile = () => {
   
@@ -46,6 +47,7 @@ const EditProfile = () => {
       <h1 id="h1pro">Edit Profile</h1>
       <div className="pro1">
         <img
+
           style={{
             borderRadius: '50px',
             width: '100px',
@@ -70,13 +72,14 @@ const EditProfile = () => {
         <hr className="divider" />
         <label id="l1">Pet Name</label><br></br>
         <input
+          id="i1"
           type="text"
           defaultValue={petName}
           onChange={handlePetNameChange} 
-          style={{width:'200px',marginLeft:'145px',borderRadius:'20px'}}
+          
         ></input><br></br>
         <label id="l1">Pet Type</label>
-        <select style={{ width: '200px', height: '30px', marginLeft:'145px', borderRadius: '20px' }} id="inputState" class="form-select" defaultValue="Dog">
+        <select  id="i1" class="form-select" defaultValue="Dog">
           <option selected>Choose...</option>
           <option>Dog</option>
           <option>Cat</option>
@@ -85,22 +88,23 @@ const EditProfile = () => {
         
         <label id="l1">Pet Breed</label><br></br>
         <input
+        id="i1"
           type="text"
           defaultValue={petBreed}
           onChange={handlePetNBreedChange} 
-          style={{width:'200px',marginLeft:'145px',borderRadius:'20px'}}
+          
         ></input><br></br>
 
         <div class="col-12">
     <label for="inputage" id="l" class="form-label">Age</label>
-    <input  style={{width:'200px',marginLeft:'145px',borderRadius:'20px',textAlign:'center',marginBottom:'20px'}}type="number" defaultValue={petAge}
-          onChange={handlePetAgeChange}  class="form-control" id="Age"></input>
+    <input id="i1" type="number" defaultValue={petAge}
+          onChange={handlePetAgeChange}  class="form-control" ></input>
   
   </div>
   <div class="col-12">
     <a href="/EditProfile"><button style={{height:'50px',width:'100px',borderRadius:'20px',fontSize:'12px',marginBottom:'10px',fontStyle:'italic'}} type="submit" class="btn btn-primary" >Update</button>
   </a></div>
-      </div><br></br><br></br><br></br><br></br>
+      </div><br></br><br></br><br></br><br></br><Footer/>
     </div>
     
   );

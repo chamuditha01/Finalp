@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { useForm } from "react-hook-form";
 
 const Form1 = () => {
   const { handleSubmit, register } = useForm();
@@ -12,12 +11,22 @@ const Form1 = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Pet name" aria-label="Pet Name"></input>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pet name"
+            aria-label="Pet Name"
+          ></input>
         </div>
         <div class="col">
-            <input type="number" class="form-control" placeholder="0" aria-label="Age"></input>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="0"
+            aria-label="Age"
+          ></input>
         </div>
-        </div>
+      </div>
       <button type="submit">Submit</button>
     </form>
   );

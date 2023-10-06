@@ -65,10 +65,9 @@ function NavbarProfileclick() {
                   <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/ViewProfile">Veiw Profile</a></li>
-                  <li><a class="dropdown-item" href="/EditProfile">Edit Profile</a></li>
-                  <li><a class="dropdown-item" href="/ClickProfile">Jessy</a></li>
-                  <li><a class="dropdown-item" href="/ClickProfile">Shadow</a></li>
+                  
+                  <li><a class="dropdown-item" href="/EditProfile">Profile</a></li>
+                  
                   <li><hr class="dropdown-divider"></hr></li>
                   <li><a class="dropdown-item" href="/Profile">log out</a></li>
                 </ul>
