@@ -1,6 +1,6 @@
-#form1 {
+.shed {
     width: 300px;
-    height: 500px;
+    height: 400px;
     background: linear-gradient(to bottom, #00ffe5, #190045); 
     margin-left: 90%;
     border-color:  #00ffe5;
@@ -10,13 +10,28 @@
   }
   
   @media (max-width: 992px) {
-    #form1 {
+    .shed {
       margin-left: 0px;
       margin-bottom: 50px;
       margin-top: 20px;
+      width: 300px;
+    height: 350px;
     }
   }
-  #l{
+  #b{
+    color: aliceblue;
     font-size: 12px;
+  }
+  #a{
+    font-size: 15px;
     color: #190045;
+    padding-top: 20px;
+  }
+  #a1{
+    font-size: 20px;
+    color: #190045;
+    padding-top: 20px;
+  }
+  .m1{
+    height: 100px;
   }

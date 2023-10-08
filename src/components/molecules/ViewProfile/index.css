@@ -1,0 +1,27 @@
+.pro1{
+  border-width: 2px;
+  border-color: rgb(88, 85, 85);
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  width: 400px;
+  height: 500px;
+  margin-left: 33%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  background:  linear-gradient(to bottom, #ffe600, #532f00);
+}
+#h1pro{
+  margin-left: 45%;
+  margin-top: 3%;
+  color:white;
+}
+#l1{
+  margin-left: 45%;
+  font-size: 12px;
+}
+@media(max-width: 992px){
+  .pro1{
+    margin-left: 2%;
+    width: 300px;
+  }
+}

@@ -1,15 +1,20 @@
-.item1{
+.item2{
     background: linear-gradient(to bottom, #ffe600, #532f00);
-    width: 50px;
-    height: 350px;
+    width: 350px;
+    height: 50px;
     border-radius: 50px;
     margin-right: 10px;
     margin-top: -1px;
+    margin-bottom: 5px;
+    padding-left: 0px;
+    font-size: 15px;
+    padding-top: 10px;
+    margin-left:50%;
 }
 @media (max-width: 992px) {
-    .item1 {
+    .item2 {
         width: 300px;
         height: 50px;
-        margin-right: 0px;
+        margin-left: 5%;
     }
 }

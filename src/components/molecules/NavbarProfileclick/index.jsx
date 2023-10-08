@@ -4,8 +4,9 @@ import './styles.css';
 import logo from './logo.jpg'
 import per from './dog.png'
 import Menu from "../../atoms/MenuItems";
+import PopupForm from "../OrderForm";
 
-function NavbarPetDashboard() {
+function NavbarProfileclick() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg custom-navbar ">
@@ -27,9 +28,9 @@ function NavbarPetDashboard() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <NavItems NavItem id={"nav"} name={'Home'} path={'/'} />
-              <NavItems NavItem id={"nav"} name={'Pet Shop'} path={'/shop'} />
-              <NavItems NavItem id={"nav"} name={'Book Cage'} path={'/Cage'} />
+              <NavItems NavItem id={"nav"} name={'Home'} path={'/Profile'} />
+              
+              <PopupForm/>
               <li className="nav-item dropdown">
                 <a
                 style={{marginTop:'8px'}}
@@ -42,13 +43,13 @@ function NavbarPetDashboard() {
                  Menu
                 </a>
                 <ul className="dropdown-menu">
-                  <Menu name={'Pet Shop'} path='/shop'></Menu>
+                  
                   <Menu name={'Donate'} path='/Donate'></Menu>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <Menu name={'Appointment'} path='/Appointment'></Menu>
-                  <Menu name={'Book Cage'} path='/Cage'></Menu>
+                  
                 </ul>
               </li>
             </ul>
@@ -56,7 +57,7 @@ function NavbarPetDashboard() {
              
               
               
-              <NavItems NavItem id={"nav"} name={'Create Profile'} path={'/Create'}  />
+              
               
               
               <div class="btn-group">
@@ -64,12 +65,11 @@ function NavbarPetDashboard() {
                   <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Veiw Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Jessy</a></li>
-                  <li><a class="dropdown-item" href="#">Shadow</a></li>
+                  
+                  <li><a class="dropdown-item" href="/EditProfile">Profile</a></li>
+                  
                   <li><hr class="dropdown-divider"></hr></li>
-                  <li><a class="dropdown-item" href="/">log out</a></li>
+                  <li><a class="dropdown-item" href="/Profile">log out</a></li>
                 </ul>
               </div>
               
@@ -82,4 +82,4 @@ function NavbarPetDashboard() {
   );
 }
 
-export default NavbarPetDashboard;
+export default NavbarProfileclick;
