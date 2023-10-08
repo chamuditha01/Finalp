@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './dt.css'
+import './dt.css';
+
 const EmployeeTable = () => {
   const [employees, setEmployees] = useState([
-
     { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
     { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
     { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
@@ -15,7 +15,6 @@ const EmployeeTable = () => {
     { id: 1, name: 'silva', department: 'Administration', phone: '(171) 555-2222' },
     { id: 2, name: 'sathira', department: 'Customer Service', phone: '(313) 555-5735' },
     { id: 3, name: 'sadaruwan', department: 'Human Resources', phone: '(503) 555-9931' },
-
   ]);
 
   const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '' });
@@ -29,10 +28,10 @@ const EmployeeTable = () => {
   const handleAddEmployee = () => {
     if (newEmployee.name && newEmployee.department && newEmployee.phone) {
       if (newEmployee.id === null) {
-        
+       
         setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
       } else {
-       
+      
         const updatedEmployees = employees.map((employee) =>
           employee.id === newEmployee.id ? newEmployee : employee
         );
@@ -86,7 +85,6 @@ const EmployeeTable = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>Pet Id</th>
               <th>Name</th>
               <th>specialist</th>
               <th>Phone</th>
@@ -132,7 +130,6 @@ const EmployeeTable = () => {
             )}
             {employees.map((employee) => (
               <tr key={employee.id}>
-                <td>{employee.id}</td>
                 <td>{employee.name}</td>
                 <td>{employee.department}</td>
                 <td>{employee.phone}</td>
