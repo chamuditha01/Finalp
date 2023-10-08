@@ -8,7 +8,7 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
             <div className='sidebar-brand'>
-                <img src='./images/logo.jpg' className='icon_header'/> 
+               <a href="/"><img style={{width:'50px',height:'50px', borderRadius:'40px'}} src='./images/logo.jpg' className='icon_header'/> </a> 
             </div>
             <span className='icon close_icon' onClick={OpenSidebar}>X</span>
         </div>

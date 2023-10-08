@@ -29,6 +29,10 @@ const Login = () => {
       {
       navigate('/Manager');
       }
+      else if (username === 'PetOwner') 
+      {
+      navigate('/Profile');
+      }
     } else {
       
       alert('Please fill in all required fields.');

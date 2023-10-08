@@ -25,7 +25,7 @@ function App() {
       <Route path="/navbarprofile" element={<Navbarprofile/>} />
       <Route path="/Manager" element={<Manager/>} />
       <Route path="/petshop" element={<Petshop/>} />
-     
+      
       </Routes>
       </BrowserRouter>
      

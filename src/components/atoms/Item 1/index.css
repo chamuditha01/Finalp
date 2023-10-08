@@ -1,8 +1,9 @@
 .item1{
-    background-color: aqua;
+    background: linear-gradient(to bottom, #00ffe5, #190045);
     width: 50px;
     height: 350px;
     border-radius: 50px;
+    margin-right: 10px;
     margin-top: -1px;
 }
 @media (max-width: 767px) {

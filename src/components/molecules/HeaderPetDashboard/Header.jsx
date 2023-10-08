@@ -1,9 +1,10 @@
 import React from "react";
 import "./Header.css";
-import headerbg from './photo-1522241112606-b5d35a468795.jpeg'
+import headerbg from './peakpx.jpg'
 import Rec from "../../atoms/Item 1";
 import NavbarPetDashboard from "../NavbarPetDashboard";
-import CarouselForm from "../CarselForm";
+import Create from "../CreateForm";
+
 
 const HeaderPetDashboard = () => {
   return (
@@ -19,7 +20,7 @@ const HeaderPetDashboard = () => {
         <NavbarPetDashboard/>
         
       
-        <div className="header__content text__center text__light flex flex__center">
+        <div className="header__content text__center text__light flex flex__center"><Create/>
           <div style={{marginRight: '20px'}} className="header__content--left"></div>
           
           <Rec/>
