@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './dt.css';
 
-const Stokepopup = () => {
+const Petownerpopup = () => {
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'silva', department: 'Customer Service', phone: '076 555-2222', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 2, name: 'sathira', department: 'Customer Service', phone: '076  555-5735', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 3, name: 'sadaruwan', department: 'clinic', phone: '076  555-9931', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
+    { id: 1, name: 'silva', department: 'Galle, Galle, Southern', phone: '076 555-2222', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
+    { id: 2, name: 'sathira', department: 'Galle, Galle, Southern', phone: '076  555-5735', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
+    { id: 3, name: 'sadaruwan', department: 'Galle, Galle, Southern', phone: '076  555-9931', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
   ]);
 
   const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '', Email: '', Password: '' });
@@ -43,14 +43,14 @@ const Stokepopup = () => {
 
   return (
     <>
-      <h1 className="h1">Doctor</h1>
+      <h1 className="h1">PetOwner</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Department</th>
+                <th>Address</th>
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Password</th>
@@ -164,4 +164,4 @@ const Stokepopup = () => {
   );
 };
 
-export default Stokepopup;
+export default Petownerpopup;
