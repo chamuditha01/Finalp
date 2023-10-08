@@ -3,12 +3,12 @@ import './dt.css';
 
 const Stokepopup = () => {
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'Powder', department: '100', phone: '499.00' },
-    { id: 2, name: 'biscuits', department: '500', phone: '999.00' },
-    { id: 3, name: 'Toys', department: '100', phone: '1000.00' },
+    { id: 1, name: 'Powder', department: '100', phone: '499.00', image: './images/petfood2.jpg' },
+    { id: 2, name: 'Biscuits', department: '500', phone: '999.00', image: './images/petfood1.jpg' },
+    { id: 3, name: 'Toys', department: '100', phone: '1000.00', image: './images/petfood.jpg' },
   ]);
 
-  const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '' });
+  const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '', image: '' });
   const [isAdding, setIsAdding] = useState(false);
 
   const handleInputChange = (e) => {
@@ -16,19 +16,34 @@ const Stokepopup = () => {
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewEmployee({ ...newEmployee, image: imageUrl });
+    }
+  };
+
+  const handleImageDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewEmployee({ ...newEmployee, image: imageUrl });
+    }
+  };
+
   const handleAddEmployee = () => {
-    if (newEmployee.name && newEmployee.department && newEmployee.phone) {
+    if (newEmployee.name && newEmployee.department && newEmployee.phone && newEmployee.image) {
       if (newEmployee.id === null) {
-        // Adding a new employee
         setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
       } else {
-        // Editing an existing employee
         const updatedEmployees = employees.map((employee) =>
           employee.id === newEmployee.id ? newEmployee : employee
         );
         setEmployees(updatedEmployees);
       }
-      setNewEmployee({ id: null, name: '', department: '', phone: '' });
+      setNewEmployee({ id: null, name: '', department: '', phone: '', image: '' });
       setIsAdding(false);
     }
   };
@@ -45,12 +60,13 @@ const Stokepopup = () => {
 
   return (
     <>
-      <h1 className='h1'>Stoke</h1>
+      <h1 className="h1">Stoke</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Product Name</th>
                 <th>Amount</th>
                 <th>Price</th>
@@ -60,7 +76,7 @@ const Stokepopup = () => {
             <tbody>
               {!isAdding && (
                 <tr>
-                  <td colSpan="4">
+                  <td colSpan="5">
                     <button
                       type="button"
                       className="btn btn-info add-new"
@@ -75,11 +91,27 @@ const Stokepopup = () => {
                 <tr>
                   <td>
                     <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e)}
+                      className="form-control"
+                    />
+                    <div
+                      onDrop={(e) => handleImageDrop(e)}
+                      onDragOver={(e) => e.preventDefault()}
+                      className="drop-zone"
+                    >
+                      Drop Image Here
+                    </div>
+                  </td>
+                  <td>
+                    <input
                       type="text"
                       name="name"
                       value={newEmployee.name}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Product Name"
                     />
                   </td>
                   <td>
@@ -89,6 +121,7 @@ const Stokepopup = () => {
                       value={newEmployee.department}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Amount"
                     />
                   </td>
                   <td>
@@ -98,6 +131,7 @@ const Stokepopup = () => {
                       value={newEmployee.phone}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Price"
                     />
                   </td>
                   <td>
@@ -112,6 +146,9 @@ const Stokepopup = () => {
               )}
               {employees.map((employee) => (
                 <tr key={employee.id}>
+                  <td>
+                    <img src={employee.image} alt={employee.name} width="50" height="50" />
+                  </td>
                   <td>{employee.name}</td>
                   <td>{employee.department}</td>
                   <td>{employee.phone}</td>

@@ -28,10 +28,10 @@ const EmployeeTable = () => {
   const handleAddEmployee = () => {
     if (newEmployee.name && newEmployee.department && newEmployee.phone) {
       if (newEmployee.id === null) {
-        // Adding a new employee
+       
         setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
       } else {
-        // Editing an existing employee
+      
         const updatedEmployees = employees.map((employee) =>
           employee.id === newEmployee.id ? newEmployee : employee
         );
