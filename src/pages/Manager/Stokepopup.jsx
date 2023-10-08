@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaImage } from 'react-icons/fa';
 import './dt.css';
 
 const Stokepopup = () => {
@@ -82,7 +83,7 @@ const Stokepopup = () => {
                       className="btn btn-info add-new"
                       onClick={() => setIsAdding(true)}
                     >
-                      <i className="fa fa-plus"></i> Add New
+                      <FaImage className="file-upload-icon" /> Add New
                     </button>
                   </td>
                 </tr>
@@ -90,18 +91,22 @@ const Stokepopup = () => {
               {isAdding && (
                 <tr>
                   <td>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageUpload(e)}
-                      className="form-control"
-                    />
+                    <label htmlFor="file-upload" className="file-upload-label">
+                      <FaImage className="file-upload-icon larger-icon" />
+                      <input
+                        type="file"
+                        id="file-upload"
+                        accept="image/*"
+                        onChange={(e) => handleImageUpload(e)}
+                        className="form-control"
+                      />
+                    </label>
                     <div
                       onDrop={(e) => handleImageDrop(e)}
                       onDragOver={(e) => e.preventDefault()}
                       className="drop-zone"
                     >
-                      Drop Image Here
+                   
                     </div>
                   </td>
                   <td>
