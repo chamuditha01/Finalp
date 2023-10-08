@@ -72,14 +72,14 @@ const EditProfile = () => {
         <hr className="divider" />
         <label id="l1">Pet Name</label><br></br>
         <input
-          id="i1"
+          id="i11"
           type="text"
           defaultValue={petName}
           onChange={handlePetNameChange} 
           
         ></input><br></br>
         <label id="l1">Pet Type</label>
-        <select  id="i1" class="form-select" defaultValue="Dog">
+        <select  id="i11" class="form-select" defaultValue="Dog">
           <option selected>Choose...</option>
           <option>Dog</option>
           <option>Cat</option>
@@ -88,7 +88,7 @@ const EditProfile = () => {
         
         <label id="l1">Pet Breed</label><br></br>
         <input
-        id="i1"
+        id="i11"
           type="text"
           defaultValue={petBreed}
           onChange={handlePetNBreedChange} 
@@ -97,7 +97,7 @@ const EditProfile = () => {
 
         <div class="col-12">
     <label for="inputage" id="l" class="form-label">Age</label>
-    <input id="i1" type="number" defaultValue={petAge}
+    <input id="i11" type="number" defaultValue={petAge}
           onChange={handlePetAgeChange}  class="form-control" ></input>
   
   </div>
