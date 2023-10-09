@@ -4,12 +4,12 @@ import AppointmentPopup from './AppointmentPopup';
 import Docpopup from './Docpopup';
 import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
-import './dt.css'
-import {GiClick} from 'react-icons/gi'
-import{BsCalendar2Date}from 'react-icons/bs'
-import{FaStethoscope} from'react-icons/fa'
-import {PiDogFill} from 'react-icons/pi'
-
+import Petownerpopup from './Petownerpopup'; // Import the Petownerpopup component
+import './dt.css';
+import { GiClick } from 'react-icons/gi';
+import { BsCalendar2Date } from 'react-icons/bs';
+import { FaStethoscope, FaDog } from 'react-icons/fa';
+import { PiDogFill } from 'react-icons/pi';
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
@@ -29,14 +29,14 @@ function Home11() {
   useEffect(() => {
     const currentDate = new Date();
     const lastWeekDates = [];
-    
+
     for (let i = 6; i >= 0; i--) {
       const date = new Date(currentDate);
       date.setDate(currentDate.getDate() - i);
       const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
       lastWeekDates.push(formattedDate);
     }
-    
+
     setData(lastWeekDates.map(date => ({
       name: date,
       PetClinic: Math.floor(Math.random() * 5000) + 1000,
@@ -45,25 +45,25 @@ function Home11() {
   }, []);
 
   return (
-    <main className='main-container dark-blue-bg'> 
+    <main className='main-container dark-blue-bg'>
       <div className='main-title'>
         <h3> PET CLINIC</h3>
       </div>
       <div className='main-cards'>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Appointment')}>Clinic Appointment  <GiClick className='card_icon' /></a>
+            <a href="#" className='h3' onClick={() => togglePopup('Appointment')}>Clinic Appointment <GiClick className='card_icon' /></a>
             <BsCalendar2Date className='card_icon' />
           </div>
           <h1>300</h1>
         </div>
         <div className='card'>
-          <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment<GiClick className='card_icon' /></a>
-            <BsCalendar2Date className='card_icon' />
-          </div>
-          <h1>42</h1>
-        </div>        
+<div className='card-inner'>
+  <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Pet Owner <GiClick className='card_icon' />
+  </a><FaDog className='card_icon' />
+</div>
+<h1>200</h1>
+</div>
         <div className='card'>
           <div className='card-inner'>
             <a href="#" className='h3' onClick={() => togglePopup('DocPopup')}>Doctor Availability<GiClick className='card_icon' /></a>
@@ -78,14 +78,25 @@ function Home11() {
           </div>
           <h1>33</h1>
         </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment<GiClick className='card_icon' /></a>
+            <BsCalendar2Date className='card_icon' />
+          </div>
+          <h1>42</h1>
+        </div>
+        {/* Add a new card for "Petownerpopup" */}
+       
       </div>
 
       {popupOpen === 'Appointment' && <AppointmentPopup />}
       {popupOpen === 'DocPopup' && <Docpopup />}
       {popupOpen === 'CagePopup' && <Cagepopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
-      
-        <h3 className='h1'>Appointments dashboard</h3>
+      {/* Add the Petownerpopup component */}
+      {popupOpen === 'PetownerPopup' && <Petownerpopup />}
+
+      <h3 className='h1'>Appointments dashboard</h3>
       <div className='charts'>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -127,8 +138,7 @@ function Home11() {
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="PetClinic" stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="HomeVisit" stroke="#82ca9d" /> 
-           
+            <Line type="monotone" dataKey="HomeVisit" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
       </div>
