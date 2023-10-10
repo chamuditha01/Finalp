@@ -60,7 +60,7 @@ const HeaderPetDashboard = () => {
                     NavItem
                     id={"nav"}
                     name={"Pet Shop"}
-                    path={"/shop"}
+                    path={"/Homeshop"}
                   />
 
                   <li className="nav-item dropdown">

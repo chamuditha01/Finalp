@@ -5,6 +5,7 @@ import Carousel from "../../components/atoms/carousel";
 import './index.css';
 import ServiceItem from '../../components/atoms/Serviceitem';
 import Footer from '../../components/molecules/Footer/Footer';
+import Footer2 from '../Petshop/COMPONENTS/Footer/Footer2';
 
 
 const Service = () => {
@@ -58,7 +59,7 @@ const Service = () => {
           </ul>
         </div>
       </div>
-      <Footer/>
+      <Footer2/>
     </div>
   );
 };
