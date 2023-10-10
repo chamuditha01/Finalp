@@ -152,7 +152,13 @@ const Stokepopup = () => {
               {employees.map((employee) => (
                 <tr key={employee.id}>
                   <td>
-                    <img src={employee.image} alt={employee.name} width="50" height="50" />
+                  <img
+        src={employee.image}
+        alt={employee.name}
+        width="50"
+        height="50"
+        style={{ objectFit: 'cover' }} // Add this style attribute
+      />
                   </td>
                   <td>{employee.name}</td>
                   <td>{employee.department}</td>
