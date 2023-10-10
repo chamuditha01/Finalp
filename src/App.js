@@ -15,6 +15,7 @@ import ViewProfile from './components/molecules/ViewProfile';
 import EditProfile from './components/molecules/EditProfile';
 import DoctorPage from './pages/DoctorPage';
 import DoctorNot from './components/atoms/DoctorNot';
+import Cart from './components/molecules/Payment';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Route path="/EditProfile" element={<EditProfile/>}/>
       <Route path="/DoctorPage"  element={<DoctorPage/>}/>
       <Route path="/DoctorNot" element={<DoctorNot/>}/>
+      <Route path="/Cart"  element={<Cart/>}/>
       </Routes>
       </BrowserRouter>
      

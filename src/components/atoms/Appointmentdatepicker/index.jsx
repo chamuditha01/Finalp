@@ -55,6 +55,13 @@ function AppointmentScheduler() {
         Selected Date:{" "}
         {selectedDate ? selectedDate.toString() : "No date selected"}
       </p>
+      <label id="a" for="description">Description:</label>
+        <textarea style={{width: "200px",
+              height: "30px",
+              marginLeft: "50px",
+              
+              marginBottom:'10px'}}id="description" class="form-control" name="description" rows="4" cols="50"></textarea>
+
       <div class="col-12">
           <label id="a" for="inputtype" class="form-label">
             Select Doctor
@@ -76,6 +83,27 @@ function AppointmentScheduler() {
             <option>Dr.Kasun</option>
           </select>
         </div>
+        <div class="col-12">
+          <label id="a" for="inputtype" class="form-label">
+            Select Type
+          </label>
+          <select
+            style={{
+              width: "200px",
+              height: "30px",
+              marginLeft: "50px",
+              borderRadius: "20px",
+              marginBottom:'10px'
+            }}
+            id="SelectDoctor"
+            class="form-select"
+          >
+            <option selected>Choose...</option>
+            <option>Clinic</option>
+            <option>Home Visit</option>
+            
+          </select>
+        </div>
       <div className="col-12">
         <button
           style={{
@@ -94,12 +122,7 @@ function AppointmentScheduler() {
         </button>
       </div>
 
-      {showConfirmation && (
-        <p id="b">
-          Appointment submitted successfully! You will receive a message shortly
-          confirming the scheduled time.
-        </p>
-      )}
+      
     </div>
   );
 }

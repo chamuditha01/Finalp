@@ -40,7 +40,7 @@ function NavbarDoctor() {
                   <li><a class="dropdown-item" href="/EditProfile">Profile</a></li>
                   
                   <li><hr class="dropdown-divider"></hr></li>
-                  <li><a class="dropdown-item" href="/Profile">log out</a></li>
+                  <li><a class="dropdown-item" href="/">log out</a></li>
                 </ul>
               </div> 
             </ul>
