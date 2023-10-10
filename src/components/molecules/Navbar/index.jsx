@@ -26,9 +26,9 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <NavItems NavItem id={"nav"} name={'Home'} path={'/'} />
-              <NavItems NavItem id={"nav"} name={'Service'} path={'/service'} />
-              
+              <NavItems NavItem id={"nav1"} name={'Home'} path={'/'} />
+              <NavItems NavItem id={"nav1"} name={'Service'} path={'/service'} />
+              <NavItems NavItem id={"nav1"} name={'Pet Shop'} path={'/Homeshop'} />
               <li className="nav-item dropdown">
                 <a
                 style={{marginTop:'8px'}}
@@ -42,7 +42,7 @@ function Navbar() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="/shop">
+                    <a className="dropdown-item" href="/Homeshop">
                       Pet shop
                     </a>
                   </li>
