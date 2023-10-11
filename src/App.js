@@ -34,6 +34,8 @@ import Homecat from './pages/Petshop/PAGES/Catitems/Catitemsproducts';
 import Homedog from './pages/Petshop/PAGES/Dogitems/Dogitemsproducts';
 import Homeother from './pages/Petshop/PAGES/Otheritems/Otheritemsproducts';
 import Homeshop from './pages/Petshop/PAGES/HomePage/Home';
+import { RecoilRoot } from 'recoil';
+
 
 
 
@@ -41,6 +43,8 @@ function App() {
   return (
     <div className="App">
       <div >
+      <RecoilRoot>
+     
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Home/>}/>
@@ -75,8 +79,9 @@ function App() {
         <Route path="/Homeother" element={<Homeother/>} />
         <Route path="/Homedog" element={<Homedog/>}/>
       </Routes>
+      
       </BrowserRouter>
-     
+      </RecoilRoot>
     </div>
     </div>
     
