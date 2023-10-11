@@ -1,0 +1,15 @@
+.product_sidebar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+
+@media (max-width: 650px) {
+    .product_sidebar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
