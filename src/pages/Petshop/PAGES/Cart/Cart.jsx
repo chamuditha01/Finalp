@@ -248,7 +248,7 @@ const Cart = () => {
                               data-label="Quantity"
                             >
                               <div className='quantity'>
-                                <button className='minus'
+                                <button className='minus' style={{color:'black'}}
                                   onClick={() => {
                                     let newcartdata = [...cartdata]
 
@@ -261,7 +261,7 @@ const Cart = () => {
                                   }}
                                 >-</button>
                                 <span>{item.quantity}</span>
-                                <button className='plus'
+                                <button className='plus' style={{color:'black'}}
                                   onClick={() => {
                                     let newcartdata = [...cartdata]
                                     newcartdata[index].quantity += 1
