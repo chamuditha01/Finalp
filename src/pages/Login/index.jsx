@@ -10,38 +10,35 @@ import ForgotPasswordModal from '../popup';
 const Login = () => {
   const navigate = useNavigate(); 
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
-
+  const [selectedUsername, setSelectedUsername] = useState('Manager');
   const toggleForgotPassword = () => {
     setForgotPasswordOpen(!forgotPasswordOpen);
+  };  const handleUsernameChange = (e) => {
+    setSelectedUsername(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     
-    const username = document.getElementById('validationDefaultUsername').value;
+    
     const emailValue = document.getElementById('inputEmail4').value;
     const password = document.getElementById('inputPassword4').value;
 
-    if (username && emailValue && password) {
-
-      if (username === 'Manager') 
-      {
-      navigate('/Manager');
+ 
+    if (selectedUsername && emailValue && password) {
+      if (selectedUsername === 'Manager') {
+        navigate('/Manager');
+      } else if (selectedUsername === 'PetOwner') {
+        navigate('/Profile');
+      } else if (selectedUsername === 'Doc') {
+        navigate('/DoctorPage');
       }
-      else if (username === 'PetOwner') 
-      {
-      navigate('/Profile');
-      }
-      else if (username === 'Doc') 
-      {
-      navigate('/DoctorPage');
-      }
-    } 
-    else {
-      
+    } else {
       alert('Please fill in all required fields.');
     }
+     
+ 
   };
 
   return (
@@ -64,16 +61,22 @@ const Login = () => {
                     Username
                   </label>
                   <div className="input-group">
+                    <select
+                      className="form-select"
+                      id="validationDefaultUsername"
+                      value={selectedUsername}
+                      onChange={handleUsernameChange}
+                    >
+                      <option value="Manager">Manager</option>
+                      <option value="PetOwner">PetOwner</option>
+                      <option value="Doc">Doc</option>
+                    </select>
+                  </div>
+                  <div className="input-group">
                     <span className="input-group-text" id="inputGroupPrepend2">
                       <img src={per} alt="email" />
                     </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="validationDefaultUsername"
-                      aria-describedby="inputGroupPrepend2"
-                      required
-                    />
+                   
                   </div>
                 </div>
                 <div className="col-md-12">
