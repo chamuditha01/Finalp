@@ -63,6 +63,7 @@ function Navbar() {
               </li>
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0 right">
+            
              
               <NavItems NavItem id={"nav"} name={'Register'} path={'/register'} />
               

@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.jpg";
 import per from "./dog.png";
 import Menu from "../../atoms/MenuItems";
+import notiicon from "./appointment-reminders-xxl.png";
 
 const HeaderPetDashboard = () => {
   const [dropdownItems, setDropdownItems] = useState([]);
@@ -84,6 +85,26 @@ const HeaderPetDashboard = () => {
                   </li>
                 </ul>
                 <ul className="navbar-nav mb-2 mb-lg-0 right">
+                  <a href="/Notifi" style={{textDecoration:'none'}}>
+                  <button
+                    type="button"
+                    style={{
+                      backgroundColor: "transparent",
+                      marginRight: "15px",
+                      width:'90px'
+                    }}
+                    class="btn btn-primary position-relative"
+                  >
+                    <img style={{ width: "30px" }} src={notiicon} alt=""></img>
+                    <span
+                      style={{ fontSize: "10px" }}
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    >
+                      4
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                  </button>
+                  </a>
                   <div class="btn-group">
                     <button
                       type="button"
