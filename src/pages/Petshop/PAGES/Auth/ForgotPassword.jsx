@@ -30,7 +30,7 @@ const ForgotPassword = () => {
                     </div>
                     </div>
 
-                    <Link to='/login'
+                    <Link to='/loginshop'
                         className='stylenone'
                     >
                         <p>Try Login again?</p>

@@ -30,7 +30,7 @@ const Navbar = ({ reloadnavbar }) => {
     return (
         <nav>
             <div className='s1'>
-                <img src={logo} alt='logo' className='logo' />
+                <a href='/'><img src={logo} alt='logo' className='logo' /></a>
 
                 <div className='searchbar'>
                     <input typ="text" placeholder="Search for products and categries" className='search' />
@@ -67,13 +67,13 @@ const Navbar = ({ reloadnavbar }) => {
                             <Dropdown.Item href="/loginshop">Login</Dropdown.Item>
                             <Dropdown.Item href="/signup">Signup</Dropdown.Item>
                             <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item>
-                            <Dropdown.Item href="#">Logout</Dropdown.Item>
+                            <Dropdown.Item href="/">Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
             </div>
             <div className='s2'>
-                <Link to='/'>
+                <Link to='/Homeshop'>
                     <a>Home</a>
                 </Link>
                 
@@ -121,7 +121,7 @@ const Navbar = ({ reloadnavbar }) => {
 
                         <ul className='s32'>
                             <li>
-                                <Link to='/'
+                                <Link to='/Homeshop'
                                     className='stylenone'
                                 >
                                     Home

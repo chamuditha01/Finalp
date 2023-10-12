@@ -10,7 +10,6 @@ const Home =()=>{
         <Header/>
         <Doctor/>
         <Footer2/>
- 
     </div>
   )
 }

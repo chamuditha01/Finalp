@@ -3,6 +3,7 @@ import SingleBanner from '../../COMPONENTS/Banners/SingleBanner'
 import Footer1 from '../../COMPONENTS/Footer/Footer1'
 import Footer2 from '../../COMPONENTS/Footer/Footer2'
 import Navbar from '../../COMPONENTS/Navbar/Navbar'
+import payneer from './Payoneer_logo.svg.png'
 import './Cart.css'
 import './Progress.css'
 import './CartContainer.css'
@@ -111,7 +112,7 @@ const Cart = () => {
                   cartdata.length > 0 && checklogin() && setactive(1)
                 }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                 </svg>
                 <span>My Cart</span>
@@ -126,7 +127,7 @@ const Cart = () => {
                   cartdata.length > 0 && checklogin() && setactive(2)
                 }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
@@ -419,7 +420,7 @@ const Cart = () => {
               </div>
               <div className='c1'>
                 <input type='radio' name='payment' id='payment1' />
-                <img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png'
+                <img style={{height:'40px',marginTop:'-5px'}} src={payneer}
                   alt='paypal'
                 />
               </div>
@@ -461,11 +462,11 @@ const Cart = () => {
 
 
 
-        {/* CART BUTTONS */}
+        
         {
           active == 1 && cartdata.length > 0 &&
           <div className='btns'>
-            <button className='nextbtn'
+            <button className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(2)
               }}
@@ -476,12 +477,12 @@ const Cart = () => {
         {
           active == 2 &&
           <div className='btns'>
-            <button className='backbtn'
+            <button className='backbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(1)
               }}
             >Back</button>
-            <button className='nextbtn'
+            <button className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(3)
               }}
@@ -492,12 +493,12 @@ const Cart = () => {
         {
           active == 3 &&
           <div className='btns'>
-            <button className='backbtn'
+            <button className='backbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(2)
               }}
             >Back</button>
-            <button className='nextbtn'
+            <button className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(4)
               }}
@@ -507,12 +508,8 @@ const Cart = () => {
         {
           active == 4 &&
           <div className='btns'>
-            {/* <button className='backbtn'
-              onClick={() => {
-                checklogin() && setactive(3)
-              }}
-            >Back</button> */}
-            <button className='nextbtn'
+            
+            <button className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 setselectedorderid(12345)
                 setordersuccesscont(true)

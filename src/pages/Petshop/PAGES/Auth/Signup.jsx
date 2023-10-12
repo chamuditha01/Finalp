@@ -39,7 +39,7 @@ const Signup = () => {
                     </div>
                     </div>
 
-                    <Link to='/login'
+                    <Link to='/loginshop'
                         className='stylenone'
                     >
                         <p>Already have an account?</p>

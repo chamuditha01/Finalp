@@ -18,6 +18,21 @@
     overflow: hidden;
 
 }
+#addtocart{
+    color: black;
+    font-weight: 600;
+    border: 2px;
+    border-color: black;
+    border-style: solid;
+}
+#addtocart:hover{
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    border: 1.5px;
+    border-color: rgb(255, 255, 255);
+    border-style: solid;
+    background-color: blue;
+}
 
 .product .s1 img {
     width: 100%;
