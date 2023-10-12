@@ -75,7 +75,7 @@ const HeaderPetDashboard = () => {
                       Menu
                     </a>
                     <ul className="dropdown-menu">
-                      <Menu name={"Pet Shop"} path="/shop"></Menu>
+                      <Menu name={"Pet Shop"} path="/Homeshop"></Menu>
                       <Menu name={"Donate"} path="/Donate"></Menu>
                       <li>
                         <hr className="dropdown-divider" />

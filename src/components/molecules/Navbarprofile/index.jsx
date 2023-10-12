@@ -41,7 +41,7 @@ function Navbarprofile() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/Homeshop">
                       Pet shop
                     </a>
                   </li>

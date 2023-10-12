@@ -28,7 +28,7 @@ const Loginshop = () => {
                     >
                         <p>Forgot password?</p>
                     </Link>
-                    <Link to='/'
+                    <Link to='/Homeshop'
                         className='stylenone'
 
                     >

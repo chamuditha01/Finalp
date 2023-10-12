@@ -44,7 +44,7 @@ const Signup = () => {
                     >
                         <p>Already have an account?</p>
                     </Link>
-                    <Link to='/signup'
+                    <Link to='/Homeshop'
                         className='stylenone'
                     >
                         <button className='btn'>Signup</button>

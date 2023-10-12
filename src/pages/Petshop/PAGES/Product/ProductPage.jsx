@@ -547,7 +547,7 @@ const ProductPage = () => {
         let cart = JSON.parse(localStorage.getItem('cart'))
 
         if (cart) {
-            // alert('1 item is already added to cart')
+            
             let itemincart = cart.find(item => item.productdata.ProductId === productdata.ProductId)
             if (itemincart) {
                 cart = cart.map(item => {
@@ -597,7 +597,7 @@ const ProductPage = () => {
             <Navbar reloadnavbar={reloadnavbar}/>
 
             <div className='pc1'>
-                <Link to='/'>
+                <Link to='/Homeshop'>
                     <button className='goback'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -641,7 +641,7 @@ const ProductPage = () => {
                         </p>
 
                         <div className='incrdecr'>
-                            <button
+                            <button style={{color:'black'}}
                                 onClick={() => {
                                     if (count > 1) {
                                         setcount(count - 1)
@@ -649,7 +649,7 @@ const ProductPage = () => {
                                 }}
                             >-</button>
                             <p>{count}</p>
-                            <button
+                            <button style={{color:'black'}}
                                 onClick={() => {
                                     if (count < 10) {
                                         setcount(count + 1)
@@ -660,14 +660,14 @@ const ProductPage = () => {
                     </div>
 
                     <div className='btncont'>
-                        <button
+                        <button style={{backgroundColor:'blue'}}
                             onClick={() => {
                                 addtocart()
                             }}
                         >
                             Add to Cart
                         </button>
-                        <button
+                        <button style={{backgroundColor:'blue'}}
                             onClick={() => {
                                 alert('Buy Now')
                             }}
