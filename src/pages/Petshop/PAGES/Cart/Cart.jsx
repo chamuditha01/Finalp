@@ -107,7 +107,7 @@ const Cart = () => {
 
               </div>
               :
-              <div className='c1'
+              <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(1)
                 }}
@@ -136,7 +136,7 @@ const Cart = () => {
 
               </div>
               :
-              <div className='c1'
+              <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(2)
                 }}
@@ -166,7 +166,7 @@ const Cart = () => {
 
               </div>
               :
-              <div className='c1'
+              <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(3)
                 }}
@@ -193,7 +193,7 @@ const Cart = () => {
 
               </div>
               :
-              <div className='c1'
+              <div className='c11'
                 onClick={() => {
                   cartdata.length > 0 && checklogin() && setactive(4)
                 }}
