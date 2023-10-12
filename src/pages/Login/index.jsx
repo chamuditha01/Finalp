@@ -109,7 +109,7 @@ const Login = () => {
                   <button type="submit" className="btn btn-primary mx-2" onClick={handleSubmit}>
                     Log in
                   </button>
-                  <a href={'/'} className="btn btn-primary mx-2 text-decoration-none">
+                  <a href={'/'} className="btn btn-primary mx-2 text-decoration-none " style={{paddingTop:'20px'}}>
                     Exit
                   </a>
                 </div>

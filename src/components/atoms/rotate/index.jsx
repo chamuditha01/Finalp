@@ -4,7 +4,7 @@ import './index.css'
 function AutoRotatableCard({ numberOfAppointments }) {
     return (
         <div>
-            <a href="/appoi" className="a7">
+            <a href="#" className="a7">
                 <div className="auto-rotatable-card">{numberOfAppointments}</div>
             </a>
         </div>

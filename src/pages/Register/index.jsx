@@ -82,7 +82,7 @@ const Register = () => {
                 </div>
                 <div className="col-12 d-flex justify-content-center align-items-center">
                   <button type="submit" className="btn btn-primary mx-2">Register</button>
-                  <a href={'/'} className="btn btn-primary mx-2 text-decoration-none">
+                  <a href={'/'} className="btn btn-primary mx-2 text-decoration-none" style={{paddingTop:'20px'}}>
                     Back
                   </a>
                 </div>
