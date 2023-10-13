@@ -16,26 +16,26 @@ const Signup = () => {
                     <div className='form-group-row'>
                         <div className='formgroup'>
                             <label htmlFor='fname'>First Name</label>
-                            <input type='text' id='fname' />
+                            <input type='text' id='fname' required/>
                         </div>
                         <div className='formgroup'>
                             <label htmlFor='lname'>Last Name</label>
-                            <input type='text' id='lname' />
+                            <input type='text' id='lname' required />
                         </div>
                     </div>
                     <div className='formgroup'>
                         <label htmlFor='email'>Email</label>
-                        <input type='email' id='email' />
+                        <input type='email' id='email' required/>
                     </div>
 
                     <div className='form-group-row'>
                         <div className='formgroup'>
                             <label htmlFor='password'>Password</label>
-                            <input type='password' id='password' />
+                            <input type='password' id='password' required/>
                         </div>
                         <div className='formgroup'>
                         <label htmlFor='cpassword'>Confirm Password</label>
-                        <input type='password' id='cpassword' />
+                        <input type='password' id='cpassword' required/>
                     </div>
                     </div>
 
@@ -44,10 +44,11 @@ const Signup = () => {
                     >
                         <p>Already have an account?</p>
                     </Link>
+                    <button type='submit' className='btn'>Signup</button>
                     <Link to='/Homeshop'
                         className='stylenone'
                     >
-                        <button className='btn'>Signup</button>
+                        <button className='btn'>back</button>
                     </Link>
                 </form>
             </div>

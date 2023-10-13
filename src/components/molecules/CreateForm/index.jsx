@@ -27,7 +27,7 @@ const Create = ({ onSubmit }) => {
       <form id="form1" class="row g-3">
         <div class="col-12">
           <label for="PetName" id="l" class="form-label">
-            Pet Name
+            Pet Name*
           </label>
           <input
             style={{ width: "200px", marginLeft: "50px", borderRadius: "20px" }}

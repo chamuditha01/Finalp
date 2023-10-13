@@ -61,7 +61,13 @@ const Login = () => {
                     Username
                   </label>
                   <div className="input-group">
-                    <select
+                    
+                  </div>
+                  <div className="input-group">
+                    <span className="input-group-text" id="inputGroupPrepend2">
+                      <img src={per} alt="email" />
+                    </span>
+                   <select
                       className="form-select"
                       id="validationDefaultUsername"
                       value={selectedUsername}
@@ -71,12 +77,6 @@ const Login = () => {
                       <option value="PetOwner">PetOwner</option>
                       <option value="Doc">Doc</option>
                     </select>
-                  </div>
-                  <div className="input-group">
-                    <span className="input-group-text" id="inputGroupPrepend2">
-                      <img src={per} alt="email" />
-                    </span>
-                   
                   </div>
                 </div>
                 <div className="col-md-12">
