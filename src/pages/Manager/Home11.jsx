@@ -85,7 +85,7 @@ function Home11() {
           </div>
           <h1>42</h1>
         </div>
-        {/* Add a new card for "Petownerpopup" */}
+        
        
       </div>
 
@@ -93,7 +93,7 @@ function Home11() {
       {popupOpen === 'DocPopup' && <Docpopup />}
       {popupOpen === 'CagePopup' && <Cagepopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
-      {/* Add the Petownerpopup component */}
+      
       {popupOpen === 'PetownerPopup' && <Petownerpopup />}
 
       <h3 className='h1'>Appointments dashboard</h3>

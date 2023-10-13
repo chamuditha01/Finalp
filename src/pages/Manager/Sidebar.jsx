@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { BsGrid1X2Fill, BsFillArchiveFill } from 'react-icons/bs';
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
-  // Step 2: Create a state variable to track loading
+
   const [isLoading, setIsLoading] = useState(false);
 
-  // Function to simulate loading (you can replace this with your actual loading logic)
+
   const simulateLoading = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Simulating a 2-second loading time
+    }, 2000); 
   };
 
   return (
@@ -25,7 +25,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
       <ul className='sidebar-list'>
         <li className='sidebar-list-item'>
           <a href="/Manager">
-            {/* Step 3: Conditionally render loading spinner */}
+            
             {isLoading ? (
               <div className="spinner-border text-danger" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -39,7 +39,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         </li>
         <li className='sidebar-list-item'>
           <a href="/petshop" onClick={simulateLoading}>
-            {/* Step 3: Conditionally render loading spinner */}
+            
             {isLoading ? (
               <div className="spinner-border text-danger" role="status">
                 <span className="visually-hidden">Loading...</span>

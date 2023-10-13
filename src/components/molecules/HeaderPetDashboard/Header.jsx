@@ -85,7 +85,7 @@ const HeaderPetDashboard = () => {
                   </li>
                 </ul>
                 <ul className="navbar-nav mb-2 mb-lg-0 right">
-                  <a href="/Notifi" style={{textDecoration:'none'}}>
+                  <a href="/Notify" style={{textDecoration:'none'}}>
                   <button
                     type="button"
                     style={{

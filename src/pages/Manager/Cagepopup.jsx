@@ -36,7 +36,7 @@ function Cagepopup() {
     <div>
       <h1 className='h1'>Cages Booking</h1>
       <div className="center-table-content">
-        <div className="table-responsive"> {/* Add the table-responsive class */}
+        <div className="table-responsive">
           <table className="table table-success table-striped">
             <thead>
               <tr>

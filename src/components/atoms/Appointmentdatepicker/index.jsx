@@ -72,15 +72,16 @@ function AppointmentScheduler() {
               height: "30px",
               marginLeft: "50px",
               borderRadius: "20px",
-              marginBottom:'10px'
+              marginBottom:'10px',
+              fontSize:'13px'
             }}
             id="SelectDoctor"
             class="form-select"
           >
             <option selected>Choose...</option>
-            <option>Dr.Ravindra</option>
-            <option>Dr.Melani</option>
-            <option>Dr.Kasun</option>
+            <option style={{fontSize:'13px'}}>Dr.Ravindra</option>
+            <option style={{fontSize:'13px'}}>Dr.Melani</option>
+            <option style={{fontSize:'13px'}}>Dr.Kasun</option>
           </select>
         </div>
         <div class="col-12">
@@ -93,14 +94,15 @@ function AppointmentScheduler() {
               height: "30px",
               marginLeft: "50px",
               borderRadius: "20px",
-              marginBottom:'10px'
+              marginBottom:'10px',
+              fontSize:'13px'
             }}
             id="SelectDoctor"
             class="form-select"
           >
             <option selected>Choose...</option>
-            <option>Clinic</option>
-            <option>Home Visit</option>
+            <option style={{fontSize:'13px'}}>Clinic</option>
+            <option style={{fontSize:'13px'}}>Home Visit</option>
             
           </select>
         </div>

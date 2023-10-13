@@ -72,10 +72,11 @@ const Login = () => {
                       id="validationDefaultUsername"
                       value={selectedUsername}
                       onChange={handleUsernameChange}
+                      style={{fontSize:'13px'}}
                     >
-                      <option value="Manager">Manager</option>
-                      <option value="PetOwner">PetOwner</option>
-                      <option value="Doc">Doc</option>
+                      <option style={{fontSize:'13px'}} value="Manager">Manager</option>
+                      <option style={{fontSize:'13px'}} value="PetOwner">PetOwner</option>
+                      <option style={{fontSize:'13px'}} value="Doc">Doc</option>
                     </select>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import logo from './logo.jpg'
 import per from './login.png'
+import { AiOutlineLogout } from 'react-icons/ai';
 
 function NavbarDoctor() {
   return (
@@ -32,16 +33,7 @@ function NavbarDoctor() {
             <ul className="navbar-nav mb-2 mb-lg-0 right">
             <p id="dr">Hello Dr.Kasun</p>
               <div class="btn-group">
-                <button type="button" class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img style={{marginRight:'15%'}} id="per" src={per} alt="" />
-                </button>
-                <ul class="dropdown-menu">
-                  
-                  <li><a class="dropdown-item" href="/EditProfile">Profile</a></li>
-                  
-                  <li><hr class="dropdown-divider"></hr></li>
-                  <li><a class="dropdown-item" href="/">log out</a></li>
-                </ul>
+              <a href="/" className="icon-link"><button className="icon-button"><AiOutlineLogout className='icon' /></button></a>
               </div> 
             </ul>
           </div>

@@ -48,14 +48,16 @@ const Create = ({ onSubmit }) => {
               height: "30px",
               marginLeft: "50px",
               borderRadius: "20px",
+              fontSize:'13px'
             }}
             id="inputState"
             class="form-select"
+            
           >
             <option selected>Choose...</option>
-            <option>Dog</option>
-            <option>Cat</option>
-            <option>Other</option>
+            <option style={{fontSize:'13px'}}>Dog</option>
+            <option style={{fontSize:'13px'}}>Cat</option>
+            <option style={{fontSize:'13px'}}>Other</option>
           </select>
         </div>
         <div class="col-12">
