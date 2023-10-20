@@ -85,7 +85,7 @@ nav .cart .qty {
     background-color: var(--col1);
     color: white;
     border-radius: 50%;
-    /* padding: 1px; */
+    
     position: absolute;
     width: 25px;
     height: 25px;
@@ -144,7 +144,7 @@ nav .s3 {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        /* align-items: center; */
+        
         padding: 0px;
         width: 100%;
     }

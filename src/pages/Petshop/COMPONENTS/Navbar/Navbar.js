@@ -134,9 +134,9 @@ const Navbar = ({ reloadnavbar }) => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Fresh Vegetables</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Fresh Fruits</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">House Cleaning</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1"></Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2"></Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3"></Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown></li>
 
@@ -178,8 +178,8 @@ const Navbar = ({ reloadnavbar }) => {
                             </li>
 
                             <li>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="" id="dropdown-basic">
+                                <Dropdown >
+                                    <Dropdown.Toggle variant="" id="dropdown-basic" >
                                         More
                                     </Dropdown.Toggle>
 

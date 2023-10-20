@@ -413,7 +413,7 @@ const Cart = () => {
             <h2 className='mainhead1'>Select Payment Method</h2>
             <div className='paymenttypes'>
               <div className='c1'>
-                <input type='radio' name='payment' id='payment1' />
+                <input type='radio' name='payment' id='payment1' required/>
                 <img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png'
                   alt='paypal'
                 />
@@ -435,7 +435,7 @@ const Cart = () => {
             <div
               className='paymentagreement'
             >
-              <input type='checkbox' name='agreement' id='agreement' />
+              <input type='checkbox' name='agreement' id='agreement' required/>
               <label htmlFor='agreement'>I agree to the terms and conditions</label>
             </div>
 
@@ -498,7 +498,7 @@ const Cart = () => {
                 checklogin() && setactive(2)
               }}
             >Back</button>
-            <button className='nextbtn' style={{backgroundColor:'blue'}}
+            <button type="submit" className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
                 checklogin() && setactive(4)
               }}
