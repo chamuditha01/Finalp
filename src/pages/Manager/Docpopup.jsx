@@ -1,49 +1,83 @@
-import React, { useState } from 'react';
-import './dt.css';
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
-const Stokepopup = () => {
-  const [employees, setEmployees] = useState([
-    { id: 1, name: 'silva', department: 'Customer Service', phone: '076 555-2222', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 2, name: 'sathira', department: 'Customer Service', phone: '076  555-5735', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 3, name: 'sadaruwan', department: 'clinic', phone: '076  555-9931', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-  ]);
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseKey = 'YOUR_SUPABASE_KEY';
+const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
 
-  const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '', Email: '', Password: '' });
+const EmployeesPopup = () => {
+  const [employees, setEmployees] = useState([]);
+  const [newEmployee, setNewEmployee] = useState({
+    name: '',
+    department: '',
+    phone: '',
+    email: '',
+    password: '',
+  });
   const [isAdding, setIsAdding] = useState(false);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = async () => {
+    const { data, error } = await supabase.from('employees').select();
+    if (error) {
+      console.error('Error fetching data:', error);
+    } else {
+      setEmployees(data);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
-  const handleAddEmployee = () => {
-    if (newEmployee.name && newEmployee.department && newEmployee.phone && newEmployee.Email && newEmployee.Password) {
-      if (newEmployee.id === null) {
-        setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
+  const handleAddEmployee = async () => {
+    if (
+      newEmployee.name &&
+      newEmployee.department &&
+      newEmployee.phone &&
+      newEmployee.email &&
+      newEmployee.password
+    ) {
+      const { data, error } = await supabase.from('employees').upsert([newEmployee]);
+      if (error) {
+        console.error('Error adding Employee:', error);
       } else {
-        const updatedEmployees = employees.map((employee) =>
-          employee.id === newEmployee.id ? newEmployee : employee
-        );
-        setEmployees(updatedEmployees);
+        fetchEmployees(); // Refresh the list of Employees
       }
-      setNewEmployee({ id: null, name: '', department: '', phone: '', Email: '', Password: '' });
+
+      setNewEmployee({
+        name: '',
+        department: '',
+        phone: '',
+        email: '',
+        password: '',
+      });
+
       setIsAdding(false);
     }
   };
 
   const handleEditEmployee = (employee) => {
-    setNewEmployee({ ...employee });
+    setNewEmployee(employee);
     setIsAdding(true);
   };
 
-  const handleDeleteEmployee = (id) => {
-    const updatedEmployees = employees.filter((employee) => employee.id !== id);
-    setEmployees(updatedEmployees);
+  const handleDeleteEmployee = async (id) => {
+    const { error } = await supabase.from('employees').delete().eq('id', id);
+    if (error) {
+      console.error('Error deleting Employee:', error);
+    } else {
+      fetchEmployees(); // Refresh the list of Employees
+    }
   };
 
   return (
-    <>
-      <h1 className="h1">Doctor</h1>
+    <div>
+      <h1 className="h1">Employees</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
@@ -106,8 +140,8 @@ const Stokepopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="Email"
-                      value={newEmployee.Email}
+                      name="email"
+                      value={newEmployee.email}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Email"
@@ -116,18 +150,15 @@ const Stokepopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="Password"
-                      value={newEmployee.Password}
+                      name="password"
+                      value={newEmployee.password}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Password"
                     />
                   </td>
                   <td>
-                    <button
-                      className="btn btn-success edit"
-                      onClick={handleAddEmployee}
-                    >
+                    <button className="btn btn-success edit" onClick={handleAddEmployee}>
                       Save
                     </button>
                   </td>
@@ -138,8 +169,8 @@ const Stokepopup = () => {
                   <td>{employee.name}</td>
                   <td>{employee.department}</td>
                   <td>{employee.phone}</td>
-                  <td>{employee.Email}</td>
-                  <td>{employee.Password}</td>
+                  <td>{employee.email}</td>
+                  <td>{employee.password}</td>
                   <td>
                     <button
                       className="btn btn-primary edit"
@@ -160,8 +191,8 @@ const Stokepopup = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Stokepopup;
+export default EmployeesPopup;
