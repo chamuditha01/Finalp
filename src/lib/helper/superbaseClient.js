@@ -1,7 +1,8 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-// Create a single supabase client for interacting with your database
-export const supabase = createClient(
-    process.env.REACT_APP_SUPERBASE_URL,
-   process.env.REACT_APP_SUPERBASE_ANON_KEY
-);
+const supabaseUrl = 'https://kqpiaexmobiuasgzdfeh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcGlhZXhtb2JpdWFzZ3pkZmVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY3ODM1MDMsImV4cCI6MjAxMjM1OTUwM30.5nbzbKCI3MfFjlSrVGq_QlZ2CfhilTAO6OcLPmw91tI';
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default supabase;

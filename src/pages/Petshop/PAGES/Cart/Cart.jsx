@@ -211,7 +211,7 @@ const Cart = () => {
         {
           active == 1 &&
           <div className='cartcont'>
-            {/* <p>Cart cont</p> */}
+            
             {
               cartdata.length > 0 ?
                 <table className='carttable'>
