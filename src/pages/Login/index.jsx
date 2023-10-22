@@ -34,6 +34,7 @@ const Login = () => {
       } else if (selectedUsername === 'Doc') {
         navigate('/DoctorPage');
       }
+      
     } else {
       alert('Please fill in all required fields.');
     }

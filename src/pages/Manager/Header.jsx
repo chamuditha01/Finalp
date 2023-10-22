@@ -9,7 +9,9 @@ import
  
 
 
-function Header({OpenSidebar}) {
+function Header({OpenSidebar}) {const bars = Array.from({ length: 10 }, (_, i) => (
+  <div key={i} className="bar"></div>
+));
   
   return (
     <header className='header11'>
@@ -20,6 +22,7 @@ function Header({OpenSidebar}) {
             <k  className='icon'/>
         </div>
         <div className='header-right'>
+        <div className="bars">{bars}</div>;
         <a href="https://web.facebook.com/dr.pethospital" className="icon-link"><button className="icon-button"><BsFacebook className='icon' /></button></a>
         <a href="https://www.instagram.com/dr.pet_hospital/?hl=en" className="icon-link"><button className="icon-button"><BsInstagram className='icon' /></button></a>
             <a href="/" className="icon-link"><button className="icon-button"><AiOutlineLogout className='icon' /></button></a>

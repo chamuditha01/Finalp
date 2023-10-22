@@ -1,3 +1,5 @@
+// Home11.js
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import AppointmentPopup from './AppointmentPopup';
@@ -6,6 +8,7 @@ import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
 import Petownerpopup from './Petownerpopup'; // Import the Petownerpopup component
 import './dt.css';
+ // Import the CSS for chart styling
 import { GiClick } from 'react-icons/gi';
 import { BsCalendar2Date } from 'react-icons/bs';
 import { FaStethoscope, FaDog } from 'react-icons/fa';
@@ -29,19 +32,21 @@ function Home11() {
   useEffect(() => {
     const currentDate = new Date();
     const lastWeekDates = [];
-
+  
     for (let i = 6; i >= 0; i--) {
       const date = new Date(currentDate);
       date.setDate(currentDate.getDate() - i);
       const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
       lastWeekDates.push(formattedDate);
     }
-
-    setData(lastWeekDates.map(date => ({
-      name: date,
-      PetClinic: Math.floor(Math.random() * 5000) + 1000,
-      HomeVisit: Math.floor(Math.random() * 5000) + 1000,
-    })));
+  
+    setData(
+      lastWeekDates.map((date) => ({
+        name: date,
+        PetClinic: Math.floor(Math.random() * 5000) + 1000,
+        HomeVisit: Math.floor(Math.random() * 5000) + 1000,
+      }))
+    );
   }, []);
 
   return (
@@ -58,12 +63,12 @@ function Home11() {
           <h1>300</h1>
         </div>
         <div className='card'>
-<div className='card-inner'>
-  <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Pet Owner <GiClick className='card_icon' />
-  </a><FaDog className='card_icon' />
-</div>
-<h1>200</h1>
-</div>
+          <div className='card-inner'>
+            <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Pet Owner <GiClick className='card_icon' />
+            </a><FaDog className='card_icon' />
+          </div>
+          <h1>200</h1>
+        </div>
         <div className='card'>
           <div className='card-inner'>
             <a href="#" className='h3' onClick={() => togglePopup('DocPopup')}>Doctor Availability<GiClick className='card_icon' /></a>
@@ -85,21 +90,20 @@ function Home11() {
           </div>
           <h1>42</h1>
         </div>
-        
-       
       </div>
 
       {popupOpen === 'Appointment' && <AppointmentPopup />}
       {popupOpen === 'DocPopup' && <Docpopup />}
       {popupOpen === 'CagePopup' && <Cagepopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
-      
+
       {popupOpen === 'PetownerPopup' && <Petownerpopup />}
 
       <h3 className='h1'>Appointments dashboard</h3>
       <div className='charts'>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
+            className="chart" // Apply the CSS class to the BarChart
             width={500}
             height={300}
             data={data}
@@ -122,6 +126,7 @@ function Home11() {
 
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
+            className="chart" // Apply the CSS class to the LineChart
             width={500}
             height={300}
             data={data}

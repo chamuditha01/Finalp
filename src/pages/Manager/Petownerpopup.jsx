@@ -1,49 +1,83 @@
-import React, { useState } from 'react';
-import './dt.css';
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
-const Petownerpopup = () => {
-  const [employees, setEmployees] = useState([
-    { id: 1, name: 'silva', department: 'Galle, Galle, Southern', phone: '076 555-2222', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 2, name: 'sathira', department: 'Galle, Galle, Southern', phone: '076  555-5735', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-    { id: 3, name: 'sadaruwan', department: 'Galle, Galle, Southern', phone: '076  555-9931', Email: 'akilanirmal@4352@gmail.com', Password: '4352' },
-  ]);
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseKey = 'YOUR_SUPABASE_KEY';
+const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
 
-  const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '', Email: '', Password: '' });
+const PetOwnerPopup = () => {
+  const [petOwners, setPetOwners] = useState([]);
+  const [newPetOwner, setNewPetOwner] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    password: '',
+  });
   const [isAdding, setIsAdding] = useState(false);
+
+  useEffect(() => {
+    fetchPetOwners();
+  }, []);
+
+  const fetchPetOwners = async () => {
+    const { data, error } = await supabase.from('petowners').select();
+    if (error) {
+      console.error('Error fetching data:', error);
+    } else {
+      setPetOwners(data);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewEmployee({ ...newEmployee, [name]: value });
+    setNewPetOwner({ ...newPetOwner, [name]: value });
   };
 
-  const handleAddEmployee = () => {
-    if (newEmployee.name && newEmployee.department && newEmployee.phone && newEmployee.Email && newEmployee.Password) {
-      if (newEmployee.id === null) {
-        setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
+  const handleAddPetOwner = async () => {
+    if (
+      newPetOwner.name &&
+      newPetOwner.address &&
+      newPetOwner.phone &&
+      newPetOwner.email &&
+      newPetOwner.password
+    ) {
+      const { data, error } = await supabase.from('petowners').upsert([newPetOwner]);
+      if (error) {
+        console.error('Error adding Pet Owner:', error);
       } else {
-        const updatedEmployees = employees.map((employee) =>
-          employee.id === newEmployee.id ? newEmployee : employee
-        );
-        setEmployees(updatedEmployees);
+        fetchPetOwners(); // Refresh the list of Pet Owners
       }
-      setNewEmployee({ id: null, name: '', department: '', phone: '', Email: '', Password: '' });
+
+      setNewPetOwner({
+        name: '',
+        address: '',
+        phone: '',
+        email: '',
+        password: '',
+      });
+
       setIsAdding(false);
     }
   };
 
-  const handleEditEmployee = (employee) => {
-    setNewEmployee({ ...employee });
+  const handleEditPetOwner = (petOwner) => {
+    setNewPetOwner(petOwner);
     setIsAdding(true);
   };
 
-  const handleDeleteEmployee = (id) => {
-    const updatedEmployees = employees.filter((employee) => employee.id !== id);
-    setEmployees(updatedEmployees);
+  const handleDeletePetOwner = async (id) => {
+    const { error } = await supabase.from('petowners').delete().eq('id', id);
+    if (error) {
+      console.error('Error deleting Pet Owner:', error);
+    } else {
+      fetchPetOwners(); // Refresh the list of Pet Owners
+    }
   };
 
   return (
-    <>
-      <h1 className="h1">PetOwner</h1>
+    <div>
+      <h1 className="h1">Pet Owners</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
@@ -77,7 +111,7 @@ const Petownerpopup = () => {
                     <input
                       type="text"
                       name="name"
-                      value={newEmployee.name}
+                      value={newPetOwner.name}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Name"
@@ -86,18 +120,18 @@ const Petownerpopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="department"
-                      value={newEmployee.department}
+                      name="address"
+                      value={newPetOwner.address}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Department"
+                      placeholder="Address"
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       name="phone"
-                      value={newEmployee.phone}
+                      value={newPetOwner.phone}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Phone"
@@ -106,8 +140,8 @@ const Petownerpopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="Email"
-                      value={newEmployee.Email}
+                      name="email"
+                      value={newPetOwner.email}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Email"
@@ -116,40 +150,37 @@ const Petownerpopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="Password"
-                      value={newEmployee.Password}
+                      name="password"
+                      value={newPetOwner.password}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Password"
                     />
                   </td>
                   <td>
-                    <button
-                      className="btn btn-success edit"
-                      onClick={handleAddEmployee}
-                    >
+                    <button className="btn btn-success edit" onClick={handleAddPetOwner}>
                       Save
                     </button>
                   </td>
                 </tr>
               )}
-              {employees.map((employee) => (
-                <tr key={employee.id}>
-                  <td>{employee.name}</td>
-                  <td>{employee.department}</td>
-                  <td>{employee.phone}</td>
-                  <td>{employee.Email}</td>
-                  <td>{employee.Password}</td>
+              {petOwners.map((petOwner) => (
+                <tr key={petOwner.id}>
+                  <td>{petOwner.name}</td>
+                  <td>{petOwner.address}</td>
+                  <td>{petOwner.phone}</td>
+                  <td>{petOwner.email}</td>
+                  <td>{petOwner.password}</td>
                   <td>
                     <button
                       className="btn btn-primary edit"
-                      onClick={() => handleEditEmployee(employee)}
+                      onClick={() => handleEditPetOwner(petOwner)}
                     >
                       Edit
                     </button>
                     <button
                       className="btn btn-danger delete"
-                      onClick={() => handleDeleteEmployee(employee.id)}
+                      onClick={() => handleDeletePetOwner(petOwner.id)}
                     >
                       Delete
                     </button>
@@ -160,8 +191,8 @@ const Petownerpopup = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Petownerpopup;
+export default PetOwnerPopup;
