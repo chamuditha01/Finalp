@@ -1,16 +1,16 @@
 import React from "react";
 import "./Header.css";
 import headerbg from "./peakpx.jpg";
-import Rec from "../../atoms/Item 1";
-import Create from "../CreateForm";
+import Rec from "../../../atoms/Item 1";
+import Create from "../../CreateForm";
 import { useState, useEffect } from "react";
-import NavItems from "../../atoms/Navitems";
+import NavItems from "../../../atoms/Navitems";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.jpg";
 import per from "./dog.png";
-import Menu from "../../atoms/MenuItems";
+import Menu from "../../../atoms/MenuItems";
 import notiicon from "./appointment-reminders-xxl.png";
-import supabase from "../../../lib/helper/superbaseClient";
+import supabase from "../../../../lib/helper/superbaseClient";
 
   
 const HeaderPetDashboard = () => {

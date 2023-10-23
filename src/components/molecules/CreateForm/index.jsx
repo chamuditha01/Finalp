@@ -1,7 +1,8 @@
 import './index.css'
 import React, { useState } from "react";
+import supabase from '../../../lib/helper/superbaseClient';
 
-const Create = ({ onSubmit }) => {
+const Create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [petName, setPetName] = useState(""); 
 
@@ -14,18 +15,41 @@ const Create = ({ onSubmit }) => {
     }
   };
 
-  const handleCreateClick = () => {
-    
+  const handleCreateClick = async () => {
     if (petName) {
-      onSubmit(petName);
+      
+      const petData = {
+        Pet_Name: petName,
+        Pet_Breed: document.getElementById('Breed').value, 
+        Pet_Type: document.getElementById('inputState').value, 
+        Pet_Age: parseInt(document.getElementById('Age').value), 
+        Pet_owner_id: 1
+      };
+
+      
+
+      const { data, error } = await supabase
+        .from('Pet_Profile') 
+        .insert([petData]);
+
+      if (error) {
+        alert('Error creating pet:', error);
+        return;
+      }
+
       setPetName("");
-    }
+      setSelectedImage(null);
+
+     
+      
+       }
   };
 
   return (
     <div>
-      <form id="form1" class="row g-3">
-        <div class="col-12">
+      <form id="form1" className="row g-3">
+        
+		 <div class="col-12">
           <label for="PetName" id="l" class="form-label">
             Pet Name*
           </label>
@@ -117,7 +141,7 @@ const Create = ({ onSubmit }) => {
           </div>
         )}
 
-        <div class="col-12">
+        <div className="col-12">
           <button
             style={{
               height: "50px",
@@ -128,7 +152,7 @@ const Create = ({ onSubmit }) => {
               fontStyle: "italic",
             }}
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             onClick={handleCreateClick} 
           >
             Create

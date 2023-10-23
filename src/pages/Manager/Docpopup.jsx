@@ -47,7 +47,7 @@ const EmployeesPopup = () => {
       newEmployee.Passward
     ) {
       if (editingEmployeeId) {
-        // If you're editing, update the existing employee
+        
         const { data, error } = await supabase
           .from('Doctor')
           .upsert([{ ...newEmployee, id: editingEmployeeId }]);

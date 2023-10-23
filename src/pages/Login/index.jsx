@@ -6,11 +6,24 @@ import image2 from './cbak2.jpg';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ForgotPasswordModal from '../popup';
+import supabase from '../../lib/helper/superbaseClient';
 
 const Login = () => {
   const navigate = useNavigate(); 
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const [selectedUsername, setSelectedUsername] = useState('Manager');
+  const [newEmployee, setNewEmployee] = useState({
+    Email: '',
+    Passward: '',
+    Manager_id:''
+   
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewEmployee({ ...newEmployee, [name]: value });
+  };
+    
+
   const toggleForgotPassword = () => {
     setForgotPasswordOpen(!forgotPasswordOpen);
   };  const handleUsernameChange = (e) => {
@@ -22,17 +35,18 @@ const Login = () => {
 
     
     
-    const emailValue = document.getElementById('inputEmail4').value;
-    const password = document.getElementById('inputPassword4').value;
-
+    
  
-    if (selectedUsername && emailValue && password) {
+    if (selectedUsername ) {
       if (selectedUsername === 'Manager') {
-        navigate('/Manager');
+        handleloginEmployee()
+        
+        
       } else if (selectedUsername === 'PetOwner') {
         navigate('/Profile');
       } else if (selectedUsername === 'Doc') {
-        navigate('/DoctorPage');
+        handleloginDoctor();
+        
       }
       
     } else {
@@ -41,7 +55,64 @@ const Login = () => {
      
  
   };
+  const handleloginDoctor = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('Doctor')
+        .select('Passward')
+        .eq('Email', newEmployee.Email); 
+  
+      if (error) {
+        alert('Error: ' + error.message); 
+        return;
+      }
+  
+      if (data && data.length > 0) {
+        const pass = data[0].Passward;
+        if(pass===newEmployee.Passward){
+          navigate('/DoctorPage');
+        }
+        else{
+          alert('wrong passward')
+        }
+      } 
+    else {
+        alert('No user found with that email.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
+  const handleloginEmployee = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('Manager')
+        .select('Passward')
+        .eq('Email', newEmployee.Email); 
+  
+      if (error) {
+        alert('Error: ' + error.message); 
+        return;
+      }
+  
+      if (data && data.length > 0) {
+        const pass = data[0].Passward;
+        if(pass===newEmployee.Passward){
+          navigate('/Manager');
+        }
+        else{
+          alert('wrong passward')
+        }
+      } 
+    else {
+        alert('No user found with that email.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+  
   return (
     <div>
       <div className="container-fluid bg-dark text-light py-3">
@@ -89,7 +160,7 @@ const Login = () => {
                     <span className="input-group-text">
                       <img src={email} alt="email" />
                     </span>
-                    <input type="email" className="form-control" id="inputEmail4" required />
+                    <input type="email" className="form-control" id="Email" name='Email' onChange={handleInputChange} required />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -100,7 +171,7 @@ const Login = () => {
                     <span className="input-group-text">
                       <img src={pass} alt="password" />
                     </span>
-                    <input type="password" className="form-control" id="inputPassword4" required />
+                    <input type="password" className="form-control" id="Passward" name='Passward' onChange={handleInputChange} required />
                   </div>
                 </div>
                 <div className="col-12">
