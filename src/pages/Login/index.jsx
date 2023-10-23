@@ -36,6 +36,7 @@ const Login = () => {
     
     
     
+    
  
     if (selectedUsername ) {
       if (selectedUsername === 'Manager') {
@@ -43,7 +44,7 @@ const Login = () => {
         
         
       } else if (selectedUsername === 'PetOwner') {
-        navigate('/Profile');
+        handleloginPetOwner();
       } else if (selectedUsername === 'Doc') {
         handleloginDoctor();
         
@@ -55,6 +56,7 @@ const Login = () => {
      
  
   };
+  
   const handleloginDoctor = async () => {
     try {
       const { data, error } = await supabase
@@ -83,7 +85,34 @@ const Login = () => {
       console.error('An error occurred:', error);
     }
   };
-
+  const handleloginPetOwner = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('Pet_Owner1')
+        .select('password') 
+        .eq('email', newEmployee.Email);
+  
+      if (error) {
+        alert('Error: ' + error.message);
+        return;
+      }
+  
+      if (data && data.length > 0) {
+        const passwordFromDB = data[0].password; 
+        if (passwordFromDB === newEmployee.Passward) { 
+       
+          navigate('/Profile');
+        } else {
+          alert('Wrong password');
+        }
+      } else {
+        alert('No user found with that email.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+  
   const handleloginEmployee = async () => {
     try {
       const { data, error } = await supabase

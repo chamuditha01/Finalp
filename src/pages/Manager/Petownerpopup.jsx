@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import supabase from '../../lib/helper/superbaseClient';
 
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_KEY';
-const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
-
-const PetOwnerPopup = () => {
+const PetOwnersPopup = () => {
   const [petOwners, setPetOwners] = useState([]);
   const [newPetOwner, setNewPetOwner] = useState({
     name: '',
@@ -21,7 +17,7 @@ const PetOwnerPopup = () => {
   }, []);
 
   const fetchPetOwners = async () => {
-    const { data, error } = await supabase.from('petowners').select();
+    const { data, error } = await supabase.from('Pet_Owner1').select();
     if (error) {
       console.error('Error fetching data:', error);
     } else {
@@ -42,7 +38,7 @@ const PetOwnerPopup = () => {
       newPetOwner.email &&
       newPetOwner.password
     ) {
-      const { data, error } = await supabase.from('petowners').upsert([newPetOwner]);
+      const { data, error } = await supabase.from('Pet_Owner1').upsert([newPetOwner]);
       if (error) {
         console.error('Error adding Pet Owner:', error);
       } else {
@@ -59,22 +55,17 @@ const PetOwnerPopup = () => {
 
       setIsAdding(false);
     }
+    
   };
-
-  const handleEditPetOwner = (petOwner) => {
-    setNewPetOwner(petOwner);
-    setIsAdding(true);
-  };
-
   const handleDeletePetOwner = async (id) => {
-    const { error } = await supabase.from('petowners').delete().eq('id', id);
+    const { error } = await supabase.from('Pet_Owner1').delete().eq('id', id);
     if (error) {
       console.error('Error deleting Pet Owner:', error);
     } else {
       fetchPetOwners(); // Refresh the list of Pet Owners
     }
   };
-
+  
   return (
     <div>
       <h1 className="h1">Pet Owners</h1>
@@ -114,7 +105,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.name}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Name"
                     />
                   </td>
                   <td>
@@ -124,7 +114,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.address}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Address"
                     />
                   </td>
                   <td>
@@ -134,7 +123,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.phone}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Phone"
                     />
                   </td>
                   <td>
@@ -144,7 +132,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.email}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Email"
                     />
                   </td>
                   <td>
@@ -154,7 +141,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.password}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Password"
                     />
                   </td>
                   <td>
@@ -172,18 +158,12 @@ const PetOwnerPopup = () => {
                   <td>{petOwner.email}</td>
                   <td>{petOwner.password}</td>
                   <td>
-                    <button
-                      className="btn btn-primary edit"
-                      onClick={() => handleEditPetOwner(petOwner)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger delete"
-                      onClick={() => handleDeletePetOwner(petOwner.id)}
-                    >
-                      Delete
-                    </button>
+                  <button
+  className="btn btn-danger delete"
+  onClick={() => handleDeletePetOwner(petOwner.id)}
+>
+  Delete
+</button>
                   </td>
                 </tr>
               ))}
@@ -195,4 +175,4 @@ const PetOwnerPopup = () => {
   );
 };
 
-export default PetOwnerPopup;
+export default PetOwnersPopup;
