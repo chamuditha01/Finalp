@@ -9,7 +9,7 @@ const EmployeesPopup = () => {
     Contact: '',
     Email: '',
     Passward: '',
-    manager_id: '1' // Set a default manager_id if needed
+    manager_id: '1' 
   });
   const [isAdding, setIsAdding] = useState(false);
   const [editingEmployeeId, setEditingEmployeeId] = useState(null);
