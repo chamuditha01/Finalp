@@ -74,6 +74,7 @@ function AppointmentPopup() {
               ) : (
                 appointments.map((appointment, index) => (
                   <tr key={index}>
+                    
                     <td>{appointment.patient_name}</td>
                     <td>{appointment.date}</td>
                     <td>{appointment.time}</td>
