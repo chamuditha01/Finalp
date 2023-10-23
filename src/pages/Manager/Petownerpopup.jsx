@@ -17,7 +17,7 @@ const PetOwnersPopup = () => {
   }, []);
 
   const fetchPetOwners = async () => {
-    const { data, error } = await supabase.from('Pet_Owner1').select();
+    const { data, error } = await supabase.from('Customer').select();
     if (error) {
       console.error('Error fetching data:', error);
     } else {
@@ -38,7 +38,7 @@ const PetOwnersPopup = () => {
       newPetOwner.email &&
       newPetOwner.password
     ) {
-      const { data, error } = await supabase.from('Pet_Owner1').upsert([newPetOwner]);
+      const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
       if (error) {
         console.error('Error adding Pet Owner:', error);
       } else {
@@ -58,7 +58,7 @@ const PetOwnersPopup = () => {
     
   };
   const handleDeletePetOwner = async (id) => {
-    const { error } = await supabase.from('Pet_Owner1').delete().eq('id', id);
+    const { error } = await supabase.from('Customer').delete().eq('id', id);
     if (error) {
       console.error('Error deleting Pet Owner:', error);
     } else {
