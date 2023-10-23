@@ -27,11 +27,11 @@ const Register = () => {
   
     const { data, error } = await supabase.from('Manager').upsert([
       {
-        firstname: formData.firstName,
-        lastname: formData.lastName,
-        email: formData.email,
-        passward: formData.passward,
-        address: formData.address,
+        First_Name: formData.firstName,
+        Last_Name: formData.lastName,
+        Address_1: formData.address,
+        Email: formData.email,
+        Passward: formData.passward,
       },
     ]);
 

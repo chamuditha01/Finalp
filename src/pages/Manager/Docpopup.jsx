@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_KEY';
-const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
+import supabase from '../../lib/helper/superbaseClient';
 
 const EmployeesPopup = () => {
-  const [employees, setEmployees] = useState([]);
+  const [Doctors, setDoctors] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
-    name: '',
-    department: '',
-    phone: '',
-    email: '',
-    password: '',
+    Doctor_Name: '',
+    Department: '',
+    Contact: '',
+    Email: '',
+    Passward: '',
+    manager_id: '1' // Set a default manager_id if needed
   });
   const [isAdding, setIsAdding] = useState(false);
+  const [editingEmployeeId, setEditingEmployeeId] = useState(null);
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
-    const { data, error } = await supabase.from('employees').select();
+    const { data, error } = await supabase.from('Doctor').select();
     if (error) {
       console.error('Error fetching data:', error);
     } else {
-      setEmployees(data);
+      setDoctors(data);
     }
   };
 
@@ -34,44 +32,62 @@ const EmployeesPopup = () => {
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
-  const handleAddEmployee = async () => {
-    if (
-      newEmployee.name &&
-      newEmployee.department &&
-      newEmployee.phone &&
-      newEmployee.email &&
-      newEmployee.password
-    ) {
-      const { data, error } = await supabase.from('employees').upsert([newEmployee]);
-      if (error) {
-        console.error('Error adding Employee:', error);
-      } else {
-        fetchEmployees(); // Refresh the list of Employees
-      }
-
-      setNewEmployee({
-        name: '',
-        department: '',
-        phone: '',
-        email: '',
-        password: '',
-      });
-
-      setIsAdding(false);
-    }
-  };
-
   const handleEditEmployee = (employee) => {
     setNewEmployee(employee);
+    setEditingEmployeeId(employee.id);
     setIsAdding(true);
   };
 
+  const handleAddEmployee = async () => {
+    if (
+      newEmployee.Doctor_Name &&
+      newEmployee.Department &&
+      newEmployee.Contact &&
+      newEmployee.Email &&
+      newEmployee.Passward
+    ) {
+      if (editingEmployeeId) {
+        // If you're editing, update the existing employee
+        const { data, error } = await supabase
+          .from('Doctor')
+          .upsert([{ ...newEmployee, id: editingEmployeeId }]);
+        if (error) {
+          alert('Error updating Employee:', error);
+        }
+      } else {
+        
+        const managerId = '1'; 
+        const employeeToAdd = {
+          ...newEmployee,
+          manager_id: managerId
+        };
+        const { data, error } = await supabase.from('Doctor').upsert([employeeToAdd]);
+        if (error) {
+          alert('Error adding Employee:', error);
+        }
+      }
+
+      setNewEmployee({
+        Doctor_Name: '',
+        Department: '',
+        Contact: '',
+        Email: '',
+        Passward: '',
+        manager_id: '1' 
+      });
+
+      setIsAdding(false);
+      setEditingEmployeeId(null);
+      fetchEmployees();
+    }
+  };
+
   const handleDeleteEmployee = async (id) => {
-    const { error } = await supabase.from('employees').delete().eq('id', id);
+    const { error } = await supabase.from('Doctor').delete().eq('id', id);
     if (error) {
       console.error('Error deleting Employee:', error);
     } else {
-      fetchEmployees(); // Refresh the list of Employees
+      fetchEmployees(); 
     }
   };
 
@@ -110,8 +126,8 @@ const EmployeesPopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="name"
-                      value={newEmployee.name}
+                      name="Doctor_Name"
+                      value={newEmployee.Doctor_Name}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Name"
@@ -120,8 +136,8 @@ const EmployeesPopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="department"
-                      value={newEmployee.department}
+                      name="Department"
+                      value={newEmployee.Department}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Department"
@@ -130,8 +146,8 @@ const EmployeesPopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="phone"
-                      value={newEmployee.phone}
+                      name="Contact"
+                      value={newEmployee.Contact}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Phone"
@@ -140,8 +156,8 @@ const EmployeesPopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="email"
-                      value={newEmployee.email}
+                      name="Email"
+                      value={newEmployee.Email}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Email"
@@ -150,8 +166,8 @@ const EmployeesPopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="password"
-                      value={newEmployee.password}
+                      name="Passward"
+                      value={newEmployee.Passward}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Password"
@@ -164,26 +180,28 @@ const EmployeesPopup = () => {
                   </td>
                 </tr>
               )}
-              {employees.map((employee) => (
+              {Doctors.map((employee) => (
                 <tr key={employee.id}>
-                  <td>{employee.name}</td>
-                  <td>{employee.department}</td>
-                  <td>{employee.phone}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.password}</td>
+                  <td>{employee.Doctor_Name}</td>
+                  <td>{employee.Department}</td>
+                  <td>{employee.Contact}</td>
+                  <td>{employee.Email}</td>
+                  <td>{employee.Passward}</td>
                   <td>
+                    <div style={{display:'flex',flexDirection:'row'}}>
                     <button
-                      className="btn btn-primary edit"
+                      className="btn btn-primary"
                       onClick={() => handleEditEmployee(employee)}
                     >
                       Edit
                     </button>
                     <button
-                      className="btn btn-danger delete"
+                      className="btn btn-danger"
                       onClick={() => handleDeleteEmployee(employee.id)}
                     >
                       Delete
                     </button>
+                    </div>
                   </td>
                 </tr>
               ))}
