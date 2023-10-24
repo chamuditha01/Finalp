@@ -15,19 +15,18 @@ const About = () => {
         <Navbar reloadnavbar={false}/>
         <SingleBanner
         heading="About Us"
-        bannerimage= 'https://cdn.pixabay.com/photo/2023/07/22/08/26/barbary-macaque-8142917_1280.png'
+        bannerimage= 'https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg'
         />
         <div className='pgleft pgcommon'>
             <img src='https://cdn.pixabay.com/photo/2019/12/22/17/13/french-bulldog-4713013_640.jpg' alt='noimg' />
 
-            <div>
-                <h1>Our Story</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <div className='pg'>
+                <h1>About Us</h1>
+                <p1>MyPets.lk is your One-stop shop for all things Pet related, selling a range of Top quality, correctly formulated Industry-trusted Pet supplies brands. We only work with official product agents in Sri Lanka and offer online payment and Islandwide delivery</p1>
 
             </div>
         </div>
-        
-        <Footer1/>
+       
         <Footer2/>
         </div>
   )

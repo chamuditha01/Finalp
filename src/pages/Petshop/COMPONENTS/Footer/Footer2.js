@@ -4,6 +4,7 @@ import logo from './logo.jpg'
 import social from './social.png'
 import './Footer2.css'
 import { Link } from 'react-router-dom'
+
 const Footer2 = () => {
   return (
     <div className='footer'>

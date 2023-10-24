@@ -3,7 +3,7 @@ import './HomeCategories.css'
 import img1 from '../../ASSETS/Images/1.png'
 import img5 from './black-cats-5958934_1920.png'
 import img6 from './dog-6976691_1920.png'
-import img7 from './seagull-4993280_1280.png'
+import img7 from '../../ASSETS/Images/bird-silhouette-10.png'
 
 
 
