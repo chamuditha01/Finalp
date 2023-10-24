@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import supabase from '../../lib/helper/superbaseClient';
 
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_KEY';
-const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
-
-const PetOwnerPopup = () => {
+const PetOwnersPopup = () => {
   const [petOwners, setPetOwners] = useState([]);
   const [newPetOwner, setNewPetOwner] = useState({
     name: '',
@@ -13,6 +9,8 @@ const PetOwnerPopup = () => {
     phone: '',
     email: '',
     password: '',
+    Manager_id : '1',
+    userId:''
   });
   const [isAdding, setIsAdding] = useState(false);
 
@@ -21,7 +19,7 @@ const PetOwnerPopup = () => {
   }, []);
 
   const fetchPetOwners = async () => {
-    const { data, error } = await supabase.from('petowners').select();
+    const { data, error } = await supabase.from('Customer').select();
     if (error) {
       console.error('Error fetching data:', error);
     } else {
@@ -34,6 +32,45 @@ const PetOwnerPopup = () => {
     setNewPetOwner({ ...newPetOwner, [name]: value });
   };
 
+  const handleLoginOwner = async () => {
+    try {
+      
+      const { data: customerData, error: customerError } = await supabase
+        .from('Customer')
+        .select('Customer_id')
+        .eq('email', newPetOwner.email);
+  
+      if (customerError) {
+        alert('Error querying Customer data: ' + customerError.message);
+        return;
+      }
+  
+      if (customerData && customerData.length > 0) {
+        const userId = customerData[0].Customer_id;
+  
+        
+        const { data: upsertData, error: upsertError } = await supabase.from('Pet_Owner1').upsert([
+          {
+            id: userId,
+            Manager_id: newPetOwner.Manager_id
+          }
+        ]);
+  
+        if (upsertError) {
+          alert('Error inserting data into Pet_Owner1:', upsertError);
+        } else {
+          alert('Data inserted successfully into Pet_Owner1:', upsertData);
+        }
+      } else {
+        alert('User not found with the provided email.');
+      }
+    } catch (error) {
+      alert('An error occurred:', error);
+    }
+  };
+  
+  
+
   const handleAddPetOwner = async () => {
     if (
       newPetOwner.name &&
@@ -42,11 +79,13 @@ const PetOwnerPopup = () => {
       newPetOwner.email &&
       newPetOwner.password
     ) {
-      const { data, error } = await supabase.from('petowners').upsert([newPetOwner]);
+      const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
       if (error) {
-        console.error('Error adding Pet Owner:', error);
+        alert('Error adding Pet Owner:', error);
       } else {
-        fetchPetOwners(); // Refresh the list of Pet Owners
+        
+        fetchPetOwners();
+        handleLoginOwner(); 
       }
 
       setNewPetOwner({
@@ -54,27 +93,27 @@ const PetOwnerPopup = () => {
         address: '',
         phone: '',
         email: '',
-        password: '',
+        password: ''
       });
 
       setIsAdding(false);
     }
+    
   };
-
-  const handleEditPetOwner = (petOwner) => {
-    setNewPetOwner(petOwner);
-    setIsAdding(true);
-  };
-
-  const handleDeletePetOwner = async (id) => {
-    const { error } = await supabase.from('petowners').delete().eq('id', id);
-    if (error) {
-      console.error('Error deleting Pet Owner:', error);
-    } else {
-      fetchPetOwners(); // Refresh the list of Pet Owners
+  const handleDeletePetOwner = async (Customer_id) => {
+    try {
+      const { error } = await supabase.from('Customer').delete().eq('Customer_id', Customer_id);
+      if (error) {
+        alert('Error deleting Pet Owner:', error);
+      } else {
+        fetchPetOwners(); // Refresh the list of Pet Owners
+      }
+    } catch (error) {
+      alert('An error occurred:', error);
     }
   };
-
+  
+  
   return (
     <div>
       <h1 className="h1">Pet Owners</h1>
@@ -114,7 +153,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.name}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Name"
                     />
                   </td>
                   <td>
@@ -124,7 +162,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.address}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Address"
                     />
                   </td>
                   <td>
@@ -134,7 +171,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.phone}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Phone"
                     />
                   </td>
                   <td>
@@ -144,7 +180,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.email}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Email"
                     />
                   </td>
                   <td>
@@ -154,7 +189,6 @@ const PetOwnerPopup = () => {
                       value={newPetOwner.password}
                       onChange={handleInputChange}
                       className="form-control"
-                      placeholder="Password"
                     />
                   </td>
                   <td>
@@ -165,25 +199,19 @@ const PetOwnerPopup = () => {
                 </tr>
               )}
               {petOwners.map((petOwner) => (
-                <tr key={petOwner.id}>
+                <tr key={petOwner.Customer_id}>
                   <td>{petOwner.name}</td>
                   <td>{petOwner.address}</td>
                   <td>{petOwner.phone}</td>
                   <td>{petOwner.email}</td>
                   <td>{petOwner.password}</td>
                   <td>
-                    <button
-                      className="btn btn-primary edit"
-                      onClick={() => handleEditPetOwner(petOwner)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger delete"
-                      onClick={() => handleDeletePetOwner(petOwner.id)}
-                    >
-                      Delete
-                    </button>
+                  <button
+  className="btn btn-danger delete"
+  onClick={() => handleDeletePetOwner(petOwner.Customer_id)}
+>
+  Delete
+</button>
                   </td>
                 </tr>
               ))}
@@ -195,4 +223,4 @@ const PetOwnerPopup = () => {
   );
 };
 
-export default PetOwnerPopup;
+export default PetOwnersPopup;

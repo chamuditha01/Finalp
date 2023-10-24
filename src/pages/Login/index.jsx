@@ -36,6 +36,7 @@ const Login = () => {
     
     
     
+    
  
     if (selectedUsername ) {
       if (selectedUsername === 'Manager') {
@@ -43,7 +44,8 @@ const Login = () => {
         
         
       } else if (selectedUsername === 'PetOwner') {
-        navigate('/Profile');
+        handleLoginOwner();
+        
       } else if (selectedUsername === 'Doc') {
         handleloginDoctor();
         
@@ -55,6 +57,87 @@ const Login = () => {
      
  
   };
+
+  const handleLoginOwner = async () => {
+    try {
+      // Step 1: Find the Customer_id based on the email
+      const { data: customerData, error: customerError } = await supabase
+        .from('Customer')
+        .select('Customer_id')
+        .eq('email', newEmployee.Email);
+  
+      if (customerError) {
+        alert('Error: ' + customerError.message);
+        return;
+      }
+  
+      if (customerData && customerData.length > 0) {
+        const customerId = customerData[0].Customer_id;
+  
+        // Step 2: Find the corresponding Pet_Owner1 record using the customerId
+        const { data: ownerData, error: ownerError } = await supabase
+          .from('Pet_Owner1')
+          .select('id')
+          .eq('id', customerId);
+  
+        if (ownerError) {
+          alert('Error: ' + ownerError.message);
+          return;
+        }
+  
+        if (ownerData && ownerData.length > 0) {
+          // Step 3: Find the Customer_id related to the id in Pet_Owner1
+          const ownerId = ownerData[0].id;
+          const { data: customerData2, error: customerError2 } = await supabase
+            .from('Customer')
+            .select('Customer_id')
+            .eq('Customer_id', ownerId);
+  
+          if (customerError2) {
+            alert('Error: ' + customerError2.message);
+            return;
+          }
+  
+          if (customerData2 && customerData2.length > 0) {
+            const customerId2 = customerData2[0].Customer_id;
+  
+            // Step 4: Find the password for the Customer based on customerId2
+            const { data: passwordData, error: passwordError } = await supabase
+              .from('Customer')
+              .select('password')
+              .eq('Customer_id', customerId2);
+  
+            if (passwordError) {
+              alert('Error: ' + passwordError.message);
+              return;
+            }
+  
+            if (passwordData && passwordData.length > 0) {
+              const customerPassword = passwordData[0].password;
+  
+              if (customerPassword === newEmployee.Passward) {
+                navigate('/Profile');
+              } else {
+                alert('Wrong password');
+              }
+            } else {
+              alert('No user found with that email.');
+            }
+          } else {
+            alert('No user found with that email.');
+          }
+        } else {
+          alert('No user found with that email.');
+        }
+      } else {
+        alert('No user found with that email.');
+      }
+    } catch (error) {
+      alert('An error occurred: ' + error);
+    }
+  };
+  
+
   const handleloginDoctor = async () => {
     try {
       const { data, error } = await supabase
@@ -83,7 +166,8 @@ const Login = () => {
       console.error('An error occurred:', error);
     }
   };
-
+  
+  
   const handleloginEmployee = async () => {
     try {
       const { data, error } = await supabase
