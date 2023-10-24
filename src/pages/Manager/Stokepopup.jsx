@@ -83,7 +83,10 @@ const Stokepopup = () => {
             }
           }
         }
-        setNewProduct({
+        
+        
+      }
+    }setNewProduct({
           id: null,
           name: '',
           Description: '',
@@ -93,8 +96,7 @@ const Stokepopup = () => {
           image: '',
         });
         setIsAdding(false);
-      }
-    }
+        fetchProducts();
   };
 
   const handleEditProduct = (product) => {

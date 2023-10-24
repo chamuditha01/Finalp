@@ -11,24 +11,33 @@ import per from "./dog.png";
 import Menu from "../../atoms/MenuItems";
 import notiicon from "./appointment-reminders-xxl.png";
 import supabase from "../../../lib/helper/superbaseClient";
-
+import { useLocation } from 'react-router-dom';
   
 const HeaderPetDashboard = () => {
   const [dropdownItems, setDropdownItems] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
+  const location = useLocation();
+  const userId = location.state && location.state.userId;
+  
 
+  
  
   const fetchPetNames = async () => {
     try {
       const { data, error } = await supabase
         .from('Pet_Profile') 
-        .select('Pet_Name');
+        .select('Pet_Name')
+        .eq('Pet_owner_id', userId);
 
       if (error) {
         alert('Error fetching pet names:', error);
         return;
       }
-
+      if (userId !== undefined) {
+        alert(`User ID: ${userId}`);
+      } else {
+        alert('No user ID found.');
+      }
 
       const Pet_Name = data.map((pet) => pet.Pet_Name);
       setDropdownItems(Pet_Name);

@@ -1,10 +1,13 @@
 import './index.css'
 import React, { useState } from "react";
 import supabase from '../../../lib/helper/superbaseClient';
+import { useLocation } from 'react-router-dom';
 
 const Create = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [petName, setPetName] = useState(""); 
+  const location = useLocation();
+  const userId = location.state && location.state.userId;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -23,7 +26,7 @@ const Create = () => {
         Pet_Breed: document.getElementById('Breed').value, 
         Pet_Type: document.getElementById('inputState').value, 
         Pet_Age: parseInt(document.getElementById('Age').value), 
-        Pet_owner_id: 1
+        Pet_owner_id: userId
       };
 
       

@@ -104,7 +104,7 @@ const Login = () => {
             // Step 4: Find the password for the Customer based on customerId2
             const { data: passwordData, error: passwordError } = await supabase
               .from('Customer')
-              .select('password')
+              .select('Customer_id', 'password') 
               .eq('Customer_id', customerId2);
   
             if (passwordError) {
@@ -114,9 +114,11 @@ const Login = () => {
   
             if (passwordData && passwordData.length > 0) {
               const customerPassword = passwordData[0].password;
-  
-              if (customerPassword === newEmployee.Passward) {
-                navigate('/Profile');
+              const userId = passwordData[0].Customer_id; 
+              if (customerPassword === newEmployee.Passward,userId) {
+                navigate('/Profile', { state: { userId } });
+
+                
               } else {
                 alert('Wrong password');
               }

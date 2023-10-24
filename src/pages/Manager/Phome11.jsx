@@ -30,16 +30,27 @@ function Phome11() {
     }
   };
 
-  const fetchStockQuantity = async () => {
-    const { data, error } = await supabase.from('product1').select('id');
+  
 
-    if (error) {
-      console.error('Error fetching stock quantity:', error);
-    } else {
-      const count = data.length;
-      setStockQuantity(count);
+  const fetchStockQuantity = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('product1')
+        .select('id');
+  
+      if (error) {
+        console.error('Error fetching stock quantity:', error);
+      } else {
+        // The number of rows is the length of the data array
+        const stockQuantity = data.length;
+        setStockQuantity(stockQuantity);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
   };
+  
+  
 
   useEffect(() => {
     const currentDate = new Date();
