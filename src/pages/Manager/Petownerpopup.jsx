@@ -9,6 +9,8 @@ const PetOwnersPopup = () => {
     phone: '',
     email: '',
     password: '',
+    Manager_id : '1',
+    userId:''
   });
   const [isAdding, setIsAdding] = useState(false);
 
@@ -30,6 +32,45 @@ const PetOwnersPopup = () => {
     setNewPetOwner({ ...newPetOwner, [name]: value });
   };
 
+  const handleLoginOwner = async () => {
+    try {
+      
+      const { data: customerData, error: customerError } = await supabase
+        .from('Customer')
+        .select('Customer_id')
+        .eq('email', newPetOwner.email);
+  
+      if (customerError) {
+        alert('Error querying Customer data: ' + customerError.message);
+        return;
+      }
+  
+      if (customerData && customerData.length > 0) {
+        const userId = customerData[0].Customer_id;
+  
+        
+        const { data: upsertData, error: upsertError } = await supabase.from('Pet_Owner1').upsert([
+          {
+            id: userId,
+            Manager_id: newPetOwner.Manager_id
+          }
+        ]);
+  
+        if (upsertError) {
+          alert('Error inserting data into Pet_Owner1:', upsertError);
+        } else {
+          alert('Data inserted successfully into Pet_Owner1:', upsertData);
+        }
+      } else {
+        alert('User not found with the provided email.');
+      }
+    } catch (error) {
+      alert('An error occurred:', error);
+    }
+  };
+  
+  
+
   const handleAddPetOwner = async () => {
     if (
       newPetOwner.name &&
@@ -40,9 +81,11 @@ const PetOwnersPopup = () => {
     ) {
       const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
       if (error) {
-        console.error('Error adding Pet Owner:', error);
+        alert('Error adding Pet Owner:', error);
       } else {
-        fetchPetOwners(); // Refresh the list of Pet Owners
+        
+        fetchPetOwners();
+        handleLoginOwner(); 
       }
 
       setNewPetOwner({
@@ -50,21 +93,26 @@ const PetOwnersPopup = () => {
         address: '',
         phone: '',
         email: '',
-        password: '',
+        password: ''
       });
 
       setIsAdding(false);
     }
     
   };
-  const handleDeletePetOwner = async (id) => {
-    const { error } = await supabase.from('Customer').delete().eq('id', id);
-    if (error) {
-      console.error('Error deleting Pet Owner:', error);
-    } else {
-      fetchPetOwners(); // Refresh the list of Pet Owners
+  const handleDeletePetOwner = async (Customer_id) => {
+    try {
+      const { error } = await supabase.from('Customer').delete().eq('Customer_id', Customer_id);
+      if (error) {
+        alert('Error deleting Pet Owner:', error);
+      } else {
+        fetchPetOwners(); // Refresh the list of Pet Owners
+      }
+    } catch (error) {
+      alert('An error occurred:', error);
     }
   };
+  
   
   return (
     <div>
@@ -151,7 +199,7 @@ const PetOwnersPopup = () => {
                 </tr>
               )}
               {petOwners.map((petOwner) => (
-                <tr key={petOwner.id}>
+                <tr key={petOwner.Customer_id}>
                   <td>{petOwner.name}</td>
                   <td>{petOwner.address}</td>
                   <td>{petOwner.phone}</td>
@@ -160,7 +208,7 @@ const PetOwnersPopup = () => {
                   <td>
                   <button
   className="btn btn-danger delete"
-  onClick={() => handleDeletePetOwner(petOwner.id)}
+  onClick={() => handleDeletePetOwner(petOwner.Customer_id)}
 >
   Delete
 </button>

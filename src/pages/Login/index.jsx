@@ -44,7 +44,8 @@ const Login = () => {
         
         
       } else if (selectedUsername === 'PetOwner') {
-        navigate('/Profile');
+        handleLoginOwner();
+        
       } else if (selectedUsername === 'Doc') {
         handleloginDoctor();
         
@@ -56,6 +57,52 @@ const Login = () => {
      
  
   };
+
+  const handleLoginOwner = async () => {
+    try {
+      const { data: customerData, error: customerError } = await supabase
+        .from('Customer')
+        .select('Customer_id')
+        .eq('email', newEmployee.Email);
+  
+      if (customerError) {
+        alert('Error: ' + customerError.message);
+        return;
+      }
+  
+      if (customerData && customerData.length > 0) {
+        const customerId = customerData[0].Customer_id;
+  
+        const { data: ownerData, error: ownerError } = await supabase
+          .from('Pet_Owner1')
+          .select('password')
+          .eq('id', customerId);
+  
+        if (ownerError) {
+          alert('Error: ' + ownerError.message);
+          return;
+        }
+  
+        if (ownerData && ownerData.length > 0) {
+          const ownerPassword = ownerData[0].password;
+  
+          if (ownerPassword === newEmployee.Passward) {
+            navigate('/Profile');
+          } else {
+            alert('Wrong password');
+          }
+        } else {
+          alert('No user found with that email.');
+        }
+      } else {
+        alert('No user found with that email.');
+      }
+    } catch (error) {
+      alert('An error occurred: ' + error);
+    }
+  };
+  
+  
 
   const handleloginDoctor = async () => {
     try {
