@@ -89,7 +89,7 @@ const Cart = () => {
       }
       <SingleBanner
         heading="My Cart"
-        bannerimage='https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
+        bannerimage='https://cdn.pixabay.com/photo/2018/09/02/17/00/book-3649213_1280.jpg'
       />
       <div className='cart'>
         <div className='progress'>

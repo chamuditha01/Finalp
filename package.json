@@ -29,7 +29,7 @@
     "recharts": "^2.8.0",
     "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.0",
+
     "web-vitals": "^2.1.4"
   },
   "scripts": {

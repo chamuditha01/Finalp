@@ -1,12 +1,20 @@
 .extrapage {
-    width: 100%;
+    object-fit: cover;
     display: flex;
     flex-direction: column;
-    background-color: rgb(123, 122, 122);
+    background-color: #333;
+    width: 100%;
+    color: white;
+    
+}
+.pg{
+    color: white;
+    size: 200px;
 }
 
 .pgleft{
     display: flex;
+    
 }
 
 .pgright{

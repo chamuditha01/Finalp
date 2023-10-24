@@ -3,8 +3,8 @@ nav {
     flex-direction: column;
     padding: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-
-    
+    background-color: white;
+    color: blue;
 
 }
 
@@ -83,7 +83,7 @@ nav .cart {
 
 nav .cart .qty {
     background-color: var(--col1);
-    color: white;
+    color: rgb(19, 18, 18);
     border-radius: 50%;
     
     position: absolute;
@@ -194,3 +194,71 @@ nav .s3 {
         color: white;
     }
 }
+nav.dark-mode {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color on dark background */
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2); /* Dark mode box shadow */
+}
+
+/* Dark mode SVG icon color on hover */
+nav.dark-mode svg:hover {
+    color: var(--col1);
+}
+
+/* Dark mode styles for search bar and input */
+nav.dark-mode .searchbar {
+    background-color: #444; /* Dark background color for search bar */
+}
+
+/* Dark mode SVG icon color on hover */
+nav.dark-mode .searchbar svg:hover {
+    background-color: var(--col1);
+    color: white;
+    border-radius: 50%;
+}
+
+/* Dark mode styles for cart and quantity badge */
+nav.dark-mode .cart {
+    border-color: #555; /* Dark border color for cart */
+}
+
+nav.dark-mode .cart .qty {
+    background-color: var(--col1);
+    color: rgb(19, 18, 18);
+}
+
+/* Dark mode styles for s2 links */
+nav.dark-mode .s2 a {
+    color: #fff; /* Light text color on dark background */
+}
+
+/* Dark mode styles for s2 link hover */
+nav.dark-mode .s2 a:hover {
+    color: var(--col1);
+}
+
+/* Dark mode styles for s3 (mobile navigation) */
+nav.dark-mode .s3 {
+    background-color: #333; /* Dark background color for mobile navigation */
+}
+
+/* Dark mode styles for s3 links and buttons */
+nav.dark-mode .s3 ul li,
+nav.dark-mode .s3 .s31 button {
+    background-color: var(--col1);
+    color: white;
+}
+
+/* Dark mode styles for s3 SVG icons */
+nav.dark-mode .s3 .s32 svg {
+    color: white;
+}
+
+/* Dark mode styles for dropdown menu */
+nav.dark-mode #dropdown-basic {
+    color: white;
+}
+
+
+
+
