@@ -47,9 +47,10 @@ const HeaderPetDashboard = () => {
   };
 
   useEffect(() => {
-   
-    fetchPetNames();
-  }, []);
+    if (userId) {
+      fetchPetNames();
+    }
+  }, [userId]);
 
 
   const handlePetSelect = (event) => {
