@@ -5,8 +5,22 @@ import logo from './logo.jpg'
 import per from './dog.png'
 import Menu from "../../atoms/MenuItems";
 import PopupForm from "../OrderForm";
+import { useLocation,useNavigate } from 'react-router-dom';
+
 
 function NavbarProfileclick() {
+  const navigate = useNavigate(); 
+  const location = useLocation();
+  const userId = location.state && location.state.userId;
+
+  
+
+  const handleProfileClick = () => {
+    
+    navigate('/Profile', { state: { userId } });
+    
+  };
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg custom-navbar ">
@@ -28,8 +42,8 @@ function NavbarProfileclick() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <NavItems NavItem id={"nav"} name={'Home'} path={'/Profile'} />
-              
+             
+              <a id="nav" class="nav-link active" aria-current="page" onClick={handleProfileClick}>home</a>
               <PopupForm/>
               <li className="nav-item dropdown">
                 <a

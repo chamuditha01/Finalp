@@ -12,13 +12,14 @@ import Menu from "../../atoms/MenuItems";
 import notiicon from "./appointment-reminders-xxl.png";
 import supabase from "../../../lib/helper/superbaseClient";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
   
 const HeaderPetDashboard = () => {
   const [dropdownItems, setDropdownItems] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
   const location = useLocation();
   const userId = location.state && location.state.userId;
-  
+  const navigate = useNavigate(); 
 
   
  
@@ -38,6 +39,7 @@ const HeaderPetDashboard = () => {
       } else {
         alert('No user ID found.');
       }
+      
 
       const Pet_Name = data.map((pet) => pet.Pet_Name);
       setDropdownItems(Pet_Name);
@@ -56,7 +58,11 @@ const HeaderPetDashboard = () => {
   const handlePetSelect = (event) => {
     setSelectedPet(event.target.value);
   };
-
+  const handleProfileClick = () => {
+    
+    navigate('/ClickProfile', { state: { userId } });
+    
+  };
   
   
 
@@ -164,7 +170,7 @@ const HeaderPetDashboard = () => {
              <ul class="dropdown-menu">
                       {dropdownItems.map((petName, index) => (
                         <li key={index} value={petName}>
-                          <a class="dropdown-item" href="/ClickProfile">
+                          <a class="dropdown-item" onClick={handleProfileClick}>
                             {petName}
                           </a>
                         </li>
