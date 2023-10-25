@@ -1,72 +1,146 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FaImage } from 'react-icons/fa';
+import { createClient } from '@supabase/supabase-js';
 import './dt.css';
 
-const Alertpopup = () => {
-  const [employees, setEmployees] = useState([
-    { id: 1, name: 'Powder', department: 'out of stock', phone: '24/02' },
-    { id: 2, name: 'powder', department: 'out of stock', phone: '24/02' },
-    { id: 3, name: 'powder', department: 'out of stock', phone: '24/02' },
-  ]);
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseKey = 'YOUR_SUPABASE_API_KEY';
+const tableName = 'product1';
 
-  const [newEmployee, setNewEmployee] = useState({ id: null, name: '', department: '', phone: '' });
+const supabase = createClient("https://kjrjrvwfyjngatmeinsk.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqcmpydndmeWpuZ2F0bWVpbnNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY3ODQ4MTcsImV4cCI6MjAxMjM2MDgxN30.6gqrC0IfJVrgS-Bipm9kf0bYP_g3r2y4dk4mfUK7o-M");
+
+const Alertpopup = () => {
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({
+    id: null,
+    name: '',
+    Description: '',
+    department: '',
+    phone: '',
+    productType: 'Cat items',
+    image: '',
+  });
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewEmployee({ ...newEmployee, [name]: value });
-  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-  const handleAddEmployee = () => {
-    if (newEmployee.name && newEmployee.department && newEmployee.phone) {
-      if (newEmployee.id === null) {
-      
-        setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
-      } else {
-        // Editing an existing employee
-        const updatedEmployees = employees.map((employee) =>
-          employee.id === newEmployee.id ? newEmployee : employee
-        );
-        setEmployees(updatedEmployees);
-      }
-      setNewEmployee({ id: null, name: '', department: '', phone: '' });
-      setIsAdding(false);
+  const fetchProducts = async () => {
+    const { data, error } = await supabase.from(tableName).select('*');
+    if (error) {
+      console.error('Error fetching products:', error);
+    } else {
+      setProducts(data);
     }
   };
 
-  const handleEditEmployee = (employee) => {
-    setNewEmployee({ ...employee });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewProduct({ ...newProduct, [name]: value });
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewProduct({ ...newProduct, image: imageUrl });
+    }
+  };
+
+  const handleImageDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setNewProduct({ ...newProduct, image: imageUrl });
+    }
+  };
+
+  const handleAddProduct = async () => {
+    if (newProduct.name && newProduct.department && newProduct.phone && newProduct.image) {
+      if (newProduct.id === null) {
+        const { data, error } = await supabase.from(tableName).upsert([
+          { ...newProduct, id: Date.now() },
+        ]);
+        if (error) {
+          console.error('Error adding product:', error);
+        } else {
+          if (data) {
+            setProducts([...products, data[0]]);
+          }
+        }
+      } else {
+        const { data, error } = await supabase.from(tableName).upsert([newProduct]);
+        if (error) {
+          console.error('Error updating product:', error);
+        } else {
+          if (data) {
+            const updatedProductIndex = products.findIndex((p) => p.id === newProduct.id);
+            if (updatedProductIndex !== -1) {
+              products[updatedProductIndex] = data[0];
+              setProducts([...products]);
+            }
+          }
+        }
+        
+        
+      }
+    }setNewProduct({
+          id: null,
+          name: '',
+          Description: '',
+          department: '',
+          phone: '',
+          productType: 'Cat items',
+          image: '',
+        });
+        setIsAdding(false);
+        fetchProducts();
+  };
+
+  const handleEditProduct = (product) => {
+    setNewProduct({ ...product });
     setIsAdding(true);
   };
 
-  const handleDeleteEmployee = (id) => {
-    const updatedEmployees = employees.filter((employee) => employee.id !== id);
-    setEmployees(updatedEmployees);
+  const handleDeleteProduct = async (id) => {
+    const { error } = await supabase.from(tableName).delete().eq('id', id);
+    if (error) {
+      console.error('Error deleting product:', error);
+    } else {
+      const updatedProducts = products.filter((product) => product.id !== id);
+      setProducts(updatedProducts);
+    }
   };
 
   return (
     <>
-      <h1 className='h1'>Alert</h1>
+      <h1 className="h1">Product Management</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Product Name</th>
-                <th>Reason</th>
-                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Product Type</th>
+                <th>Price</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {!isAdding && (
                 <tr>
-                  <td colSpan="4">
+                  <td colSpan="7">
                     <button
                       type="button"
                       className="btn btn-info add-new"
                       onClick={() => setIsAdding(true)}
                     >
-                      <i className="fa fa-plus"></i> Add New
+                      <FaImage className="file-upload-icon" /> Add New
                     </button>
                   </td>
                 </tr>
@@ -76,55 +150,104 @@ const Alertpopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="name"
-                      value={newEmployee.name}
+                      name="image"
+                      value={newProduct.image}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Image URL"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="name"
+                      value={newProduct.name}
+                      onChange={handleInputChange}
+                      className="form-control"
+                      placeholder="Product Name"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="Description"
+                      value={newProduct.Description}
+                      onChange={handleInputChange}
+                      className="form-control"
+                      placeholder="Description"
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       name="department"
-                      value={newEmployee.department}
+                      value={newProduct.department}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Amount"
                     />
+                  </td>
+                  <td>
+                    <select
+                      name="productType"
+                      value={newProduct.productType}
+                      onChange={handleInputChange}
+                      className="form-control"
+                    >
+                      <option value="Cat items">Cat items</option>
+                      <option value="Dog items">Dog items</option>
+                      <option value="Other items">Other items</option>
+                    </select>
                   </td>
                   <td>
                     <input
                       type="text"
                       name="phone"
-                      value={newEmployee.phone}
+                      value={newProduct.phone}
                       onChange={handleInputChange}
                       className="form-control"
+                      placeholder="Price"
                     />
                   </td>
                   <td>
-                    <button
-                      className="btn btn-success edit"
-                      onClick={handleAddEmployee}
-                    >
+                    <button className="btn btn-success edit" onClick={handleAddProduct}>
                       Save
                     </button>
                   </td>
                 </tr>
               )}
-              {employees.map((employee) => (
-                <tr key={employee.id}>
-                  <td>{employee.name}</td>
-                  <td>{employee.department}</td>
-                  <td>{employee.phone}</td>
-                  <td>
-                    <button
-                      className="btn btn-danger delete"
-                      onClick={() => handleDeleteEmployee(employee.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+             {products
+  .filter((product) => parseInt(product.department) < 20)
+  .map((product) => (
+    <tr key={product.id}>
+      <td>
+        <img
+          src={product.image}
+          alt={product.name}
+          width="50"
+          height="50"
+          style={{ objectFit: 'cover' }}
+        />
+      </td>
+      <td>{product.name}</td>
+      <td>{product.Description}</td>
+      <td>{product.department}</td>
+      <td>{product.productType}</td>
+      <td>{product.phone}</td>
+      <td>
+        <button className="btn btn-primary edit" onClick={() => handleEditProduct(product)}>
+          Edit
+        </button>
+        <button
+          className="btn btn-danger delete"
+          onClick={() => handleDeleteProduct(product.id)}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ))
+}
             </tbody>
           </table>
         </div>
@@ -134,3 +257,5 @@ const Alertpopup = () => {
 };
 
 export default Alertpopup;
+
+
