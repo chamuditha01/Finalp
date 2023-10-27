@@ -15,8 +15,11 @@ import { PiDogFill } from 'react-icons/pi';
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
+import { useLocation,useNavigate } from 'react-router-dom';
 
 function Home11() {
+  const location = useLocation();
+  const manager_id = location.state && location.state.manager_id ;
   const [popupOpen, setPopupOpen] = useState(null);
   const [data, setData] = useState([]);
 

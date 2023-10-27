@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Manager() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
-
+  const location = useLocation();
+  const manager_id = location.state && location.state.manager_id ;
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
   }

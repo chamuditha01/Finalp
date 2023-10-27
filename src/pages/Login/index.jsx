@@ -117,7 +117,6 @@ const Login = () => {
               const userId = passwordData[0].Customer_id; 
               if (customerPassword === newEmployee.Passward,userId) {
                 navigate('/Profile', { state: { userId } });
-
                 
               } else {
                 alert('Wrong password');
@@ -185,9 +184,9 @@ const Login = () => {
   
       if (data && data.length > 0) {
         const pass = data[0].Passward;
-        const Manager_id = data[0].Manager_id; 
-        if(pass===newEmployee.Passward,Manager_id){
-          navigate('/Manager', { state: { Manager_id } });
+        const manager_id = data[0].Manager_id; 
+        if(pass===newEmployee.Passward,manager_id){
+          navigate('/Manager', { state: { manager_id } });
         }
         else{
           alert('wrong passward')
