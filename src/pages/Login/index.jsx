@@ -144,7 +144,7 @@ const Login = () => {
     try {
       const { data, error } = await supabase
         .from('Doctor')
-        .select('Passward')
+        .select('id','Passward')
         .eq('Email', newEmployee.Email); 
   
       if (error) {
@@ -154,8 +154,9 @@ const Login = () => {
   
       if (data && data.length > 0) {
         const pass = data[0].Passward;
-        if(pass===newEmployee.Passward){
-          navigate('/DoctorPage');
+        const docid = data[0].id;
+        if(pass===newEmployee.Passward,docid){
+          navigate('/DoctorPage', { state: { docid } });
         }
         else{
           alert('wrong passward')
@@ -174,7 +175,7 @@ const Login = () => {
     try {
       const { data, error } = await supabase
         .from('Manager')
-        .select('Passward')
+        .select('Manager_id','Passward')
         .eq('Email', newEmployee.Email); 
   
       if (error) {
@@ -184,8 +185,9 @@ const Login = () => {
   
       if (data && data.length > 0) {
         const pass = data[0].Passward;
-        if(pass===newEmployee.Passward){
-          navigate('/Manager');
+        const Manager_id = data[0].Manager_id; 
+        if(pass===newEmployee.Passward,Manager_id){
+          navigate('/Manager', { state: { Manager_id } });
         }
         else{
           alert('wrong passward')

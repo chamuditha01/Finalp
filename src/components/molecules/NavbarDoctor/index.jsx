@@ -4,8 +4,34 @@ import './styles.css';
 import logo from './logo.jpg'
 import per from './login.png'
 import { AiOutlineLogout } from 'react-icons/ai';
+import { useLocation,useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import supabase from "../../../lib/helper/superbaseClient";
 
 function NavbarDoctor() {
+  const location = useLocation();
+  const docid = location.state && location.state.docid;
+  const [doctorName, setDoctorName] = useState('');
+
+
+  useEffect(() => {
+    
+    if (docid) {
+      supabase
+        .from('Doctor')
+        .select('Doctor_Name')
+        .eq('id', docid)
+        .then(({ data, error }) => {
+          if (error) {
+            console.error('Error fetching doctor name:', error);
+          } else if (data.length > 0) {
+           
+            setDoctorName(data[0].Doctor_Name);
+          }
+        });
+    }
+  }, [docid]);
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg custom-navbar ">
@@ -31,9 +57,9 @@ function NavbarDoctor() {
                
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0 right">
-            <p id="dr">Hello Dr.Kasun</p>
+            <p id="dr">Hello Dr. {doctorName}</p>
               <div class="btn-group">
-              <a href="/" className="icon-link"><button className="icon-button"><AiOutlineLogout className='icon' /></button></a>
+              <a href="/" className="icon-link"><button className="icon-sbutton"><AiOutlineLogout className='icon' /></button></a>
               </div> 
             </ul>
           </div>

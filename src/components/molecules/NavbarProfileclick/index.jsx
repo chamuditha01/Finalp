@@ -20,6 +20,11 @@ function NavbarProfileclick() {
     navigate('/Profile', { state: { userId } });
     
   };
+  const handleProfileClic = () => {
+    
+    navigate('/EditProfile', { state: { userId } });
+    
+  };
   
   return (
     <div>
@@ -43,7 +48,7 @@ function NavbarProfileclick() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
              
-              <a id="nav" class="nav-link active" aria-current="page" onClick={handleProfileClick}>home</a>
+              <a id="nav" class="nav-link active" aria-current="page" style={{cursor:'pointer'}} onClick={handleProfileClick}>home</a>
               <PopupForm/>
               <li className="nav-item dropdown">
                 <a
@@ -80,7 +85,7 @@ function NavbarProfileclick() {
                 </button>
                 <ul class="dropdown-menu">
                   
-                  <li><a class="dropdown-item" href="/EditProfile">Profile</a></li>
+                  <li><a class="dropdown-item" style={{cursor:'pointer'}}   onClick={handleProfileClic}>Profile</a></li>
                   
                   <li><hr class="dropdown-divider"></hr></li>
                   <li><a class="dropdown-item" href="/Profile">log out</a></li>

@@ -170,7 +170,7 @@ const HeaderPetDashboard = () => {
              <ul class="dropdown-menu">
                       {dropdownItems.map((petName, index) => (
                         <li key={index} value={petName}>
-                          <a class="dropdown-item" onClick={handleProfileClick}>
+                          <a class="dropdown-item" style={{cursor:'pointer'}}  onClick={handleProfileClick}>
                             {petName}
                           </a>
                         </li>

@@ -6,9 +6,8 @@ import AppointmentPopup from './AppointmentPopup';
 import Docpopup from './Docpopup';
 import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
-import Petownerpopup from './Petownerpopup'; // Import the Petownerpopup component
+import Petownerpopup from './Petownerpopup'; 
 import './dt.css';
- // Import the CSS for chart styling
 import { GiClick } from 'react-icons/gi';
 import { BsCalendar2Date } from 'react-icons/bs';
 import { FaStethoscope, FaDog } from 'react-icons/fa';

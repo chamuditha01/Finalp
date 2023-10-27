@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './home.css'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Home11 from './Home11'
-
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 
 

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../lib/helper/superbaseClient';
+import { useLocation } from 'react-router-dom';
 
 const PetOwnersPopup = () => {
+  const location = useLocation();
+  const Manager_id = location.state && location.state.Manager_id;
   const [petOwners, setPetOwners] = useState([]);
   const [newPetOwner, setNewPetOwner] = useState({
     name: '',
@@ -9,7 +12,7 @@ const PetOwnersPopup = () => {
     phone: '',
     email: '',
     password: '',
-    Manager_id : '1',
+    Manager_id : '',
     userId:''
   });
   const [isAdding, setIsAdding] = useState(false);
@@ -52,7 +55,7 @@ const PetOwnersPopup = () => {
         const { data: upsertData, error: upsertError } = await supabase.from('Pet_Owner1').upsert([
           {
             id: userId,
-            Manager_id: newPetOwner.Manager_id
+            Manager_id: Manager_id
           }
         ]);
   

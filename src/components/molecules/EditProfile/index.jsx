@@ -102,7 +102,7 @@ const EditProfile = () => {
   
   </div>
   <div class="col-12">
-    <a href="/EditProfile"><button style={{height:'50px',width:'100px',borderRadius:'20px',fontSize:'12px',marginBottom:'10px',fontStyle:'italic'}} type="submit" class="btn btn-primary" >Update</button>
+    <a href="/EditProfile"><button style={{height:'50px',width:'100px',borderRadius:'20px',fontSize:'12px',marginBottom:'10px',fontStyle:'italic'}} type="submit"  class="btn btn-primary" >Update</button>
   </a></div>
       </div><br></br><br></br><br></br><br></br>
     </div>
