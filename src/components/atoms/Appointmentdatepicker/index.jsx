@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.css";
+import supabase from "../../../lib/helper/superbaseClient";
 
 function AppointmentScheduler() {
+  const [doctorNames, setDoctorNames] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  useEffect(() => {
+    
+    async function fetchDoctorNames() {
+      const { data, error } = await supabase
+        .from("Doctor") 
+        .select("Doctor_Name"); 
+      
+      if (error) {
+        console.error("Error fetching doctor names:", error);
+      } else {
+        
+        
+        setDoctorNames(data);
+      }
+    }
+
+    
+    fetchDoctorNames();
+  }, []);
 
   const handleScheduleClick = () => {
     if (selectedDate) {
@@ -67,22 +89,26 @@ function AppointmentScheduler() {
             Select Doctor
           </label>
           <select
-            style={{
-              width: "200px",
-              height: "30px",
-              marginLeft: "50px",
-              borderRadius: "20px",
-              marginBottom:'10px',
-              fontSize:'13px'
-            }}
-            id="SelectDoctor"
-            class="form-select"
-          >
-            <option selected>Choose...</option>
-            <option style={{fontSize:'13px'}}>Dr.Ravindra</option>
-            <option style={{fontSize:'13px'}}>Dr.Melani</option>
-            <option style={{fontSize:'13px'}}>Dr.Kasun</option>
-          </select>
+          style={{
+            width: "200px",
+            height: "30px",
+            marginLeft: "50px",
+            borderRadius: "20px",
+            marginBottom: "10px",
+            fontSize: "13px",
+          }}
+          id="SelectDoctor"
+          className="form-select"
+        >
+          <option selected>Choose...</option>
+          {doctorNames.map((row) => ( // Change 'doctorName' to 'row' here
+    <option style={{ fontSize: "13px" }}>
+      Dr. {row.Doctor_Name}
+    </option>
+          ))}
+          
+        </select>
+
         </div>
         <div class="col-12">
           <label id="a" for="inputtype" class="form-label">

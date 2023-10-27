@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const EmployeesPopup = () => {
   const location = useLocation();
-  const manager_id = location.state && location.state.manager_id;
-  const navigate = useNavigate(); 
+  
+  const manager_id = location.state && location.state.manager_id ;
+
   const [Doctors, setDoctors] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
     Doctor_Name: '',
@@ -18,16 +19,12 @@ const EmployeesPopup = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingEmployeeId, setEditingEmployeeId] = useState(null);
 
-
-
   useEffect(() => {
-    
     fetchEmployees();
-    
   }, []);
 
   const fetchEmployees = async () => {
-    const { data, error } = await supabase.from('Doctor').select().eq('manager_id', manager_id);
+    const { data, error } = await supabase.from('Doctor').select();
     if (error) {
       console.error('Error fetching data:', error);
     } else {
@@ -51,18 +48,21 @@ const EmployeesPopup = () => {
     setIsAdding(true);
   };
 
-  const handleAddEmployee = async (e) => {
-    e.preventDefault();
+  const handleAddEmployee = async () => {
+    if (!newEmployee.Doctor_Name || !newEmployee.Department || !newEmployee.Contact || !newEmployee.Email || !newEmployee.Passward || !newEmployee.manager_id) {
+      alert('Please fill in all the required fields.');
+      return;
+    }
 
-    const { data, error } = await supabase.from('Doctor').upsert([
+    const { data, error } = await supabase.from('Doctor').insert([
       {
         Doctor_Name: newEmployee.Doctor_Name,
         Department: newEmployee.Department,
         Contact: newEmployee.Contact,
         Email: newEmployee.Email,
         Passward: newEmployee.Passward,
-        manager_id: newEmployee.manager_id
-      }
+        manager_id: newEmployee.manager_id,
+      },
     ]);
 
     if (error) {
@@ -76,14 +76,11 @@ const EmployeesPopup = () => {
         Contact: '',
         Email: '',
         Passward: '',
-        manager_id: manager_id
+        manager_id: manager_id,
       });
-
       fetchEmployees();
     }
   };
-
-  
 
   const handleDeleteEmployee = async (id) => {
     const { error } = await supabase.from('Doctor').delete().eq('id', id);
