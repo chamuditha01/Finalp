@@ -14,24 +14,38 @@ function AppointmentScheduler() {
   };
 
   useEffect(() => {
-    
     async function fetchDoctorNames() {
       const { data, error } = await supabase
-        .from("Doctor") 
-        .select("Doctor_Name"); 
-      
+        .from("Doctor")
+        .select("Doctor_Name");
+
       if (error) {
         console.error("Error fetching doctor names:", error);
       } else {
-        
-        
         setDoctorNames(data);
       }
     }
 
-    
     fetchDoctorNames();
   }, []);
+
+  async function saveAppointment(appointmentData) {
+    try {
+      const { data, error } = await supabase.from("Appointment").upsert([
+        appointmentData.data,
+        appointmentData.Description,
+        appointmentData.appointment_type
+      ]);
+
+      if (error) {
+        console.error("Error saving appointment:", error);
+      } else {
+        console.log("Appointment saved successfully:", data);
+      }
+    } catch (error) {
+      console.error("Error saving appointment:", error);
+    }
+  }
 
   const handleScheduleClick = () => {
     if (selectedDate) {
@@ -44,12 +58,22 @@ function AppointmentScheduler() {
         hour12: true,
       });
 
+      // Collect appointment data
+      const appointmentData = {
+        date: selectedDate,
+        Description: document.getElementById("description").value,
+        doctor: document.getElementById("SelectDoctor").value,
+        appointment_type: document.getElementById("SelectType").value,
+      };
+
+      // Save the appointment data to Supabase
+      saveAppointment(appointmentData);
+
       window.alert(
         `You have scheduled the appointment for: ${formattedDate}. Appointment submitted successfully! You will receive a message shortly confirming the scheduled time.`
       );
 
       setSelectedDate(null);
-
       setShowConfirmation(true);
     } else {
       window.alert("Please select a date and time for the appointment.");
@@ -63,8 +87,6 @@ function AppointmentScheduler() {
       <label id="a">Select Appointment Date:</label>
       <br></br>
       <DatePicker
-      
-    
         selected={selectedDate}
         onChange={handleDateChange}
         showTimeSelect
@@ -77,18 +99,28 @@ function AppointmentScheduler() {
         Selected Date:{" "}
         {selectedDate ? selectedDate.toString() : "No date selected"}
       </p>
-      <label id="a" for="description">Description:</label>
-        <textarea style={{width: "200px",
-              height: "30px",
-              marginLeft: "50px",
-              
-              marginBottom:'10px'}}id="description" class="form-control" name="description" rows="4" cols="50"></textarea>
+      <label id="a" htmlFor="description">
+        Description:
+      </label>
+      <textarea
+        style={{
+          width: "200px",
+          height: "30px",
+          marginLeft: "50px",
+          marginBottom: "10px",
+        }}
+        id="description"
+        className="form-control"
+        name="description"
+        rows="4"
+        cols="50"
+      ></textarea>
 
-      <div class="col-12">
-          <label id="a" for="inputtype" class="form-label">
-            Select Doctor
-          </label>
-          <select
+      <div className="col-12">
+        <label id="a" htmlFor="SelectDoctor" className="form-label">
+          Select Doctor
+        </label>
+        <select
           style={{
             width: "200px",
             height: "30px",
@@ -101,37 +133,34 @@ function AppointmentScheduler() {
           className="form-select"
         >
           <option selected>Choose...</option>
-          {doctorNames.map((row) => ( // Change 'doctorName' to 'row' here
-    <option style={{ fontSize: "13px" }}>
-      Dr. {row.Doctor_Name}
-    </option>
+          {doctorNames.map((row) => (
+            <option style={{ fontSize: "13px" }} key={row.Doctor_Name}>
+              Dr. {row.Doctor_Name}
+            </option>
           ))}
-          
         </select>
-
-        </div>
-        <div class="col-12">
-          <label id="a" for="inputtype" class="form-label">
-            Select Type
-          </label>
-          <select
-            style={{
-              width: "200px",
-              height: "30px",
-              marginLeft: "50px",
-              borderRadius: "20px",
-              marginBottom:'10px',
-              fontSize:'13px'
-            }}
-            id="SelectDoctor"
-            class="form-select"
-          >
-            <option selected>Choose...</option>
-            <option style={{fontSize:'13px'}}>Clinic</option>
-            <option style={{fontSize:'13px'}}>Home Visit</option>
-            
-          </select>
-        </div>
+      </div>
+      <div className="col-12">
+        <label id="a" htmlFor="SelectType" className="form-label">
+          Select Type
+        </label>
+        <select
+          style={{
+            width: "200px",
+            height: "30px",
+            marginLeft: "50px",
+            borderRadius: "20px",
+            marginBottom: "10px",
+            fontSize: "13px",
+          }}
+          id="SelectType"
+          className="form-select"
+        >
+          <option selected>Choose...</option>
+          <option style={{ fontSize: "13px" }}>Clinic</option>
+          <option style={{ fontSize: "13px" }}>Home Visit</option>
+        </select>
+      </div>
       <div className="col-12">
         <button
           style={{
@@ -149,8 +178,6 @@ function AppointmentScheduler() {
           Schedule
         </button>
       </div>
-
-      
     </div>
   );
 }

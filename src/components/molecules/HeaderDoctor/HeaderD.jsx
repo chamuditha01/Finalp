@@ -7,36 +7,43 @@ import NavbarDoctor from "../NavbarDoctor";
 import AutoRotatableCard from '../../atoms/rotate';
 import headerb from './cbak1.jpg';
 import DoctorNot from '../../atoms/DoctorNot';
-
+import supabase from "../../../lib/helper/superbaseClient";
+import { useState,useEffect} from "react";
+import { useLocation } from "react-router-dom";
 
 const HeaderDoctor = () => {
+  const location = useLocation();
+  const docid1 = location.state && location.state.docid;
+  const [appointments, setAppointments] = useState([]);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  
+  const fetchAppointments = async () => {
+    try {
+      const { data, error } = await supabase.from("Appointment").select("date, Description, appointment_type").eq('Doctor_id', docid1);
+      if (error) {
+        alert("Error fetching appointments:", error);
+      } else {
+        setAppointments(data);
+      }
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+    }
+  };
 
-  const appointments = [
-    {
-        no: "Appointment 1",
-        head: "Leg Issue",
-        cont: "Leg issue due to accident",
-        time: "2023/08/10 12:45"
-    },
-    {
-        no: "Appointment 2",
-        head: "Mouth Issue",
-        cont: "Mouth issue due to accident",
-        time: "2023/08/10 12:45"
-    },
-    {
-        no: "Appointment 3",
-        head: "Eye Issue",
-        cont: "Eye issue due to accident",
-        time: "2023/08/10 12:45"
-    },
-    {
-      no: "Appointment 4",
-      head: "Eye Issue",
-      cont: "Eye issue due to accident",
-      time: "2023/08/10 12:45"
-  }
-];
+  
+  const openPopup = (appointment) => {
+    setSelectedAppointment(appointment);
+  };
+
+  // Function to close the pop-up
+  const closePopup = () => {
+    setSelectedAppointment(null);
+  };
+
+  
+  React.useEffect(() => {
+    fetchAppointments();
+  }, []);
 
 const numberOfAppointments = appointments.length;
 
@@ -83,14 +90,21 @@ const numberOfAppointments = appointments.length;
             
             
             {appointments.map((appointment, index) => (
-                <DoctorNot
-                    key={index}
-                    no={appointment.no}
-                    head={appointment.head}
-                    cont={appointment.cont}
-                    time={appointment.time}
-                />
-            ))}
+        <DoctorNot
+          key={index}
+          no={appointment.date}
+          cont={appointment.Description}
+          time={appointment.appointment_type}
+          onClick={() => openPopup(appointment)}
+        />
+      ))}
+
+      {selectedAppointment && (
+        <DoctorNot
+          appointment={selectedAppointment}
+          onClose={closePopup}
+        />
+      )}
         </div>
           </div>
           
