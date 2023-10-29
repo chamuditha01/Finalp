@@ -12,7 +12,7 @@ const PetOwnersPopup = () => {
     phone: '',
     email: '',
     password: '',
-    Manager_id : '',
+    Manager_id : '1',
     userId:''
   });
   const [isAdding, setIsAdding] = useState(false);
