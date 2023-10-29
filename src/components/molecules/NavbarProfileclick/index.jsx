@@ -12,13 +12,12 @@ function NavbarProfileclick() {
   const navigate = useNavigate(); 
   const location = useLocation();
   const userId = location.state && location.state.userId;
-
+  const PetId = location.state && location.state.PetId;
   
 
   const handleProfileClick = () => {
     
     navigate('/Profile', { state: { userId } });
-    
   };
   const handleProfileClic = () => {
     

@@ -27,8 +27,16 @@ const HeaderPetDashboard = () => {
     try {
       const { data, error } = await supabase
         .from('Pet_Profile') 
-        .select('Pet_Name')
+        .select('Pet_Profile_id,Pet_Name')
         .eq('Pet_owner_id', userId);
+
+
+        const PetD = data.map((pet) => ({
+                petName: pet.Pet_Name,
+                petId: pet.Pet_Profile_id,
+
+                
+              }));
 
       if (error) {
         alert('Error fetching pet names:', error);
@@ -41,16 +49,19 @@ const HeaderPetDashboard = () => {
       }
       
 
-      const Pet_Name = data.map((pet) => pet.Pet_Name);
-      setDropdownItems(Pet_Name);
+      
+      setDropdownItems(PetD);
     } catch (error) {
       alert('Error fetching pet names:', error);
     }
   };
 
   useEffect(() => {
+    
+  
     if (userId) {
       fetchPetNames();
+      
     }
   }, [userId]);
 
@@ -58,9 +69,14 @@ const HeaderPetDashboard = () => {
   const handlePetSelect = (event) => {
     setSelectedPet(event.target.value);
   };
-  const handleProfileClick = () => {
-    
-    navigate('/ClickProfile', { state: { userId } });
+
+  const handleProfileClick = (PetId) => {
+    if (userId !== undefined) {
+      alert(`User ID: ${PetId}`);
+    } else {
+      alert('No user ID found.');
+    }
+    navigate('/ClickProfile', { state: { PetId,userId} });
     
   };
   
@@ -168,10 +184,11 @@ const HeaderPetDashboard = () => {
                     
               
              <ul class="dropdown-menu">
-                      {dropdownItems.map((petName, index) => (
-                        <li key={index} value={petName}>
-                          <a class="dropdown-item" style={{cursor:'pointer'}}  onClick={handleProfileClick}>
-                            {petName}
+                      {dropdownItems.map((pet, index) => (
+                        <li key={index} value={pet.petName}>
+                          <a class="dropdown-item" style={{cursor:'pointer'}} onClick={() => handleProfileClick(pet.petId)}
+>
+                            {pet.petName}
                           </a>
                         </li>
                       ))}

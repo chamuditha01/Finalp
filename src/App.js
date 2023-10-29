@@ -34,6 +34,7 @@ import Homeother from "./pages/Petshop/PAGES/Otheritems/Otheritemsproducts";
 import Homeshop from "./pages/Petshop/PAGES/HomePage/Home";
 import { RecoilRoot } from "recoil";
 import Notify from "./components/molecules/Notification";
+import HeaderPetDashboard from "./components/molecules/HeaderPetDashboard/Header";
 
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/service" element={<Service />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<HeaderPetDashboard/>} />
               <Route path="/navbarprofile" element={<Navbarprofile />} />
               <Route path="/Manager" element={<Manager />} />
               <Route path="/petshop" element={<Petshop />} />

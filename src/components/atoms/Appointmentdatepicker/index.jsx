@@ -3,11 +3,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.css";
 import supabase from "../../../lib/helper/superbaseClient";
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 function AppointmentScheduler() {
   const [doctorNames, setDoctorNames] = useState([]);
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const location = useLocation();
+  const PetId = location.state && location.state.PetId;
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -17,10 +23,10 @@ function AppointmentScheduler() {
     async function fetchDoctorNames() {
       const { data, error } = await supabase
         .from("Doctor")
-        .select("Doctor_Name");
+        .select("id,Doctor_Name");
 
       if (error) {
-        console.error("Error fetching doctor names:", error);
+        alert("Error fetching doctor names:", error);
       } else {
         setDoctorNames(data);
       }
@@ -32,18 +38,24 @@ function AppointmentScheduler() {
   async function saveAppointment(appointmentData) {
     try {
       const { data, error } = await supabase.from("Appointment").upsert([
-        appointmentData.data,
-        appointmentData.Description,
-        appointmentData.appointment_type
+        
+          {
+            date: appointmentData.date,
+            Description: appointmentData.Description,
+            appointment_type: appointmentData.appointment_type,
+            Pet_Id: appointmentData.Pet_Id,
+            Doctor_id:appointmentData.doctor
+          }
+        
       ]);
 
       if (error) {
-        console.error("Error saving appointment:", error);
+        alert("Error saving appointment:", error);
       } else {
-        console.log("Appointment saved successfully:", data);
+        alert("Appointment saved successfully:", data);
       }
     } catch (error) {
-      console.error("Error saving appointment:", error);
+      alert("Error saving appointment:", error);
     }
   }
 
@@ -53,9 +65,7 @@ function AppointmentScheduler() {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
+        
       });
 
       // Collect appointment data
@@ -64,6 +74,7 @@ function AppointmentScheduler() {
         Description: document.getElementById("description").value,
         doctor: document.getElementById("SelectDoctor").value,
         appointment_type: document.getElementById("SelectType").value,
+        Pet_Id:PetId
       };
 
       // Save the appointment data to Supabase
@@ -121,24 +132,32 @@ function AppointmentScheduler() {
           Select Doctor
         </label>
         <select
-          style={{
-            width: "200px",
-            height: "30px",
-            marginLeft: "50px",
-            borderRadius: "20px",
-            marginBottom: "10px",
-            fontSize: "13px",
-          }}
-          id="SelectDoctor"
-          className="form-select"
-        >
-          <option selected>Choose...</option>
-          {doctorNames.map((row) => (
-            <option style={{ fontSize: "13px" }} key={row.Doctor_Name}>
-              Dr. {row.Doctor_Name}
-            </option>
-          ))}
-        </select>
+  style={{
+    width: "200px",
+    height: "30px",
+    marginLeft: "50px",
+    borderRadius: "20px",
+    marginBottom: "10px",
+    fontSize: "13px",
+  }}
+  id="SelectDoctor"
+  className="form-select"
+  onChange={(e) => setSelectedDoctorId(e.target.value)}
+  value={selectedDoctorId}
+>
+  <option value="" disabled>
+    Choose...
+  </option>
+  {doctorNames.map((row) => (
+    <option
+      style={{ fontSize: "13px" }}
+      key={row.id} // Assuming 'id' is the doctor's ID in the data
+      value={row.id}
+    >
+      Dr. {row.Doctor_Name}
+    </option>
+  ))}
+</select>
       </div>
       <div className="col-12">
         <label id="a" htmlFor="SelectType" className="form-label">
