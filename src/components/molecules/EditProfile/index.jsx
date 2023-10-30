@@ -1,53 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import img3 from './peakpx.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import NavbarProfileclick from '../NavbarProfileclick';
 import bg from './peakpx.jpg';
-import Footer from '../Footer/Footer';
+import { useLocation, useNavigate } from 'react-router-dom';
+import supabase from '../../../lib/helper/superbaseClient';
 
 const EditProfile = () => {
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const PetId = location.state && location.state.PetId;
   const [profileImage, setProfileImage] = useState(img3);
-  const [petName, setPetName] = useState('Jessy');
-  const [petAge, setPetAge] = useState(3);
-  const [petBreed, setPetBreed] = useState('German shepard');
+  const [petName, setPetName] = useState('');
+  const [petAge, setPetAge] = useState(0);
+  const [petBreed, setPetBreed] = useState('unknown');
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const reader = new FileReader();
+  useEffect(() => {
+    const fetchPetProfileData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Pet_Profile')
+          .select('Pet_Name', 'Pet_Breed',  'Pet_Age')
+          .eq('Pet_Profile_id', PetId)
+          .single();
 
-      reader.onload = (e) => {
-        setProfileImage(e.target.result);
-      };
+       
 
-      reader.readAsDataURL(selectedFile);
-    }
-  };
+        if (error) {
+          alert('Error fetching pet profile data:', error);
+          return;
+        }
 
-  const handlePetNameChange = (event) => {
-    setPetName(event.target.value);
-  };
-  const handlePetNBreedChange = (event) => {
-    setPetBreed(event.target.value);
-  };
+        if (data) {
+          setPetName(data.Pet_Name);
+          setPetAge(data.Pet_Age);
+          setPetBreed(data.Pet_Breed || 'Unknown Breed'); 
+        }
+      } catch (error) {
+        alert('Error fetching pet profile data:', error);
+      }
+    };
 
-  const handlePetAgeChange = (event) => {
-    setPetAge(event.target.value);
-  };
+    fetchPetProfileData();
+  }, [PetId]);
 
   return (
-    <div style={{
-      background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${bg}) center/cover no-repeat`,
-      margin: "0px",
-    }}>
-      <NavbarProfileclick/>
+    <div
+      style={{
+        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url(${bg}) center/cover no-repeat`,
+        margin: '0px',
+      }}
+    >
+      <NavbarProfileclick />
       <h1 id="h1pro">Edit Profile</h1>
       <div className="pro1">
         <img
-
           style={{
             borderRadius: '50px',
             width: '100px',
@@ -58,57 +67,82 @@ const EditProfile = () => {
             borderStyle: 'solid',
             borderWidth: '2px',
             borderColor: 'grey',
-            boxShadow:'inherit'
+            boxShadow: 'inherit',
           }}
           src={profileImage}
           alt="Profile"
         />
 
-        <label htmlFor="fileInput" className="camera-icon" style={{ marginLeft: '49%', cursor: 'pointer' }}>
+        <label
+          htmlFor="fileInput"
+          className="camera-icon"
+          style={{ marginLeft: '49%', cursor: 'pointer' }}
+        >
           <FontAwesomeIcon icon={faCamera} />
         </label>
-        <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
+        <input type="file" accept="image/*" id="fileInput" style={{ display: 'none' }} />
         <br></br>
         <hr className="divider" />
-        <label id="l1">Pet Name</label><br></br>
-        <input
-          id="i11"
-          type="text"
-          defaultValue={petName}
-          onChange={handlePetNameChange} 
-          
-        ></input><br></br>
+        <label id="l1">Pet Name</label>
+        <br></br>
+        <input id="i11" type="text" value={petName} onChange={(e) => setPetName(e.target.value)} />
+        <br></br>
         <label id="l1">Pet Type</label>
-        <select  id="i11" class="form-select" defaultValue="Dog">
+        <select id="i11" className="form-select" defaultValue="Dog">
           <option selected>Choose...</option>
           <option>Dog</option>
           <option>Cat</option>
           <option>Other</option>
         </select>
-        
-        <label id="l1">Pet Breed</label><br></br>
-        <input
-        id="i11"
-          type="text"
-          defaultValue={petBreed}
-          onChange={handlePetNBreedChange} 
-          
-        ></input><br></br>
 
-        <div class="col-12">
-    <label for="inputage" id="l" class="form-label">Age</label>
-    <input id="i11" type="number" defaultValue={petAge}
-          onChange={handlePetAgeChange}  class="form-control" ></input>
-  
-  </div>
-  <div class="col-12">
-    <a href="/EditProfile"><button style={{height:'50px',width:'100px',borderRadius:'20px',fontSize:'12px',marginBottom:'10px',fontStyle:'italic'}} type="submit"  class="btn btn-primary" >Update</button>
-  </a></div>
-      </div><br></br><br></br><br></br><br></br>
+        <label id="l1">Pet Breed</label>
+        <br></br>
+        <input
+          id="i11"
+          type="text"
+          value={petBreed}
+          onChange={(e) => setPetBreed(e.target.value)}
+        />
+        <br></br>
+
+        <div className="col-12">
+          <label htmlFor="inputage" id="l" className="form-label">
+            Age
+          </label>
+          <input
+            id="i11"
+            type="number"
+            value={petAge}
+            onChange={(e) => setPetAge(e.target.value)}
+            className="form-control"
+          />
+        </div>
+        <div className="col-12">
+          <a href="/EditProfile">
+            <button
+              style={{
+                height: '50px',
+                width: '100px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                marginBottom: '10px',
+                fontStyle: 'italic',
+              }}
+              type="submit"
+              className="btn btn-primary"
+            >
+              Update
+            </button>
+          </a>
+        </div>
+      </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
-    
   );
 };
 
 export default EditProfile;
-
