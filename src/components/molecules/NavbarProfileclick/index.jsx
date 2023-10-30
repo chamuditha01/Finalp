@@ -21,7 +21,7 @@ function NavbarProfileclick() {
   };
   const handleProfileClic = () => {
     
-    navigate('/EditProfile', { state: { userId } });
+    navigate('/EditProfile', { state: { PetId,userId } });
     
   };
   

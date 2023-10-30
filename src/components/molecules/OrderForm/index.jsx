@@ -73,6 +73,18 @@ function PopupForm() {
               }}
               className="row g-3"
             >
+              
+              <h3 style={{ textAlign: "center", marginTop: "20px" }}>
+                Select a Date
+              </h3>
+              
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="dd/MM/yyyy"
+                minDate={new Date()}
+                isClearable
+              />
               <h3
                 style={{
                   textAlign: "center",
@@ -102,16 +114,7 @@ function PopupForm() {
                 ))}
               </div>
 
-              <h3 style={{ textAlign: "center", marginTop: "20px" }}>
-                Select a Date
-              </h3>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                dateFormat="dd/MM/yyyy"
-                minDate={new Date()}
-                isClearable
-              />
+              
 
               <center>
                 <div className="col-12">

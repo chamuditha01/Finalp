@@ -44,7 +44,8 @@ function AppointmentScheduler() {
             Description: appointmentData.Description,
             appointment_type: appointmentData.appointment_type,
             Pet_Id: appointmentData.Pet_Id,
-            Doctor_id:appointmentData.doctor
+            Doctor_id:appointmentData.doctor,
+            
           }
         
       ]);
@@ -68,16 +69,17 @@ function AppointmentScheduler() {
         
       });
 
-      // Collect appointment data
+      
       const appointmentData = {
         date: selectedDate,
         Description: document.getElementById("description").value,
         doctor: document.getElementById("SelectDoctor").value,
         appointment_type: document.getElementById("SelectType").value,
         Pet_Id:PetId
+        
       };
 
-      // Save the appointment data to Supabase
+      
       saveAppointment(appointmentData);
 
       window.alert(
@@ -90,6 +92,8 @@ function AppointmentScheduler() {
       window.alert("Please select a date and time for the appointment.");
     }
   };
+  const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
 
   return (
     <div className="shed">
@@ -105,6 +109,7 @@ function AppointmentScheduler() {
         timeIntervals={15}
         dateFormat="yyyy-MM-dd h:mm aa"
         timeCaption="Time"
+        minDate={tomorrow}
       />
       <p id="a">
         Selected Date:{" "}
@@ -145,13 +150,13 @@ function AppointmentScheduler() {
   onChange={(e) => setSelectedDoctorId(e.target.value)}
   value={selectedDoctorId}
 >
-  <option value="" disabled>
+  <option value="" >
     Choose...
   </option>
   {doctorNames.map((row) => (
     <option
       style={{ fontSize: "13px" }}
-      key={row.id} // Assuming 'id' is the doctor's ID in the data
+      key={row.id} 
       value={row.id}
     >
       Dr. {row.Doctor_Name}
