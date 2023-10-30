@@ -6,11 +6,13 @@ import AppointmentPopup from './AppointmentPopup';
 import Docpopup from './Docpopup';
 import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
+import VaccinationsPopup from './Vaccinations';
 import Petownerpopup from './Petownerpopup'; 
 import './dt.css';
 import { GiClick } from 'react-icons/gi';
 import { BsCalendar2Date } from 'react-icons/bs';
 import { FaStethoscope, FaDog } from 'react-icons/fa';
+import { TbVaccineOff } from 'react-icons/tb';
 import { PiDogFill } from 'react-icons/pi';
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
@@ -92,12 +94,21 @@ function Home11() {
           </div>
           <h1>42</h1>
         </div>
+        <div className='card card-blue'>
+          <div className='card-inner'>
+            <a href="#" className='h3' onClick={() => togglePopup('VaccinationsPopup')}>Vaccinations reminder<GiClick className='card_icon' /></a>
+            <TbVaccineOff className='card_icon' />
+          </div>
+          <h1>42</h1>
+        </div>
       </div>
 
       {popupOpen === 'Appointment' && <AppointmentPopup />}
       {popupOpen === 'DocPopup' && <Docpopup />}
       {popupOpen === 'CagePopup' && <Cagepopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
+      {popupOpen === 'VaccinationsPopup' && <VaccinationsPopup />}
+
 
       {popupOpen === 'PetownerPopup' && <Petownerpopup />}
 

@@ -207,6 +207,9 @@ table th {
     padding: 5px;
   }
 }
+.card-blue {
+  background-color: rgb(0, 251, 255); /* Change 'blue' to your desired color */
+}
 
 @media (max-width: 480px) {
   .table-title h2 {
