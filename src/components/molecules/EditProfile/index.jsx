@@ -17,31 +17,31 @@ const EditProfile = () => {
   const [petAge, setPetAge] = useState(0);
   const [petBreed, setPetBreed] = useState('unknown');
 
+const fetchPetProfileData = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('Pet_Profile')
+      .select('Pet_Name', 'Breed', 'Pet_Age')
+      .eq('Pet_Profile_id', PetId)
+      .single();
+
+    if (error) {
+      alert('Error fetching pet profile data:', error);
+      return;
+    }
+
+    if (data) {
+      setPetName(data.Pet_Name);
+      setPetAge(data.Pet_Age);
+      setPetBreed(data.Breed || 'Unknown Breed');
+    }
+  } catch (error) {
+    alert('Error fetching pet profile data:', error);
+  }
+};
+
   useEffect(() => {
-    const fetchPetProfileData = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('Pet_Profile')
-          .select('Pet_Name', 'Pet_Breed',  'Pet_Age')
-          .eq('Pet_Profile_id', PetId)
-          .single();
-
-       
-
-        if (error) {
-          alert('Error fetching pet profile data:', error);
-          return;
-        }
-
-        if (data) {
-          setPetName(data.Pet_Name);
-          setPetAge(data.Pet_Age);
-          setPetBreed(data.Pet_Breed || 'Unknown Breed'); 
-        }
-      } catch (error) {
-        alert('Error fetching pet profile data:', error);
-      }
-    };
+    
 
     fetchPetProfileData();
   }, [PetId]);

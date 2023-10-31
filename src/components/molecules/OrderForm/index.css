@@ -21,15 +21,17 @@
     background-color: #0000f6; 
     color: rgb(255, 255, 255);
     border: 1px solid #00d5ff;
-     
   }
 
+  
 .container{
   display: flex;
-  flex-direction: row;
-  margin-top: -4px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
  .c1{
+  flex: 0 0 calc(25% - 10px);
+  margin: 5px;
   width: 20px;
   height: 20px;
   text-align: center;
@@ -37,6 +39,7 @@
   border-width: 1px;
   border-style: solid;
   padding: 1px;
+  cursor: pointer;
  }
 #b2{
   width: 70px;

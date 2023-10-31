@@ -42,13 +42,8 @@ const HeaderPetDashboard = () => {
         alert('Error fetching pet names:', error);
         return;
       }
-      if (userId !== undefined) {
-        alert(`User ID: ${userId}`);
-      } else {
-        alert('No user ID found.');
-      }
       
-
+      
       
       setDropdownItems(PetD);
     } catch (error) {
@@ -71,11 +66,7 @@ const HeaderPetDashboard = () => {
   };
 
   const handleProfileClick = (PetId) => {
-    if (userId !== undefined) {
-      alert(`User ID: ${PetId}`);
-    } else {
-      alert('No user ID found.');
-    }
+    
     navigate('/ClickProfile', { state: { PetId,userId} });
     
   };

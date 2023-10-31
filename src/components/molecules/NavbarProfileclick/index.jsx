@@ -6,6 +6,9 @@ import per from './dog.png'
 import Menu from "../../atoms/MenuItems";
 import PopupForm from "../OrderForm";
 import { useLocation,useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import supabase from "../../../lib/helper/superbaseClient";
+import { useState } from "react";
 
 
 function NavbarProfileclick() {
@@ -13,7 +16,31 @@ function NavbarProfileclick() {
   const location = useLocation();
   const userId = location.state && location.state.userId;
   const PetId = location.state && location.state.PetId;
+  const [petName, setPetName] = useState('');
   
+
+  useEffect(() => {
+    if (PetId) {
+     
+      async function fetchPetName() {
+        const { data, error } = await supabase
+          .from('Pet_Profile')
+          .select('Pet_Name')
+          .eq('Pet_Profile_id', PetId)
+          .single();
+
+        if (error) {
+          console.error('Error fetching pet name:', error);
+        } else {
+          if (data) {
+            setPetName(data.Pet_Name);
+          }
+        }
+      }
+
+      fetchPetName();
+    }
+  }, [PetId]);
 
   const handleProfileClick = () => {
     
@@ -71,6 +98,14 @@ function NavbarProfileclick() {
                 </ul>
               </li>
             </ul>
+
+            {petName && (
+        <div style={{color:'white',fontSize:'20px',fontWeight:'bold'}} class="nav-link active">
+          Pet Name: {petName}
+        </div>
+      )}
+
+      
             <ul className="navbar-nav mb-2 mb-lg-0 right">
              
               
@@ -87,7 +122,7 @@ function NavbarProfileclick() {
                   <li><a class="dropdown-item" style={{cursor:'pointer'}}   onClick={handleProfileClic}>Profile</a></li>
                   
                   <li><hr class="dropdown-divider"></hr></li>
-                  <li><a class="dropdown-item" href="/Profile">log out</a></li>
+                  <li><a class="dropdown-item" href="/Profile" onClick={handleProfileClick}>log out</a></li>
                 </ul>
               </div>
               
