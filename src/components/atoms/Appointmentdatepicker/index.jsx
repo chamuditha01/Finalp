@@ -12,8 +12,10 @@ function AppointmentScheduler() {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [CustomerAddress, setCustomerAddress] = useState(null);
   const location = useLocation();
   const PetId = location.state && location.state.PetId;
+  const userId = location.state && location.state.userId;
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -31,32 +33,108 @@ function AppointmentScheduler() {
         setDoctorNames(data);
       }
     }
-
+fetchCustomerAddress();
     fetchDoctorNames();
   }, []);
 
   async function saveAppointment(appointmentData) {
     try {
+     
       const { data, error } = await supabase.from("Appointment").upsert([
-        
-          {
-            date: appointmentData.date,
-            Description: appointmentData.Description,
-            appointment_type: appointmentData.appointment_type,
-            Pet_Id: appointmentData.Pet_Id,
-            Doctor_id:appointmentData.doctor,
-            
-          }
-        
+        {
+          date: appointmentData.date,
+          Description: appointmentData.Description,
+          appointment_type: appointmentData.appointment_type,
+          Pet_Id: appointmentData.Pet_Id,
+          Doctor_id: appointmentData.doctor,
+        },
       ]);
-
+  
       if (error) {
         alert("Error saving appointment:", error);
       } else {
-        alert("Appointment saved successfully:", data);
+        alert("Appointment saved successfully.");
+  
+        const { data: lastInsertedRecord, error: lastInsertedError } = await supabase
+          .from("Appointment")
+          .select("Appointment_id")
+          .order("Appointment_id", { ascending: false })
+          .limit(1);
+  
+        if (lastInsertedError) {
+          alert("Error fetching the last inserted ID:", lastInsertedError);
+        } else {
+          const insertedAppointmentId = lastInsertedRecord[0].Appointment_id;
+          alert("Last inserted ID:", insertedAppointmentId);
+  
+          if (appointmentData.appointment_type === "Clinic") {
+            
+            insertIntoClinicVisit(insertedAppointmentId);
+          }
+          else{
+            insertIntoHomevisit(insertedAppointmentId);
+            
+          }
+        }
       }
     } catch (error) {
       alert("Error saving appointment:", error);
+    }
+  }
+
+  async function fetchCustomerAddress() {
+    const { data, error } = await supabase
+      .from("Customer")
+      .select("address")
+      .eq("Customer_id", userId)
+      .single(); 
+
+    if (error) {
+      alert("Error fetching customer address:", error);
+    } else {
+      setCustomerAddress(data.address);
+      alert(CustomerAddress)
+    }
+  }
+
+
+
+  async function insertIntoClinicVisit(insertedAppointmentId) {
+    try {
+      const { data, error } = await supabase.from("Clinic_Visit").upsert([
+        {
+          Clinic_Visit_id: insertedAppointmentId
+          
+          
+        },
+      ]);
+  
+      if (error) {
+        alert("Error inserting into Clinic Visit:", error);
+      } else {
+        alert("Inserted into Clinic Visit successfully:", data);
+      }
+    } catch (error) {
+      alert("Error inserting into Clinic Visit:", error);
+    }
+  }
+
+  async function insertIntoHomevisit(insertedAppointmentId) {
+    try {
+      const { data, error } = await supabase.from("Home_Visit").upsert([
+        {
+          Home_Visit_id: insertedAppointmentId, 
+          location: CustomerAddress 
+        },
+      ]);
+  
+      if (error) {
+        alert("Error inserting into Clinic Visit:", error);
+      } else {
+        alert("Inserted into Clinic Visit successfully:", data);
+      }
+    } catch (error) {
+      alert("Error inserting into Clinic Visit:", error);
     }
   }
 

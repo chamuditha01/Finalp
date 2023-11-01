@@ -54,18 +54,16 @@ const ProductCard = ({ data }) => {
   return (
     <div className='product'>
       <div className='s1'>
-        <img src={data.ProductImage[0].image} alt={'no img'} />
+      <img src={data.image} alt={data.name} />
       </div>
       <div className='s2'>
         <h3>
           $ {
-            data.ProductPrice - (data.ProductPrice * data.ProductDiscount / 100)
+            data.phone 
           }
-          <span>${data.ProductPrice}</span>
+          
         </h3>
-        <p>{
-          data.ProductName
-        }</p>
+        <h3>{data.name}</h3>
       </div>
       <div className='s3'>
         <p>{data.counttype}</p>
@@ -122,4 +120,4 @@ const ProductCard = ({ data }) => {
   )
 }
 
-export default ProductCard
+export default ProductCard;

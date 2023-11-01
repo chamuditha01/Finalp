@@ -104,7 +104,7 @@ const Login = () => {
             // Step 4: Find the password for the Customer based on customerId2
             const { data: passwordData, error: passwordError } = await supabase
               .from('Customer')
-              .select('Customer_id', 'password') 
+              .select('Customer_id, password') 
               .eq('Customer_id', customerId2);
   
             if (passwordError) {
@@ -115,7 +115,7 @@ const Login = () => {
             if (passwordData && passwordData.length > 0) {
               const customerPassword = passwordData[0].password;
               const userId = passwordData[0].Customer_id; 
-              if (customerPassword === newEmployee.Passward,userId) {
+              if (customerPassword === newEmployee.Passward) {
                 navigate('/Profile', { state: { userId } });
                 
               } else {
@@ -143,7 +143,7 @@ const Login = () => {
     try {
       const { data, error } = await supabase
         .from('Doctor')
-        .select('id','Passward')
+        .select('id,Passward')
         .eq('Email', newEmployee.Email); 
   
       if (error) {
@@ -154,7 +154,7 @@ const Login = () => {
       if (data && data.length > 0) {
         const pass = data[0].Passward;
         const docid = data[0].id;
-        if(pass===newEmployee.Passward,docid){
+        if(pass===newEmployee.Passward){
           navigate('/DoctorPage', { state: { docid } });
         }
         else{
@@ -174,7 +174,7 @@ const Login = () => {
     try {
       const { data, error } = await supabase
         .from('Manager')
-        .select('Manager_id','Passward')
+        .select('Manager_id,Passward')
         .eq('Email', newEmployee.Email); 
   
       if (error) {
@@ -185,7 +185,7 @@ const Login = () => {
       if (data && data.length > 0) {
         const pass = data[0].Passward;
         const manager_id = data[0].Manager_id; 
-        if(pass===newEmployee.Passward,manager_id){
+        if(pass===newEmployee.Passward){
           navigate('/Manager', { state: { manager_id } });
         }
         else{
