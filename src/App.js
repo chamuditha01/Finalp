@@ -33,7 +33,7 @@ import Homedog from "./pages/Petshop/PAGES/Dogitems/Dogitemsproducts";
 import Homeother from "./pages/Petshop/PAGES/Otheritems/Otheritemsproducts";
 import Homeshop from "./pages/Petshop/PAGES/HomePage/Home";
 import { RecoilRoot } from "recoil";
-import Notify from "./components/molecules/Notification";
+import Notify, { ContactUs } from "./components/molecules/Notification";
 import HeaderPetDashboard from "./components/molecules/HeaderPetDashboard/Header";
 
 
@@ -75,7 +75,7 @@ function App() {
               <Route path="/Homecat" element={<Homecat />} />
               <Route path="/Homeother" element={<Homeother />} />
               <Route path="/Homedog" element={<Homedog />} />
-              <Route path="/Notify" element={<Notify/>}/>
+              <Route path="/Notify" element={<ContactUs/>}/>
             </Routes>
           </BrowserRouter>
         </RecoilRoot>
