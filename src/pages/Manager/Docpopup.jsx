@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../lib/helper/superbaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
+import emailjs from 'emailjs-com';
+
 
 const EmployeesPopup = () => {
   const location = useLocation();
@@ -30,9 +32,9 @@ const EmployeesPopup = () => {
     } else {
       setDoctors(data);
       if (manager_id !== undefined) {
-        alert(`manager ID: ${manager_id}`);
+        
       } else {
-        alert('No user ID found.');
+        
       }
     }
   };
@@ -49,7 +51,7 @@ const EmployeesPopup = () => {
   };
 
   const handleAddEmployee = async () => {
-    if (!newEmployee.Doctor_Name || !newEmployee.Department || !newEmployee.Contact || !newEmployee.Email || !newEmployee.Passward || !newEmployee.manager_id) {
+    if (!newEmployee.Doctor_Name || !newEmployee.Department || !newEmployee.Contact || !newEmployee.Email || !newEmployee.Passward ) {
       alert('Please fill in all the required fields.');
       return;
     }
@@ -78,6 +80,20 @@ const EmployeesPopup = () => {
         Passward: '',
         manager_id: manager_id,
       });
+      const emailParams = {
+        to_email: newEmployee.Email,
+        subject: 'Welcome to Pet Owner Portal',
+        message: `Welcome to Doctor Acoount! Your Passward is: ${newEmployee.Passward}`,
+        email: `Welcome to  Doctor Acoount! Your email is: ${newEmployee.Email}`
+      };
+    
+      emailjs.send('service_4cqizvz', 'template_2w4oxbd', emailParams, 'A0ZPR861WjTOAyAZq')
+        .then((result) => {
+          alert(result.text);
+        })
+        .catch((error) => {
+          alert(error.text);
+        });
       fetchEmployees();
     }
   };
@@ -92,7 +108,7 @@ const EmployeesPopup = () => {
   };
   return (
     <div>
-      <h1 className="h1">Employees</h1>
+      <h1 className="h1">Doctors</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">

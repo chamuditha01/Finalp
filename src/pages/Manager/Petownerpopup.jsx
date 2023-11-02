@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../../lib/helper/superbaseClient';
 import { useLocation } from 'react-router-dom';
+import  { useRef } from 'react';
+import emailjs from 'emailjs-com';
+
 
 const PetOwnersPopup = () => {
   const location = useLocation();
@@ -60,9 +63,9 @@ const PetOwnersPopup = () => {
         ]);
   
         if (upsertError) {
-          alert('Error inserting data into Pet_Owner1:', upsertError);
+          console('Error inserting data into Pet_Owner1:', upsertError);
         } else {
-          alert('Data inserted successfully into Pet_Owner1:', upsertData);
+          console('Data inserted successfully into Pet_Owner1:', upsertData);
         }
       } else {
         alert('User not found with the provided email.');
@@ -82,27 +85,51 @@ const PetOwnersPopup = () => {
       newPetOwner.email &&
       newPetOwner.password
     ) {
-      const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
-      if (error) {
-        alert('Error adding Pet Owner:', error);
-      } else {
-        
-        fetchPetOwners();
-        handleLoginOwner(); 
+      try {
+        // Add the new pet owner to the database
+        const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
+        if (error) {
+          alert('Error adding Pet Owner:', error);
+        } else {
+          
+          
+            const emailParams = {
+              to_email: newPetOwner.email,
+              subject: 'Welcome to Pet Owner Portal',
+              message: `Welcome to our pet owner portal! Your password is: ${newPetOwner.password}`,
+              email: `Welcome to our pet owner portal! Your email is: ${newPetOwner.email}`
+            };
+          
+            emailjs.send('service_4cqizvz', 'template_2w4oxbd', emailParams, 'A0ZPR861WjTOAyAZq')
+              .then((result) => {
+                
+              })
+              .catch((error) => {
+                
+              });
+          
+          
+  
+            fetchPetOwners();
+            handleLoginOwner(); 
+        }
+  
+        setNewPetOwner({
+          name: '',
+          address: '',
+          phone: '',
+          email: '',
+          password: '',
+        });
+  
+        setIsAdding(false);
+      } catch (error) {
+        alert('An error occurred:', error);
       }
-
-      setNewPetOwner({
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        password: ''
-      });
-
-      setIsAdding(false);
     }
-    
   };
+  
+
   const handleDeletePetOwner = async (Customer_id) => {
     try {
       const { error } = await supabase.from('Customer').delete().eq('Customer_id', Customer_id);
@@ -118,7 +145,9 @@ const PetOwnersPopup = () => {
   
   
   return (
+    
     <div>
+      
       <h1 className="h1">Pet Owners</h1>
       <div className="center-table-content">
         <div className="table-responsive">

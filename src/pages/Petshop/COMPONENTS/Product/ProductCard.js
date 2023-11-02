@@ -1,56 +1,41 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import './ProductCard.css'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import './ProductCard.css';
+import supabase from '../../../../lib/helper/superbaseClient';
 
 const ProductCard = ({ data }) => {
-  const [show, setshow] = useState(false)
-  const [count, setCount] = useState(1)
+  const [show, setshow] = useState(false);
+  const [count, setCount] = useState(1);
+
+  const updateTotalPrice = () => {
+    return data.price * count;
+  };
 
 
+  const addtocart = async () => {
+    try {
+      const orderData = {
+        Order_Item_quantity: count,
+        Order_price: updateTotalPrice(),
+        Order_Date: new Date().toISOString(),
+        pet_product_id: data.id,
+      };
 
-  const addtocart = () => {
-    let cart = JSON.parse(localStorage.getItem('cart'))
-    let productdata = data
-    if (cart) {
-     
-      let itemincart = cart.find(item => item.productdata.ProductId === productdata.ProductId)
-      if (itemincart) {
-        cart = cart.map(item => {
-          if (item.productdata.ProductId === productdata.ProductId) {
-            return {
-              ...item,
-              quantity: item.quantity + count
-            }
-          }
-          else {
-            return item
-          }
-        })
-        localStorage.setItem('cart', JSON.stringify(cart))
+      const { data: order, error } = await supabase.from('Order_Item').insert([orderData]);
+
+      if (error) {
+       alert('Error saving order to the database:', error);
+        toast.error('Failed to save the order to the database');
+      } else {
+        alert('Order added to the database');
       }
-      else {
-        cart = [
-          ...cart,
-          {
-            productdata,
-            quantity: count
-          }
-        ]
-        localStorage.setItem('cart', JSON.stringify(cart))
-      }
+    } catch (error) {
+      alert('Error adding to cart:', error);
+      toast.error('Failed to add to cart');
     }
-    else {
-      cart = [{
-        productdata,
-        quantity: count
-      }]
+  };
 
-      localStorage.setItem('cart', JSON.stringify(cart))
-    }
-    window.location.reload()
-
-  }
   return (
     <div className='product'>
       <div className='s1'>
@@ -121,4 +106,4 @@ const ProductCard = ({ data }) => {
   )
 }
 
-export default ProductCard;
+export default ProductCard;    

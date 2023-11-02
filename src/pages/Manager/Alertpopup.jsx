@@ -16,7 +16,7 @@ const Alertpopup = () => {
     name: '',
     Description: '',
     department: '',
-    phone: '',
+    price: '',
     productType: 'Cat items',
     image: '',
   });
@@ -91,7 +91,7 @@ const Alertpopup = () => {
           name: '',
           Description: '',
           department: '',
-          phone: '',
+          price: '',
           productType: 'Cat items',
           image: '',
         });
@@ -127,95 +127,14 @@ const Alertpopup = () => {
                 <th>Description</th>
                 <th>Amount</th>
                 <th>Product Type</th>
-                <th>Price</th>
-                <th>Actions</th>
+                <th>Product Price</th>
               </tr>
             </thead>
             <tbody>
-              {!isAdding && (
-                <tr>
-                  <td colSpan="7">
-                    <button
-                      type="button"
-                      className="btn btn-info add-new"
-                      onClick={() => setIsAdding(true)}
-                    >
-                      <FaImage className="file-upload-icon" /> Add New
-                    </button>
-                  </td>
-                </tr>
-              )}
-              {isAdding && (
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      name="image"
-                      value={newProduct.image}
-                      onChange={handleInputChange}
-                      className="form-control"
-                      placeholder="Image URL"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="name"
-                      value={newProduct.name}
-                      onChange={handleInputChange}
-                      className="form-control"
-                      placeholder="Product Name"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="Description"
-                      value={newProduct.Description}
-                      onChange={handleInputChange}
-                      className="form-control"
-                      placeholder="Description"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="department"
-                      value={newProduct.department}
-                      onChange={handleInputChange}
-                      className="form-control"
-                      placeholder="Amount"
-                    />
-                  </td>
-                  <td>
-                    <select
-                      name="productType"
-                      value={newProduct.productType}
-                      onChange={handleInputChange}
-                      className="form-control"
-                    >
-                      <option value="Cat items">Cat items</option>
-                      <option value="Dog items">Dog items</option>
-                      <option value="Other items">Other items</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="phone"
-                      value={newProduct.phone}
-                      onChange={handleInputChange}
-                      className="form-control"
-                      placeholder="Price"
-                    />
-                  </td>
-                  <td>
-                    <button className="btn btn-success edit" onClick={handleAddProduct}>
-                      Save
-                    </button>
-                  </td>
-                </tr>
-              )}
+              
+              
+               
+              
              {products
   .filter((product) => parseInt(product.department) < 20)
   .map((product) => (
@@ -233,18 +152,8 @@ const Alertpopup = () => {
       <td>{product.Description}</td>
       <td>{product.department}</td>
       <td>{product.productType}</td>
-      <td>{product.phone}</td>
-      <td>
-        <button className="btn btn-primary edit" onClick={() => handleEditProduct(product)}>
-          Edit
-        </button>
-        <button
-          className="btn btn-danger delete"
-          onClick={() => handleDeleteProduct(product.id)}
-        >
-          Delete
-        </button>
-      </td>
+      <td>{product.price}</td>
+      
     </tr>
   ))
 }

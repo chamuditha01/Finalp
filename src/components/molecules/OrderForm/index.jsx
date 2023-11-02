@@ -64,21 +64,7 @@ function PopupForm() {
     }
   };
 
-  const fetchBookedCagesForDate = async (date) => {
-    const { data, error } = await supabase
-      .from("Book_Cages")
-      .select("Cages_Id, Booked_Date")
-      .eq("Booked_Date", date.toISOString());
-    if (error) {
-      console.error("Error fetching booked cages:", error);
-    } else {
-      const cages = data.map((cage) => ({
-        cage: cage.Cages_Id,
-        
-      }));
-      setConfirmedCages(cages);
-    }
-  };
+  
 
   useEffect(() => {
     fetchCageNumbers();
@@ -94,7 +80,7 @@ function PopupForm() {
   const handleDateChange = (date) => {
     setSelectedDate(date);
     fetchCageNumbers();
-    fetchBookedCagesForDate(date);
+    
   };
 
   return (
@@ -159,19 +145,7 @@ function PopupForm() {
 
               <center>
                 <div className="col-12">
-                  {  confirmedCages.length > 0 ? (
-                    <div>
-                      <p>Confirmed Cages:</p>
-                      <ul>
-                        {confirmedCages.map((item, index) => (
-                          <li key={index}>
-                            Cage {item.cage} 
-                            
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
+                  
                   <button id="b2" onClick={handleConfirm}>
                     confirm
                   </button>

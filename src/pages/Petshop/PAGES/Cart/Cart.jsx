@@ -13,6 +13,7 @@ import './OrderSucessfull.css'
 import { useRecoilState } from 'recoil'
 import { orderSuccessfulProvider } from '../../Providers/OrderSuccessfulProvider'
 import OrderSuccessful from '../../COMPONENTS/Order/OrderSuccessful'
+
 const Cart = () => {
   const [cartdata, setcartdata] = React.useState([])
   const [subtotal, setsubtotal] = React.useState(0)
@@ -33,7 +34,7 @@ const Cart = () => {
       cart.forEach(item => {
         tempsubtotal += item.productdata.SalesPrice * item.quantity
       })
-      // console.log(tempsubtotal)
+     
       setsubtotal(tempsubtotal)
       setshipping(80)
       settax(tempsubtotal * 0.18 + 80 * 0.10)
