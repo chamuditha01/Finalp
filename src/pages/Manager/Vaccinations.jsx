@@ -7,6 +7,7 @@ const VaccinationsPopup = () => {
 
   const [vaccines, setVaccines] = useState([]);
   const [newVaccine, setNewVaccine] = useState({
+    Vaccination_id:'null',
     vaccineName: '',
     description: '',
   });
