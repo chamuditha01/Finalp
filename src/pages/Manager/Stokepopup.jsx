@@ -16,7 +16,7 @@ const Stokepopup = () => {
     name: '',
     Description: '',
     department: '',
-    phone: '',
+    price: '',
     productType: 'Cat items',
     image: '',
   });
@@ -58,7 +58,7 @@ const Stokepopup = () => {
   };
 
   const handleAddProduct = async () => {
-    if (newProduct.name && newProduct.department && newProduct.phone && newProduct.image) {
+    if (newProduct.name && newProduct.department && newProduct.price && newProduct.image) {
       if (newProduct.id === null) {
         const { data, error } = await supabase.from(tableName).upsert([
           { ...newProduct, id: Date.now() },
@@ -91,7 +91,7 @@ const Stokepopup = () => {
           name: '',
           Description: '',
           department: '',
-          phone: '',
+          price: '',
           productType: 'Cat items',
           image: '',
         });
@@ -202,8 +202,8 @@ const Stokepopup = () => {
                   <td>
                     <input
                       type="text"
-                      name="phone"
-                      value={newProduct.phone}
+                      name="price"
+                      value={newProduct.price}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Price"
@@ -231,7 +231,7 @@ const Stokepopup = () => {
                   <td>{product.Description}</td>
                   <td>{product.department}</td>
                   <td>{product.productType}</td>
-                  <td>{product.phone}</td>
+                  <td>{product.price}</td>
                   <td>
                     <button className="btn btn-primary edit" onClick={() => handleEditProduct(product)}>
                       Edit

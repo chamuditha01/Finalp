@@ -56,10 +56,11 @@ const ProductCard = ({ data }) => {
       <div className='s1'>
       <img src={data.image} alt={data.name} />
       </div>
-      <div className='s2'>
+      <div style={{backgroundColor:'wheat', width:'100%'}}>
+      <div style={{marginTop:'14px'}} className='s2'>
         <h3>
-          $ {
-            data.phone 
+          Rs. {
+            data.price 
           }
           
         </h3>
@@ -115,7 +116,7 @@ const ProductCard = ({ data }) => {
             </svg>
 
           </div>
-      }
+      }</div>
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import NavItems from "../../atoms/Navitems";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import logo from './logo.jpg'

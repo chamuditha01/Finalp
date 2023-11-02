@@ -9,15 +9,15 @@ import Navbar from '../../COMPONENTS/Navbar/Navbar'
 import BannerSlider from '../../COMPONENTS/Banners/BannerSlider'
 
 
-const Homecat = () => {
+const Homedog = () => {
 
  const [products, setProducts] = useState([]);
- const type="Cat"
+ const type="Cat items";
 
   useEffect(() => {
     
     async function fetchProducts() {
-      const { data, error } = await supabase.from('product1').select('image, phone, name');
+      const { data, error } = await supabase.from('product1').select('image, price, name').eq('productType', type);
 
       if (error) {
         console.error('Error fetching products:', error);
@@ -47,6 +47,6 @@ const Homecat = () => {
   )
 }
 
-export default Homecat
+export default Homedog
 
 
