@@ -193,6 +193,12 @@ nav .s3 {
     nav #dropdown-basic{
         color: white;
     }
+    nav.dark-mode {
+       size: 10px;
+    }
+    .switch {
+        size: 10px;
+    }
 }
 nav.dark-mode {
     background-color: #333; /* Dark background color */
