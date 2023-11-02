@@ -74,7 +74,7 @@ function PopupForm() {
     } else {
       const cages = data.map((cage) => ({
         cage: cage.Cages_Id,
-        date: new Date(cage.Booked_Date),
+        
       }));
       setConfirmedCages(cages);
     }
@@ -159,14 +159,14 @@ function PopupForm() {
 
               <center>
                 <div className="col-12">
-                  {selectedDate && confirmedCages.length > 0 ? (
+                  {  confirmedCages.length > 0 ? (
                     <div>
                       <p>Confirmed Cages:</p>
                       <ul>
                         {confirmedCages.map((item, index) => (
                           <li key={index}>
-                            Cage {item.cage} on{" "}
-                            {item.date.toDateString()}
+                            Cage {item.cage} 
+                            
                           </li>
                         ))}
                       </ul>
