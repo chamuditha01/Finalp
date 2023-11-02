@@ -51,9 +51,9 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        alert("Error saving appointment:", error);
+        console("Error saving appointment:", error);
       } else {
-        alert("Appointment saved successfully.");
+        console("Appointment saved successfully.");
   
         const { data: lastInsertedRecord, error: lastInsertedError } = await supabase
           .from("Appointment")
@@ -62,10 +62,10 @@ fetchCustomerAddress();
           .limit(1);
   
         if (lastInsertedError) {
-          alert("Error fetching the last inserted ID:", lastInsertedError);
+          console("Error fetching the last inserted ID:", lastInsertedError);
         } else {
           const insertedAppointmentId = lastInsertedRecord[0].Appointment_id;
-          alert("Last inserted ID:", insertedAppointmentId);
+          console("Last inserted ID:", insertedAppointmentId);
   
           if (appointmentData.appointment_type === "Clinic") {
             
@@ -78,7 +78,7 @@ fetchCustomerAddress();
         }
       }
     } catch (error) {
-      alert("Error saving appointment:", error);
+      console("Error saving appointment:", error);
     }
   }
 
@@ -90,10 +90,10 @@ fetchCustomerAddress();
       .single(); 
 
     if (error) {
-      alert("Error fetching customer address:", error);
+      console("Error fetching customer address:", error);
     } else {
       setCustomerAddress(data.address);
-      alert(CustomerAddress)
+      
     }
   }
 
@@ -110,12 +110,12 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        alert("Error inserting into Clinic Visit:", error);
+        console("Error inserting into Clinic Visit:", error);
       } else {
-        alert("Inserted into Clinic Visit successfully:", data);
+        console("Inserted into Clinic Visit successfully:", data);
       }
     } catch (error) {
-      alert("Error inserting into Clinic Visit:", error);
+      console("Error inserting into Clinic Visit:", error);
     }
   }
 
@@ -129,12 +129,12 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        alert("Error inserting into Clinic Visit:", error);
+        console("Error inserting into Clinic Visit:", error);
       } else {
-        alert("Inserted into Clinic Visit successfully:", data);
+        console("Inserted into Clinic Visit successfully:", data);
       }
     } catch (error) {
-      alert("Error inserting into Clinic Visit:", error);
+      console("Error inserting into Clinic Visit:", error);
     }
   }
 
@@ -161,7 +161,7 @@ fetchCustomerAddress();
       saveAppointment(appointmentData);
 
       window.alert(
-        `You have scheduled the appointment for: ${formattedDate}. Appointment submitted successfully! You will receive a message shortly confirming the scheduled time.`
+        `You have scheduled the appointment for: ${formattedDate}. Appointment submitted successfully! .`
       );
 
       setSelectedDate(null);

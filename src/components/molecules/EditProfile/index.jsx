@@ -26,7 +26,7 @@ const fetchPetProfileData = async () => {
       .single();
 
     if (error) {
-      alert('Error fetching pet profile data:', error);
+      console('Error fetching pet profile data:', error);
       return;
     }
 
@@ -36,7 +36,7 @@ const fetchPetProfileData = async () => {
       setPetBreed(data.Breed || 'Unknown Breed');
     }
   } catch (error) {
-    alert('Error fetching pet profile data:', error);
+    console('Error fetching pet profile data:', error);
   }
 };
 
