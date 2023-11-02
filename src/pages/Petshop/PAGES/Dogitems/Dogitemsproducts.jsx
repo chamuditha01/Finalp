@@ -17,7 +17,7 @@ const Homecat = () => {
   useEffect(() => {
     
     async function fetchProducts() {
-      const { data, error } = await supabase.from('product1').select('image, price, name').eq('productType', type);
+      const { data, error } = await supabase.from('product1').select('id,image, price, name').eq('productType', type);
 
       if (error) {
         console.error('Error fetching products:', error);
