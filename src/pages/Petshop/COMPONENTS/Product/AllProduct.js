@@ -5,7 +5,8 @@ import img2 from '../../ASSETS/Products/2.png'
 import img3 from '../../ASSETS/Products/3.png'
 import img4 from '../../ASSETS/Products/4.png'
 import './AllProduct.css'
-const AllProduct = () => {
+import { useTheme } from '../../ThemeProvider';
+const AllProduct = () => {const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
     const products = [
         {
             "ProductId": 1,
@@ -434,7 +435,7 @@ const AllProduct = () => {
             ]
         }
     ]
-    return (
+    return (<main className={`main-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
         <div className='allproducts'>
             <h1>All Products</h1>
             <div className='products'>
@@ -446,7 +447,7 @@ const AllProduct = () => {
                     })
                 }
             </div>
-        </div>
+        </div></main>
     )
 }
 

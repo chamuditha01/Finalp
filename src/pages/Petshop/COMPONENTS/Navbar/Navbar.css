@@ -123,7 +123,7 @@ nav .s3 {
     display: none;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 690){
     nav{
         flex-direction: row;
         justify-content: space-between;
