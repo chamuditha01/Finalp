@@ -9,10 +9,12 @@ import './dt.css';
 import { GiClick } from 'react-icons/gi';
 import { BiStore } from 'react-icons/bi';
 import { BsFillBellFill } from 'react-icons/bs';
+import { useTheme } from '../../ThemeProvider';
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
 function Phome11() {
+  const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
   const [popupOpen, setPopupOpen] = useState(null);
   const [data, setData] = useState([]);
   const [stockQuantity, setStockQuantity] = useState(0);
@@ -75,7 +77,7 @@ function Phome11() {
   }, []);
 
   return (
-    <main className="main-container dark-blue-bg">
+    <main className={`main-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <div className="main-title">
         <h3>PET SHOP</h3>
       </div>
