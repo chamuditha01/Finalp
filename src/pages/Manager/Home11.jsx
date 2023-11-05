@@ -170,7 +170,7 @@ function Home11() {
         </div>
         <div className='card card-yelow'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}> vacine shedule <GiClick className='card_icon' /></a>
+            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}> vaccines shedule <GiClick className='card_icon' /></a>
             <TbVaccineOff className='card_icon' />
           </div>
           <h1>42</h1>
