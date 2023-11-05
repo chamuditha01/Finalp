@@ -11,8 +11,8 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }) {
-  const [darkMode, setDarkMode] = useState(false);
-  const [colorMode, setColorMode] = useState('default');
+  const [darkMode, setDarkMode] = useState('default');
+  const [colorMode, setColorMode] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);

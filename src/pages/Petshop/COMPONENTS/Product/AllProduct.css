@@ -33,4 +33,15 @@
     }
     
     
-}
+}.dark-mode {
+    /* Add styles for dark mode */
+    background-color: #1d2634;
+    color: #fff;
+  }
+  
+  .light-mode {
+    /* Add styles for light mode */
+    background-color: #fff;
+    color: #333;
+  }
+  

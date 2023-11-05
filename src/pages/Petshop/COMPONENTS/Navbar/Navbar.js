@@ -4,7 +4,8 @@ import logo from '../../ASSETS/Images/logo.jpg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
-
+import { MdDarkMode } from 'react-icons/md';
+import {  BsSun } from 'react-icons/bs';
 
 const Navbar = ({ reloadnavbar }) => {
   const [cartquantity, setcartquantity] = useState(0);
@@ -70,11 +71,10 @@ const Navbar = ({ reloadnavbar }) => {
               <Dropdown.Item href="/">Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <label className="switch">
-        <input type="checkbox" className="dark-mode-toggle" onChange={toggleDarkMode} />
-        <span className="slider"></span>
-      </label>
-      <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
+          <button className="icon-button icon" onClick={toggleDarkMode}>
+          {darkMode ? <BsSun className="white-icon" /> : <MdDarkMode />}
+        </button>
+      
 
         </div>
       </div>
