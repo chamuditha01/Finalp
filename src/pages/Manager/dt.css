@@ -211,6 +211,12 @@ table th {
   background-color: rgb(0, 251, 255); /* Change 'blue' to your desired color */
 }
 .card-yelow{ background-color:burlywood }
+.card-green{background-color:#8958bb}
+/* dt.css */
+.white-icon {
+  color: white; /* Set the color to white */
+}
+
 
 @media (max-width: 480px) {
   .table-title h2 {
@@ -219,52 +225,8 @@ table th {
 }
 
 
-.header11 {
-  grid-area: header;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  background-color: #1d2634; 
-  box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
-}
 
-.header11 .icon {
-  color: white; 
-}
 
-.dark-blue-bg {
-  background-color: #1d2634; 
-}
-
-/* chartStyles.css */
-.chart {
-  font-size: 20px;
-  /* Set your desired font size for chart labels */
-}
-
-.chart text {
-  font-size: 18px;
-   /* Set your desired font size for axis labels */
-}
-#bars {
-  height: 30px;
-  left: 50%;
-  margin: -30px 0 0 -20px;
-  position: absolute;
-  top: 50%;
-  width: 40px;
-}
-
-.bar {
-  background: #E20074;
-  bottom: 1px;
-  height: 3px;
-  position: absolute;
-  width: 3px;
-  animation: sound 0ms -800ms linear infinite alternate;
-}
 
 @keyframes sound {
   0% {
@@ -277,13 +239,15 @@ table th {
   }
 }
 
-.bar:nth-child(1) { left: 1px; animation-duration: 474ms; }
-.bar:nth-child(2) { left: 5px; animation-duration: 433ms; }
-.bar:nth-child(3) { left: 9px; animation-duration: 407ms; }
-.bar:nth-child(4) { left: 13px; animation-duration: 458ms; }
-.bar:nth-child(5) { left: 17px; animation-duration: 400ms; }
-.bar:nth-child(6) { left: 21px; animation-duration: 427ms; }
-.bar:nth-child(7) { left: 25px; animation-duration: 441ms; }
-.bar:nth-child(8) { left: 29px; animation-duration: 419ms; }
-.bar:nth-child(9) { left: 33px; animation-duration: 487ms; }
-.bar:nth-child(10) { left: 37px; animation-duration: 442ms; }
+
+.dark-mode {
+  /* Add styles for dark mode */
+  background-color: #1d2634;
+  color: #fff;
+}
+
+.light-mode {
+  /* Add styles for light mode */
+  background-color: #fff;
+  color: #333;
+}

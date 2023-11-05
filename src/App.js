@@ -35,12 +35,13 @@ import Homeshop from "./pages/Petshop/PAGES/HomePage/Home";
 import { RecoilRoot } from "recoil";
 import Notify, { ContactUs } from "./components/molecules/Notification";
 import HeaderPetDashboard from "./components/molecules/HeaderPetDashboard/Header";
-
+import { ThemeProvider } from './ThemeProvider'; 
 
 function App() {
   return (
     <div className="App">
       <div>
+      <ThemeProvider>
         <RecoilRoot>
           <BrowserRouter>
             <Routes>
@@ -76,9 +77,11 @@ function App() {
               <Route path="/Homeother" element={<Homeother />} />
               <Route path="/Homedog" element={<Homedog />} />
               <Route path="/Notify" element={<ContactUs/>}/>
+              
             </Routes>
           </BrowserRouter>
         </RecoilRoot>
+        </ThemeProvider>
       </div>
     </div>
   );

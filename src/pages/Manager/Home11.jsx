@@ -19,8 +19,9 @@ import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
 import { useLocation,useNavigate } from 'react-router-dom';
-
+import { useTheme } from '../../ThemeProvider';
 function Home11() {
+  const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
   const location = useLocation();
   const manager_id = location.state && location.state.manager_id ;
   const [popupOpen, setPopupOpen] = useState(null);
@@ -55,7 +56,7 @@ function Home11() {
   }, []);
 
   return (
-    <main className='main-container dark-blue-bg'>
+    <main className={`main-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <div className='main-title'>
         <h3> PET CLINIC</h3>
       </div>
@@ -88,7 +89,7 @@ function Home11() {
           </div>
           <h1>33</h1>
         </div>
-        <div className='card'>
+        <div className='card card-green'>
           <div className='card-inner'>
             <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment<GiClick className='card_icon' /></a>
             <BsCalendar2Date className='card_icon' />
