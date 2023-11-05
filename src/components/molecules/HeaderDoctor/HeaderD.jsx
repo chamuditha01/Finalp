@@ -17,9 +17,32 @@ const HeaderDoctor = () => {
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   
-  const fetchAppointments = async () => {
+  
+
+  
+  const openPopup = (appointment) => {
+    setSelectedAppointment(appointment);
+  };
+
+
+  const closePopup = () => {
+    setSelectedAppointment(null);
+  };
+
+  
+  React.useEffect(() => {
+    const currentDate = new Date();
+    const lastWeekDates = [];
+    const nextWeek = new Date(currentDate); 
+    nextWeek.setDate(currentDate.getDate() + 7);
+  
+    const today = currentDate.toISOString().split("T")[0];
+    const nextSevenDays = nextWeek.toISOString().split("T")[0];
+    
+    const fetchAppointments = async () => {
     try {
-      const { data, error } = await supabase.from("Appointment").select("date, Description, appointment_type").eq('Doctor_id', docid1);
+      const { data, error } = await supabase.from("Appointment").select("date, Description, appointment_type").eq('Doctor_id', docid1).gte('date', today)
+      .lte('date', nextSevenDays);;
       if (error) {
         alert("Error fetching appointments:", error);
       } else {
@@ -29,19 +52,6 @@ const HeaderDoctor = () => {
       console.error("Error fetching appointments:", error);
     }
   };
-
-  
-  const openPopup = (appointment) => {
-    setSelectedAppointment(appointment);
-  };
-
-  // Function to close the pop-up
-  const closePopup = () => {
-    setSelectedAppointment(null);
-  };
-
-  
-  React.useEffect(() => {
     fetchAppointments();
   }, []);
 
@@ -108,7 +118,7 @@ const numberOfAppointments = appointments.length;
         </div>
           </div>
           
-            
+          
         
       </div>
     

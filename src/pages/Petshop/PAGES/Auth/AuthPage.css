@@ -16,8 +16,8 @@
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 4%;
+    margin-bottom: 1%;
     background-color: rgba(0, 0, 0, 0.798);
 }
 
@@ -49,6 +49,8 @@
     font-size: 50px;
     font-weight: 500;
     color: var(--col1);
+    text-decoration: none;
+    
 }
 .authform label{
     font-size: 17px;
@@ -80,6 +82,18 @@
     color: white;
     background-color: var(--col1);
     cursor: pointer;
+
+}
+.authform button:hover{
+    color: black;
+}
+.authform a{
+    text-decoration: none;
+    color: aliceblue;
+}
+.authform a:hover{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 }
 .authform button:hover{
     background-color: white;

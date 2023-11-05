@@ -2,18 +2,29 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../COMPONENTS/Navbar/Navbar'
 import './AuthPage.css'
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 const Loginshop = () => {
+
+  const navigate = useNavigate();
+
+  const handlelog = () =>{
+    navigate('/Homeshop');
+  }
+
+  
+
   return (
     <div className='authpage'>
-      <Navbar reloadnavbar={false} />
+      
 
       <div className='authcont'>
         <img src='https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_1280.jpg'
           alt='login' />
 
         <form className='authform'>
-          <h1>Login</h1>
+          <div style={{display:'flex',flexDirection:'row'}}><h1>Login</h1><a href="/" className="icon-link"><AiOutlineLogout className='icon' /></a></div>
           <div className='formgroup'>
             <label htmlFor='email'>Email</label>
             <input type='email' id='email' required />
@@ -28,11 +39,11 @@ const Loginshop = () => {
             <p>Forgot password?</p>
           </Link>
           
-            <button type="submit"><a href="/Homeshop">Login</a></button>
+            <button  onClick={handlelog}>LOG IN</button>
           
           <h2 className='or'>OR</h2>
           <Link to='/signup' className='stylenone'>
-            <button type='submit' className='btn'>Signup</button>
+            <button type='submit' className='btn'>Sign up</button>
           </Link>
         </form>
       </div>

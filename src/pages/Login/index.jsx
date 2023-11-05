@@ -60,7 +60,7 @@ const Login = () => {
 
   const handleLoginOwner = async () => {
     try {
-      // Step 1: Find the Customer_id based on the email
+      
       const { data: customerData, error: customerError } = await supabase
         .from('Customer')
         .select('Customer_id')
@@ -74,7 +74,7 @@ const Login = () => {
       if (customerData && customerData.length > 0) {
         const customerId = customerData[0].Customer_id;
   
-        // Step 2: Find the corresponding Pet_Owner1 record using the customerId
+        
         const { data: ownerData, error: ownerError } = await supabase
           .from('Pet_Owner1')
           .select('id')
@@ -86,7 +86,7 @@ const Login = () => {
         }
   
         if (ownerData && ownerData.length > 0) {
-          // Step 3: Find the Customer_id related to the id in Pet_Owner1
+          
           const ownerId = ownerData[0].id;
           const { data: customerData2, error: customerError2 } = await supabase
             .from('Customer')
@@ -101,7 +101,7 @@ const Login = () => {
           if (customerData2 && customerData2.length > 0) {
             const customerId2 = customerData2[0].Customer_id;
   
-            // Step 4: Find the password for the Customer based on customerId2
+         
             const { data: passwordData, error: passwordError } = await supabase
               .from('Customer')
               .select('Customer_id, password') 

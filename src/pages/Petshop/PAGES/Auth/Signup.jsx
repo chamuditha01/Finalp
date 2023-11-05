@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../COMPONENTS/Navbar/Navbar';
 import './AuthPage.css';
 import supabase from '../../../../lib/helper/superbaseClient';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const Signup = () => {
         password: '',
         userId:''
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,6 +21,7 @@ const Signup = () => {
     };
 
     const handleLoginOwner = async () => {
+
         try {
           
           const { data: customerData, error: customerError } = await supabase
@@ -45,6 +49,7 @@ const Signup = () => {
               alert('Error inserting data into Pet_Owner1:', upsertError);
             } else {
               alert('Data inserted successfully into Product_Buyer:', upsertData);
+              navigate('/loginshop');
             }
           } else {
             alert('User not found with the provided email.');
@@ -58,7 +63,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Insert user data into the "users" table
+        
         const { data, error } = await supabase
             .from('Customer')
             .upsert([
@@ -74,13 +79,13 @@ const Signup = () => {
         } else {
             alert('User data inserted successfully');
             handleLoginOwner();
-            // You can add redirection or other actions here after successful signup.
+            
         }
     };
 
     return (
         <div className='authpage'>
-            <Navbar reloadnavbar={false} />
+            
 
             <div className='authcont'>
                 <img
@@ -89,7 +94,7 @@ const Signup = () => {
                 />
 
                 <form className='authform' onSubmit={handleSubmit}>
-                    <h1>Signup</h1>
+                    <div style={{display:'flex',flexDirection:'row'}}><h1>Signup</h1><a href="/" className="icon-link"><AiOutlineLogout className='icon' /></a></div>
                     <div className='form-group-row'>
                         <div className='formgroup'>
                             <label htmlFor='name'>First Name</label>
@@ -120,7 +125,7 @@ const Signup = () => {
                         <p>Already have an account?</p>
                     </Link>
                     <button type='submit' className='btn'>Signup</button>
-                    <Link to='/Homeshop' className='stylenone'>
+                    <Link to='/loginshop' className='stylenone'>
                         <button className='btn'>back</button>
                     </Link>
                 </form>

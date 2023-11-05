@@ -28,7 +28,7 @@ function Navbar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <NavItems NavItem id={"nav1"} name={'Home'} path={'/'} />
               <NavItems NavItem id={"nav1"} name={'Service'} path={'/service'} />
-              <NavItems NavItem id={"nav1"} name={'Pet Shop'} path={'/Homeshop'} />
+              <NavItems NavItem id={"nav1"} name={'Pet Shop'} path={'/loginshop'} />
               <li className="nav-item dropdown">
                 <a
                 style={{marginTop:'8px'}}
@@ -42,7 +42,7 @@ function Navbar() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="/Homeshop">
+                    <a className="dropdown-item" href="/loginshop">
                       Pet shop
                     </a>
                   </li>

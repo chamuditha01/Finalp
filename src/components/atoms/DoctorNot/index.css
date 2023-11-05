@@ -60,16 +60,22 @@
   margin-top: 13px;
   font-size: 18px;
   font-weight: bold;
-  margin-left: 45%;
-  border-width: 1px;
+  margin-left: 40%;
+  border-width: 3px;
   border-color: black;
   border-style: solid;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 5px;
+  width: 300px;
+}
+
+#bb1:hover{
+  background-color: rgb(207, 185, 42);
+  color: #29292a;
 }
 @media(max-width:992px)
 {
   #bb1{
-    margin-left: 35%;
+    margin-left: 4%;
   }
 }

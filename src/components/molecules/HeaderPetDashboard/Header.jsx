@@ -47,7 +47,7 @@ const HeaderPetDashboard = () => {
       
       setDropdownItems(PetD);
     } catch (error) {
-      alert('Error fetching pet names:', error);
+      console('Error fetching pet names:', error);
     }
   };
 

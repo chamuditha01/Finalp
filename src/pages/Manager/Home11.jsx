@@ -34,6 +34,10 @@ function Home11() {
   const [petOwnerCount, setPetOwnerCount] = useState(0);
   const [petdoc, setpetdoc] = useState(0);
   const [petvaccine, setpetvaccine] = useState(0);
+  const [petClinicAppointmentsCount, setPetClinicAppointmentsCount] = useState(0);
+  const [PethomeAppointmentsCount,setPethomeAppointmentsCount] = useState(0);
+
+
 
   const togglePopup = (popupType) => {
     if (popupType === popupOpen) {
@@ -45,8 +49,15 @@ function Home11() {
   
 
   useEffect(() => {
+
+    
     const currentDate = new Date();
     const lastWeekDates = [];
+    const nextWeek = new Date(currentDate); 
+    nextWeek.setDate(currentDate.getDate() + 7);
+  
+    const today = currentDate.toISOString().split("T")[0];
+    const nextSevenDays = nextWeek.toISOString().split("T")[0];
   
     for (let i = 6; i >= 0; i--) {
       const date = new Date(currentDate);
@@ -58,10 +69,50 @@ function Home11() {
     setData(
       lastWeekDates.map((date) => ({
         name: date,
-        PetClinic: Math.floor(Math.random() * 5000) + 1000,
-        HomeVisit: Math.floor(Math.random() * 5000) + 1000,
+        PetClinic: Math.floor(Math.random() * 500) + 100,
+        HomeVisit: Math.floor(Math.random() * 500) + 100,
       }))
     );
+
+    const fetchPetClinicAppointments = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Appointment')
+          .select('Appointment_id')
+          .eq('appointment_type', 'Clinic')
+          .gte('date', today)
+          .lte('date', nextSevenDays);
+  
+        if (error) {
+          console.error('Error fetching Pet Clinic appointments:', error);
+        } else {
+          const appointmentCount = data.length;
+          setPetClinicAppointmentsCount(appointmentCount);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    const fetchPethomeAppointments = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Appointment')
+          .select('Appointment_id')
+          .eq('appointment_type', 'Home Visit')
+          .gte('date', today)
+          .lte('date', nextSevenDays);
+  
+        if (error) {
+          console.error('Error fetching Pet Clinic appointments:', error);
+        } else {
+          const appointmentCount1 = data.length;
+          setPethomeAppointmentsCount(appointmentCount1);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
 
     const fetchcustomers = async () => {
       try {
@@ -72,7 +123,7 @@ function Home11() {
         if (error) {
           console.error('Error fetching stock quantity:', error);
         } else {
-          // The number of rows is the length of the data array
+         
           const customers = data.length;
           setPetOwnerCount(customers);
         }
@@ -80,6 +131,7 @@ function Home11() {
         console.error('An error occurred:', error);
       }
     };
+
     const fetchdoctors = async () => {
       try {
         const { data, error } = await supabase
@@ -117,6 +169,8 @@ function Home11() {
     fetchvaccines();
     fetchcustomers();
     fetchdoctors();
+    fetchPetClinicAppointments();
+    fetchPethomeAppointments();
   }, []);
 
 
@@ -131,7 +185,7 @@ function Home11() {
             <a href="#" className='h3' onClick={() => togglePopup('Appointment')}>Clinic Appointment <GiClick className='card_icon' /></a>
             <BsCalendar2Date className='card_icon' />
           </div>
-          <h1>300</h1>
+          <h1>{petClinicAppointmentsCount}</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
@@ -159,7 +213,7 @@ function Home11() {
             <a href="#" className='h3' onClick={() => togglePopup('HvisitPopup')}>Homevisit Appointment<GiClick className='card_icon' /></a>
             <BsCalendar2Date className='card_icon' />
           </div>
-          <h1>42</h1>
+          <h1>{PethomeAppointmentsCount}</h1>
         </div>
         <div className='card card-blue'>
           <div className='card-inner'>

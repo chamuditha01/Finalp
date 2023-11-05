@@ -9,6 +9,7 @@ const Create = () => {
   const location = useLocation();
   const userId = location.state && location.state.userId;
 
+  
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -23,7 +24,7 @@ const Create = () => {
       
       const petData = {
         Pet_Name: petName,
-        Pet_Breed: document.getElementById('Breed').value, 
+        Breed: document.getElementById('Breed').value, 
         Pet_Type: document.getElementById('inputState').value, 
         Pet_Age: parseInt(document.getElementById('Age').value), 
         Pet_owner_id: userId
@@ -42,9 +43,6 @@ const Create = () => {
 
       setPetName("");
       setSelectedImage(null);
-
-     
-      
        }
   };
 
@@ -115,19 +113,7 @@ const Create = () => {
             id="Age"
           ></input>
         </div>
-        <div className="col-12">
-          <label id="l" className="form-label">
-            Profile Pic
-          </label>
-          <input
-            style={{ width: "200px", marginLeft: "50px", borderRadius: "20px" }}
-            type="file"
-            className="form-control"
-            id="imageUpload"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
+        
         {selectedImage && (
           <div className="col-12">
             <img
