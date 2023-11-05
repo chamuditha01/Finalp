@@ -7,7 +7,8 @@ import Docpopup from './Docpopup';
 import Cagepopup from './Cagepopup';
 import Hvisitpopup from './Hvisitpopup';
 import VaccinationsPopup from './Vaccinations';
-import Petownerpopup from './Petownerpopup'; 
+import Petownerpopup from './Petownerpopup';
+import Vaccinationsshedul from './Vaccinationshedul'; 
 import './dt.css';
 import { GiClick } from 'react-icons/gi';
 import { BsCalendar2Date } from 'react-icons/bs';
@@ -101,6 +102,13 @@ function Home11() {
           </div>
           <h1>42</h1>
         </div>
+        <div className='card card-yelow'>
+          <div className='card-inner'>
+            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}> vacine shedule <GiClick className='card_icon' /></a>
+            <TbVaccineOff className='card_icon' />
+          </div>
+          <h1>42</h1>
+        </div>
       </div>
 
       {popupOpen === 'Appointment' && <AppointmentPopup />}
@@ -108,7 +116,7 @@ function Home11() {
       {popupOpen === 'CagePopup' && <Cagepopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
       {popupOpen === 'VaccinationsPopup' && <VaccinationsPopup />}
-
+      {popupOpen === 'Vaccinationsshedul' && <Vaccinationsshedul />}
 
       {popupOpen === 'PetownerPopup' && <Petownerpopup />}
 
