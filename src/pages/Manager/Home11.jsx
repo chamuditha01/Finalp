@@ -19,13 +19,16 @@ import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
 import { useLocation,useNavigate } from 'react-router-dom';
-import { useTheme } from '../../ThemeProvider';
+
 function Home11() {
   const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
   const location = useLocation();
   const manager_id = location.state && location.state.manager_id ;
   const [popupOpen, setPopupOpen] = useState(null);
   const [data, setData] = useState([]);
+  const [petOwnerCount, setPetOwnerCount] = useState(0);
+  const [petdoc, setpetdoc] = useState(0);
+  const [petvaccine, setpetvaccine] = useState(0);
 
   const togglePopup = (popupType) => {
     if (popupType === popupOpen) {
@@ -34,6 +37,7 @@ function Home11() {
       setPopupOpen(popupType);
     }
   };
+  
 
   useEffect(() => {
     const currentDate = new Date();
@@ -53,7 +57,63 @@ function Home11() {
         HomeVisit: Math.floor(Math.random() * 5000) + 1000,
       }))
     );
+
+    const fetchcustomers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Customer')
+          .select('Customer_id');
+    
+        if (error) {
+          console.error('Error fetching stock quantity:', error);
+        } else {
+          // The number of rows is the length of the data array
+          const customers = data.length;
+          setPetOwnerCount(customers);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+    const fetchdoctors = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Doctor')
+          .select('id');
+    
+        if (error) {
+          console.error('Error fetching stock quantity:', error);
+        } else {
+          
+          const doctors = data.length;
+          setpetdoc(doctors);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+    const fetchvaccines = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Vaccines')
+          .select('Vaccination_id');
+    
+        if (error) {
+          console.error('Error fetching stock quantity:', error);
+        } else {
+          
+          const vaccine = data.length;
+          setpetvaccine(vaccine);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+    fetchvaccines();
+    fetchcustomers();
+    fetchdoctors();
   }, []);
+
 
   return (
     <main className={`main-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -73,14 +133,14 @@ function Home11() {
             <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Pet Owner <GiClick className='card_icon' />
             </a><FaDog className='card_icon' />
           </div>
-          <h1>200</h1>
+          <h1>{petOwnerCount}</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
             <a href="#" className='h3' onClick={() => togglePopup('DocPopup')}>Doctor Availability<GiClick className='card_icon' /></a>
             <FaStethoscope className='card_icon' />
           </div>
-          <h1>12</h1>
+          <h1>{petdoc}</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
@@ -98,10 +158,10 @@ function Home11() {
         </div>
         <div className='card card-blue'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('VaccinationsPopup')}>Vaccinations reminder<GiClick className='card_icon' /></a>
+            <a href="#" className='h3' onClick={() => togglePopup('VaccinationsPopup')}>Vaccines<GiClick className='card_icon' /></a>
             <TbVaccineOff className='card_icon' />
           </div>
-          <h1>42</h1>
+          <h1>{petvaccine}</h1>
         </div>
         <div className='card card-yelow'>
           <div className='card-inner'>
