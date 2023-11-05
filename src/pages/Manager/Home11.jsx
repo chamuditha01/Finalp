@@ -20,6 +20,11 @@ import {
 } from 'recharts';
 import { useLocation,useNavigate } from 'react-router-dom';
 
+import { useTheme } from '../../ThemeProvider';
+
+import supabase from '../../lib/helper/superbaseClient';
+
+
 function Home11() {
   const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
   const location = useLocation();
