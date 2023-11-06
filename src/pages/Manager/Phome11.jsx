@@ -117,7 +117,7 @@ function Phome11() {
         <div className="card">
           <div className="card-inner">
             <a href="#" className="h3" onClick={() => togglePopup('Stokepopup')}>
-              Stoke Quanty <GiClick className="card_icon" />
+              Order Quanty <GiClick className="card_icon" />
             </a>
             <BiStore className="card_icon" />
           </div>
@@ -138,7 +138,7 @@ function Phome11() {
       {popupOpen === 'Stokepopup' && <Stokepopup />}
       {popupOpen === 'Alertpopup' && <Alertpopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
-      <h3 className="h1">Sales Dashboard</h3>
+      <h3 className="h1">Order Dashboard</h3>
       <div className="charts">
       <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -157,7 +157,7 @@ function Phome11() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Sales" fill="#8884d8" />
+           
             <Bar dataKey="oders" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
@@ -179,7 +179,7 @@ function Phome11() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="Sales" stroke="#8884d8" activeDot={{ r: 8 }} />
+            
             <Line type="monotone" dataKey="oders" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>

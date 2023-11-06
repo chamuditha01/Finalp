@@ -21,12 +21,7 @@ function Header({ OpenSidebar }) {
         <k className='icon' />
       </div>
       <div className='header-right'>
-        <a href="https://web.facebook.com/dr.pethospital" className="icon-link">
-          <button className="icon-button"><BsFacebook className='icon' /></button>
-        </a>
-        <a href="https://www.instagram.com/dr.pet_hospital/?hl=en" className="icon-link">
-          <button className="icon-button"><BsInstagram className='icon' /></button>
-        </a>
+      
         <button className="icon-button icon" onClick={toggleDarkMode}>
           {darkMode ? <BsSun className="white-icon" /> : <MdDarkMode />}
         </button>
