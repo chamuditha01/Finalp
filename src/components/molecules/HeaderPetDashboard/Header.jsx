@@ -147,14 +147,7 @@ const HeaderPetDashboard = () => {
                     }}
                     class="btn btn-primary position-relative"
                   >
-                    <img style={{ width: "30px" }} src={notiicon} alt=""></img>
-                    <span
-                      style={{ fontSize: "10px" }}
-                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                    >
-                      4
-                      <span class="visually-hidden">unread messages</span>
-                    </span>
+                    
                   </button>
                   </a>
                   <div class="btn-group">

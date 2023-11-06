@@ -5,6 +5,7 @@ import './AuthPage.css';
 import supabase from '../../../../lib/helper/superbaseClient';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { AiOutlineAccountBook } from 'react-icons/ai';
 
 const Signup = () => {
     const [formData, setFormData] = useState({

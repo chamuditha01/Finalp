@@ -56,31 +56,7 @@ const fetchPetProfileData = async () => {
       <NavbarProfileclick />
       <h1 id="h1pro">Edit Profile</h1>
       <div className="pro1">
-        <img
-          style={{
-            borderRadius: '50px',
-            width: '100px',
-            height: '100px',
-            marginLeft: '40%',
-            objectFit: 'cover',
-            marginTop: '30px',
-            borderStyle: 'solid',
-            borderWidth: '2px',
-            borderColor: 'grey',
-            boxShadow: 'inherit',
-          }}
-          src={profileImage}
-          alt="Profile"
-        />
-
-        <label
-          htmlFor="fileInput"
-          className="camera-icon"
-          style={{ marginLeft: '49%', cursor: 'pointer' }}
-        >
-          <FontAwesomeIcon icon={faCamera} />
-        </label>
-        <input type="file" accept="image/*" id="fileInput" style={{ display: 'none' }} />
+        <h1 style={{textAlign:'center',marginTop:'40px'}}>Edit Profile</h1>
         <br></br>
         <hr className="divider" />
         <label id="l1">Pet Name</label>

@@ -18,6 +18,8 @@ function Phome11() {
   const [popupOpen, setPopupOpen] = useState(null);
   const [data, setData] = useState([]);
   const [stockQuantity, setStockQuantity] = useState(0);
+  const [soldAmountCount, setSoldAmountCount] = useState(0);
+
 
   const supabaseUrl = 'YOUR_SUPABASE_URL';
   const supabaseKey = 'YOUR_SUPABASE_API_KEY';
@@ -32,6 +34,26 @@ function Phome11() {
     }
   };
 
+  const fetchsold = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('Order_Item')
+        .select('Oder_Item_id');
+  
+      if (error) {
+        console.error('Error fetching stock quantity:', error);
+      } else {
+        
+        const soldAmountCount = data.length;
+        setSoldAmountCount(soldAmountCount);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
+  
+
   
 
   const fetchStockQuantity = async () => {
@@ -43,7 +65,7 @@ function Phome11() {
       if (error) {
         console.error('Error fetching stock quantity:', error);
       } else {
-        // The number of rows is the length of the data array
+        
         const stockQuantity = data.length;
         setStockQuantity(stockQuantity);
       }
@@ -74,6 +96,8 @@ function Phome11() {
     );
 
     fetchStockQuantity();
+    fetchsold();
+    
   }, []);
 
   return (
@@ -88,7 +112,7 @@ function Phome11() {
             Sold Quanty
             <BiStore className="card_icon" />
           </div>
-          <h1>42</h1>
+          <h1>{soldAmountCount}</h1>
         </div>
         <div className="card">
           <div className="card-inner">

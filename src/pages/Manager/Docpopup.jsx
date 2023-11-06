@@ -50,6 +50,8 @@ const EmployeesPopup = () => {
     setIsAdding(true);
   };
 
+  
+
   const handleAddEmployee = async () => {
     if (!newEmployee.Doctor_Name || !newEmployee.Department || !newEmployee.Contact || !newEmployee.Email || !newEmployee.Passward ) {
       alert('Please fill in all the required fields.');

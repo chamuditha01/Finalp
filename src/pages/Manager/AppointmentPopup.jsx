@@ -1,30 +1,70 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
+import supabase from '../../lib/helper/superbaseClient';
 
 function AppointmentPopup() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAppointments();
-  }, []);
+    const currentDate = new Date();
+    const lastWeekDates = [];
+    const nextWeek = new Date(currentDate); 
+    nextWeek.setDate(currentDate.getDate() + 7);
+  
+    const today = currentDate.toISOString().split("T")[0];
+    const nextSevenDays = nextWeek.toISOString().split("T")[0];
 
-  async function fetchAppointments() {
+    async function fetchAppointments() {
     try {
-      const { data, error } = await supabase.from('appointments').select();
+      const { data, error } = await supabase.from('Appointment').select().eq('appointment_type', 'Clinic')
+      .gte('date', today)
+      .lte('date', nextSevenDays);;
       if (error) {
         console.error('Error fetching data:', error);
       } else {
-        setAppointments(data);
+
+        const appointmentsWithAddress = await Promise.all(
+          data.map(async (appointment) => {
+            const { data: homeVisitData, error: homeVisitError } = await supabase
+              .from('Doctor')
+              .select('Doctor_Name')
+              .eq('id', appointment.Doctor_id);
+            if (homeVisitError) {
+              console.error('Error fetching address:', homeVisitError);
+            }
+            const { data: petData, error: petError } = await supabase
+                .from('Pet_Profile')
+                .select('Pet_Name')
+                .eq('Pet_Profile_id', appointment.Pet_Id);
+              if (petError) {
+                console.error('Error fetching doctor name:', petError);
+              }
+  
+              return {
+                ...appointment,
+                
+                doctor_name: homeVisitData?.[0]?.Doctor_Name || 'Doctor name not available',
+                pet_name: petData?.[0]?.Pet_Name || 'Doctor name not available',
+              };
+          })
+        );
+
+        setAppointments(appointmentsWithAddress);
+        
+        
         setLoading(false);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
+    fetchAppointments();
+  }, []);
+
+ 
+
+  
 
   async function handleAction(action, appointment) {
     try {
@@ -59,9 +99,9 @@ function AppointmentPopup() {
           <table className="table table-success table-striped">
             <thead>
               <tr>
-                <th>Patient Name</th>
+                <th>Pet Name</th>
+                <th>Doctor</th>
                 <th>Date</th>
-                <th>Time</th>
                 <th>Payment</th>
                 <th>Action</th>
               </tr>
@@ -75,9 +115,9 @@ function AppointmentPopup() {
                 appointments.map((appointment, index) => (
                   <tr key={index}>
                     
-                    <td>{appointment.patient_name}</td>
+                    <td>{appointment.pet_name}</td>
+                    <td>Dr. {appointment.doctor_name}</td>
                     <td>{appointment.date}</td>
-                    <td>{appointment.time}</td>
                     <td>{appointment.payment}</td>
                     <td>
                       <div className="btn-group" role="group" aria-label="Basic radio toggle button group">

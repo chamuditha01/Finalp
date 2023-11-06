@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 function AppointmentScheduler() {
   const [doctorNames, setDoctorNames] = useState([]);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
-
+  
   const [selectedDate, setSelectedDate] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [CustomerAddress, setCustomerAddress] = useState(null);
@@ -42,7 +42,7 @@ fetchCustomerAddress();
      
       const { data, error } = await supabase.from("Appointment").upsert([
         {
-          date: appointmentData.date,
+          date: selectedDate,
           Description: appointmentData.Description,
           appointment_type: appointmentData.appointment_type,
           Pet_Id: appointmentData.Pet_Id,
@@ -51,9 +51,9 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        console("Error saving appointment:", error);
+        console.error("Error saving appointment:", error);
       } else {
-        console("Appointment saved successfully.");
+        console.error("Appointment saved successfully.");
   
         const { data: lastInsertedRecord, error: lastInsertedError } = await supabase
           .from("Appointment")
@@ -62,10 +62,10 @@ fetchCustomerAddress();
           .limit(1);
   
         if (lastInsertedError) {
-          console("Error fetching the last inserted ID:", lastInsertedError);
+          console.error("Error fetching the last inserted ID:", lastInsertedError);
         } else {
           const insertedAppointmentId = lastInsertedRecord[0].Appointment_id;
-          console("Last inserted ID:", insertedAppointmentId);
+          console.error("Last inserted ID:", insertedAppointmentId);
   
           if (appointmentData.appointment_type === "Clinic") {
             
@@ -78,7 +78,7 @@ fetchCustomerAddress();
         }
       }
     } catch (error) {
-      console("Error saving appointment:", error);
+      console.error("Error saving appointment:", error);
     }
   }
 
@@ -110,12 +110,12 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        console("Error inserting into Clinic Visit:", error);
+        console.error("Error inserting into Clinic Visit:", error);
       } else {
-        console("Inserted into Clinic Visit successfully:", data);
+        console.error("Inserted into Clinic Visit successfully:", data);
       }
     } catch (error) {
-      console("Error inserting into Clinic Visit:", error);
+      console.error("Error inserting into Clinic Visit:", error);
     }
   }
 
@@ -129,23 +129,26 @@ fetchCustomerAddress();
       ]);
   
       if (error) {
-        console("Error inserting into Clinic Visit:", error);
+        console.error("Error inserting into Clinic Visit:", error);
       } else {
-        console("Inserted into Clinic Visit successfully:", data);
+        console.error("Inserted into Clinic Visit successfully:", data);
       }
     } catch (error) {
-      console("Error inserting into Clinic Visit:", error);
+      console.error("Error inserting into Clinic Visit:", error);
     }
   }
 
   const handleScheduleClick = () => {
     if (selectedDate) {
       const formattedDate = selectedDate.toLocaleString("en-US", {
+        timeZone: "UTC", 
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
-        
+        hour: "2-digit",
+        minute: "2-digit",
       });
+      
 
       
       const appointmentData = {

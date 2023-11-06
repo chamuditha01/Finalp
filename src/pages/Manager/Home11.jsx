@@ -1,4 +1,3 @@
-// Home11.js
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
@@ -36,7 +35,8 @@ function Home11() {
   const [petvaccine, setpetvaccine] = useState(0);
   const [petClinicAppointmentsCount, setPetClinicAppointmentsCount] = useState(0);
   const [PethomeAppointmentsCount,setPethomeAppointmentsCount] = useState(0);
-
+  const [cagesCount,setcagesCount] = useState(0);
+  const [scheduleq, setscheduleq] = useState(0); 
 
 
   const togglePopup = (popupType) => {
@@ -46,6 +46,58 @@ function Home11() {
       setPopupOpen(popupType);
     }
   };
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const appointmentTypes = ['Clinic', 'Home Visit'];
+  
+    const fetchDataForLastWeek = async () => {
+      const appointmentsData = {};
+  
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date(currentDate);
+        date.setDate(currentDate.getDate() - i);
+        const formattedDate = date.toISOString().split("T")[0];
+  
+        for (const appointmentType of appointmentTypes) {
+          if (!appointmentsData[appointmentType]) {
+            appointmentsData[appointmentType] = [];
+          }
+  
+          try {
+            const { data, error } = await supabase
+              .from('Appointment')
+              .select('Appointment_id')
+              .eq('appointment_type', appointmentType)
+              .eq('date', formattedDate);
+  
+            if (!error) {
+              appointmentsData[appointmentType].push({ date: formattedDate, count: data.length });
+            } else {
+              console.error(`Error fetching ${appointmentType} appointments for date`, formattedDate, error);
+            }
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+        }
+      }
+  
+      return appointmentsData;
+    };
+  
+    fetchDataForLastWeek()
+      .then((appointmentsData) => {
+        const data = appointmentsData['Clinic'].map((clinicAppointment) => ({
+          name: clinicAppointment.date,
+          PetClinic: clinicAppointment.count,
+          HomeVisit: appointmentsData['Home Visit'].find((homeVisitAppointment) => homeVisitAppointment.date === clinicAppointment.date)?.count || 0,
+        }));
+  
+        setData(data);
+      });
+  }, []);
+  
+  
   
 
   useEffect(() => {
@@ -132,6 +184,43 @@ function Home11() {
       }
     };
 
+    const fetchschedule = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Schedule_Vaccine')
+          .select('Reminder_Id');
+    
+        if (error) {
+          console.error('Error fetching stock quantity:', error);
+        } else {
+          
+          const scheduleq = data.length;
+          setscheduleq(scheduleq);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    const fetchcages = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Cages')
+          .select('Cages_id')
+          .eq('Cages_Status','accept');
+    
+        if (error) {
+          console.error('Error fetching stock quantity:', error);
+        } else {
+         
+          const cages = data.length;
+          setcagesCount(cages);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
     const fetchdoctors = async () => {
       try {
         const { data, error } = await supabase
@@ -171,6 +260,8 @@ function Home11() {
     fetchdoctors();
     fetchPetClinicAppointments();
     fetchPethomeAppointments();
+    fetchcages();
+    fetchschedule();
   }, []);
 
 
@@ -206,7 +297,7 @@ function Home11() {
             <a href="#" className='h3' onClick={() => togglePopup('CagePopup')}>Cages availability<GiClick className='card_icon' /></a>
             <PiDogFill className='card_icon' />
           </div>
-          <h1>33</h1>
+          <h1>{cagesCount}</h1>
         </div>
         <div className='card card-green'>
           <div className='card-inner'>
@@ -224,10 +315,10 @@ function Home11() {
         </div>
         <div className='card card-yelow'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}> vaccines shedule <GiClick className='card_icon' /></a>
+            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}>Upcoming schedules <GiClick className='card_icon' /></a>
             <TbVaccineOff className='card_icon' />
           </div>
-          <h1>42</h1>
+          <h1>{scheduleq}</h1>
         </div>
       </div>
 
@@ -244,7 +335,7 @@ function Home11() {
       <div className='charts'>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            className="chart" // Apply the CSS class to the BarChart
+            className="chart" 
             width={500}
             height={300}
             data={data}

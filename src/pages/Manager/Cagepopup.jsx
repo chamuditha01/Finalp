@@ -1,21 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://lofcmwxslorwbhglestg.supabase.co';
-const supabaseKey = 'YOUR_API_KEY';
-
-const supabase = createClient("https://lofcmwxslorwbhglestg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvZmNtd3hzbG9yd2JoZ2xlc3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc5MDE4NjUsImV4cCI6MjAxMzQ3Nzg2NX0.tXKVMSHGCOZK7fUsJJavUF6ufAaPB7TSntt1FIPzzfY");
+import supabase from '../../lib/helper/superbaseClient';
 
 function CagePopup() {
   const [cageBookings, setCageBookings] = useState([]);
+  const [isAdding, setIsAdding] = useState(false);
+
+
 
   useEffect(() => {
     fetchCageBookings();
   }, []);
 
+  
+
+  async function handleAddNewCage() {
+    try {
+  
+      const { data: existingCageData, error: existingCageError } = await supabase
+        .from('Cages')
+        .select('Cages_id');
+  
+      if (existingCageError) {
+        alert('Error fetching existing cage IDs:', existingCageError);
+        return;
+      }
+  
+
+      const largestCageId = existingCageData.reduce(
+        (max, cage) => (cage.Cages_id > max ? cage.Cages_id : max),
+        0
+      );
+  
+
+      const newCageId = largestCageId + 1;
+  
+      
+      const { data, error } = await supabase
+        .from('Cages')
+        .upsert([
+          {
+            Cages_id: newCageId,
+            Cages_Status: 'accept'
+          }
+        ]);
+  
+      if (error) {
+        alert('Error adding a new cage:', error);
+      } else {
+        fetchCageBookings();
+      }
+    } catch (error) {
+      alert('Error adding a new cage:', error);
+    }
+  }
+  
+
+
   const fetchCageBookings = async () => {
     try {
-      const { data, error } = await supabase.from('cage_bookings').select();
+      const { data, error } = await supabase.from('Cages').select();
       if (error) {
         console.error('Error fetching data:', error);
       } else {
@@ -26,20 +69,22 @@ function CagePopup() {
     }
   };
 
+   
+
   async function handleAction(action, booking) {
     try {
       setCageBookings((prevBookings) =>
         prevBookings.map((b) =>
-          b.id === booking.id ? { ...b, status: action } : b
+          b.Cages_id === booking.Cages_id ? { ...b, Cages_Status: action } : b
         )
       );
 
       const { error } = await supabase
-        .from('cage_bookings')
+        .from('Cages')
         .upsert([
           {
-            id: booking.id,
-            status: action,
+            Cages_id: booking.Cages_id,
+            Cages_Status: action,
           },
         ]);
 
@@ -59,32 +104,48 @@ function CagePopup() {
           <table className="table table-success table-striped">
             <thead>
               <tr>
-                <th>Pet Owner Name</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Payment</th>
+                <th>Cage Number</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
+            
+                <tr>
+                  <td colSpan="6">
+                    <button
+                      type="button"
+                      className="btn btn-info add-new"
+                      onClick={handleAddNewCage}
+                    >
+                      Add New
+                    </button>
+                  </td>
+                </tr>
+              
+              
+               
+                  
+                 
+                  
+              
               {cageBookings.map((booking, index) => (
                 <tr key={index}>
-                  <td>{booking.patientname}</td>
-                  <td>{booking.date}</td>
-                  <td>{booking.time}</td>
-                  <td>{booking.payment}</td>
+                  <td>{booking.Cages_id}</td>
+                  <td>{booking.Cages_Status}</td>
+                  
                   <td>
                     <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
                       <input
                         type="radio"
                         className="btn-check"
                         name={`actionRadio-${index}`}
-                        id={`approveRadio-${index}`}
-                        checked={booking.status === 'approve'}
-                        onChange={() => handleAction('approve', booking)}
+                        id={`acceptRadio-${index}`}
+                        checked={booking.Cages_Status === 'accept'}
+                        onChange={() => handleAction('accept', booking)}
                       />
-                      <label className="btn btn-outline-success" htmlFor={`approveRadio-${index}`}>
-                        Approve
+                      <label className="btn btn-outline-success" htmlFor={`acceptRadio-${index}`}>
+                        Accept
                       </label>
 
                       <input
@@ -92,7 +153,7 @@ function CagePopup() {
                         className="btn-check"
                         name={`actionRadio-${index}`}
                         id={`rejectRadio-${index}`}
-                        checked={booking.status === 'reject'}
+                        checked={booking.Cages_Status === 'reject'}
                         onChange={() => handleAction('reject', booking)}
                       />
                       <label className="btn btn-outline-danger" htmlFor={`rejectRadio-${index}`}>
