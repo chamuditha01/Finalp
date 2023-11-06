@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 import { MdDarkMode } from 'react-icons/md';
 import {  BsSun } from 'react-icons/bs';
+import { useTheme } from '../../../../ThemeProvider';
+
 
 const Navbar = ({ reloadnavbar }) => {
   const [cartquantity, setcartquantity] = useState(0);
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false); // Using use-local-storage to persist dark mode preference
+  const { darkMode, toggleDarkMode } = useTheme();
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+
 
   const getcarttotalitems = () => {
     let cart = JSON.parse(localStorage.getItem('cart'));
