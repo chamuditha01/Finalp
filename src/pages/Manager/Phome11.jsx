@@ -73,6 +73,55 @@ function Phome11() {
       console.error('An error occurred:', error);
     }
   };
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const lastWeekDates = [];
+    const nextWeek = new Date(currentDate); 
+    nextWeek.setDate(currentDate.getDate() + 7);
+  
+    const today = currentDate.toISOString().split("T")[0];
+    const nextSevenDays = nextWeek.toISOString().split("T")[0];
+   
+    const fetchClinicAppointmentsForLastWeek = async () => {
+      const clinicAppointments = [];
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date(currentDate);
+        date.setDate(currentDate.getDate() - i);
+        const formattedDate = date.toISOString().split("T")[0];
+  
+        try {
+          const { data, error } = await supabase
+            .from('Order_Item')
+            .select('Oder_Item_id')
+            .eq('Order_Date', formattedDate);
+  
+          if (!error) {
+            clinicAppointments.push({ date: formattedDate, count: data.length });
+          } else {
+            console.error('Error fetching clinic appointments for date', formattedDate, error);
+          }
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      }
+  
+      return clinicAppointments;
+    };
+  
+    fetchClinicAppointmentsForLastWeek()
+      .then((clinicAppointmentsData) => {
+        const data = clinicAppointmentsData.map((appointment) => ({
+          name: appointment.date,
+          oders: appointment.count,
+          
+        }));
+        setData(data);
+      });
+  
+  
+  }, []);
+  
   
   
 
@@ -109,7 +158,7 @@ function Phome11() {
       <div className="main-cards">
         <div className="card">
           <div className="card-inner h3">
-            Sold Quanty
+            Order Quantity
             <BiStore className="card_icon" />
           </div>
           <h1>{soldAmountCount}</h1>
@@ -117,7 +166,7 @@ function Phome11() {
         <div className="card">
           <div className="card-inner">
             <a href="#" className="h3" onClick={() => togglePopup('Stokepopup')}>
-              Order Quanty <GiClick className="card_icon" />
+              Products <GiClick className="card_icon" />
             </a>
             <BiStore className="card_icon" />
           </div>
