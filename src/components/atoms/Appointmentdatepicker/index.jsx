@@ -39,10 +39,13 @@ fetchCustomerAddress();
 
   async function saveAppointment(appointmentData) {
     try {
+      const appointmentDate = new Date(selectedDate);
+      
+      appointmentDate.setDate(appointmentDate.getDate() + 1);
      
       const { data, error } = await supabase.from("Appointment").upsert([
         {
-          date: selectedDate,
+          date: appointmentDate,
           Description: appointmentData.Description,
           appointment_type: appointmentData.appointment_type,
           Pet_Id: appointmentData.Pet_Id,

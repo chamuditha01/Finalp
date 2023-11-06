@@ -280,7 +280,7 @@ function Home11() {
         </div>
         <div className='card'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Pet Owner <GiClick className='card_icon' />
+            <a href="#" className='h3' onClick={() => togglePopup('PetownerPopup')}> Customers <GiClick className='card_icon' />
             </a><FaDog className='card_icon' />
           </div>
           <h1>{petOwnerCount}</h1>
@@ -358,7 +358,7 @@ function Home11() {
 
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            className="chart" // Apply the CSS class to the LineChart
+            className="chart" 
             width={500}
             height={300}
             data={data}

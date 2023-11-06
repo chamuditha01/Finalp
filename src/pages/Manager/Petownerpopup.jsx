@@ -86,7 +86,7 @@ const PetOwnersPopup = () => {
       newPetOwner.password
     ) {
       try {
-        // Add the new pet owner to the database
+        
         const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
         if (error) {
           alert('Error adding Pet Owner:', error);
@@ -136,7 +136,7 @@ const PetOwnersPopup = () => {
       if (error) {
         alert('Error deleting Pet Owner:', error);
       } else {
-        fetchPetOwners(); // Refresh the list of Pet Owners
+        fetchPetOwners(); 
       }
     } catch (error) {
       alert('An error occurred:', error);
@@ -148,7 +148,7 @@ const PetOwnersPopup = () => {
     
     <div>
       
-      <h1 className="h1">Pet Owners</h1>
+      <h1 className="h1">Customers</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
