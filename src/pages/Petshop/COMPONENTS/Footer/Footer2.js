@@ -18,10 +18,10 @@ const Footer2 = () => {
         </div>
         <div className='f2'>
           <h3>About Us</h3>
-          <Link to='/about' className='stylenone'>
+          <Link to='#' className='stylenone'>
             <p>About us</p>
           </Link>
-          <Link to='/contact' className='stylenone'>
+          <Link to='#' className='stylenone'>
             <p>Contact us</p>
           </Link>
           <p>About team</p>
@@ -30,10 +30,10 @@ const Footer2 = () => {
         <div className='f2'>
 
           <h3>Our Information</h3>
-          <Link to='/privacypolicy' className='stylenone'>
+          <Link to='#' className='stylenone'>
             <p>Privacy policy</p>
           </Link>
-          <Link to='/termsandconditions' className='stylenone'>
+          <Link to='#' className='stylenone'>
             <p>Terms & conditions</p>
           </Link>
           <p>Return Policy</p>
