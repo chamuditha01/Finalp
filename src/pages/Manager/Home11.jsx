@@ -23,6 +23,8 @@ import { useTheme } from '../../ThemeProvider';
 
 import supabase from '../../lib/helper/superbaseClient';
 
+import CageAppointment from './CageAppointment';
+
 
 function Home11() {
   const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
@@ -37,6 +39,7 @@ function Home11() {
   const [PethomeAppointmentsCount,setPethomeAppointmentsCount] = useState(0);
   const [cagesCount,setcagesCount] = useState(0);
   const [scheduleq, setscheduleq] = useState(0); 
+  const [bookcount, setbookcount] = useState(0); 
 
 
   const togglePopup = (popupType) => {
@@ -140,6 +143,25 @@ function Home11() {
         } else {
           const appointmentCount = data.length;
           setPetClinicAppointmentsCount(appointmentCount);
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    const fetchbookcount = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('Book_Cages')
+          .select('Book_Cages_id')
+          .gte('Booked_Date', today)
+          .lte('Booked_Date', nextSevenDays);
+  
+        if (error) {
+          console.error('Error fetching Pet Clinic appointments:', error);
+        } else {
+          const bookcount = data.length;
+          setbookcount(bookcount);
         }
       } catch (error) {
         console.error('An error occurred:', error);
@@ -262,6 +284,7 @@ function Home11() {
     fetchPethomeAppointments();
     fetchcages();
     fetchschedule();
+    fetchbookcount();
   }, []);
 
 
@@ -322,10 +345,10 @@ function Home11() {
         </div>
         <div className='card card-red'>
           <div className='card-inner'>
-            <a href="#" className='h3' onClick={() => togglePopup('Vaccinationsshedul')}>CageAppointment<GiClick className='card_icon' /></a>
+            <a href="#" className='h3' onClick={() => togglePopup('cages')}>Cage Booking<GiClick className='card_icon' /></a>
             <TbVaccineOff className='card_icon' />
           </div>
-          <h1>{scheduleq}</h1>
+          <h1>{bookcount}</h1>
         </div>
       </div>
 
@@ -335,7 +358,7 @@ function Home11() {
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
       {popupOpen === 'VaccinationsPopup' && <VaccinationsPopup />}
       {popupOpen === 'Vaccinationsshedul' && <Vaccinationsshedul />}
-
+      {popupOpen === 'cages' && <CageAppointment/>}
       {popupOpen === 'PetownerPopup' && <Petownerpopup />}
 
       <h3 className='h1'>Appointments dashboard</h3>

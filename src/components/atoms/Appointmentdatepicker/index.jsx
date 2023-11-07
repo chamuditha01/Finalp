@@ -48,6 +48,7 @@ fetchCustomerAddress();
           date: appointmentDate,
           Description: appointmentData.Description,
           appointment_type: appointmentData.appointment_type,
+          status:'No Action',
           Pet_Id: appointmentData.Pet_Id,
           Doctor_id: appointmentData.doctor,
         },

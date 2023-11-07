@@ -98,7 +98,7 @@ function CagePopup() {
 
   return (
     <div>
-      <h1 className="h1">Cages Booking</h1>
+      <h1 className="h1">Cages</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">

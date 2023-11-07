@@ -79,66 +79,76 @@ function AppointmentPopup() {
 
   
   const handleAction = async (action, appointment) => {
-    setAppointmentStatuses((prevStatuses) => ({
-      ...prevStatuses,
-      [appointment.patientName]: action,
-    }));
-    setSelectedAppointment(appointment);
-
     try {
+      
       const { error } = await supabase
-        .from('hvisitappointments')
-        .upsert([
-          {
-            id: appointment.id,
-            status: action,
-          },
-        ]);
-
+        .from('Appointment')
+        .upsert(
+          [
+            {
+              Appointment_id: appointment.Appointment_id,
+              status: action,
+            },
+          ],
+          { onConflict: ['Appointment_id'], returning: 'minimal' }
+        );
+  
       if (error) {
-        console.error('Error updating appointment status:', error);
+        alert('Error updating appointment status:', error.message);
+      } else {
+        
+        const updatedAppointments = appointments.map((app) =>
+          app.Appointment_id === appointment.Appointment_id
+            ? { ...app, status: action }
+            : app
+        );
+  
+        setAppointments(updatedAppointments);
       }
     } catch (error) {
       console.error('Error handling action:', error);
     }
-  }
+  };
+  
 
   return (
     <div>
-      <h1 className='h1'>HOME VISIT</h1>
+      <h1 className='h1'>Home Visit Appointments For Next Week</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
             <thead>
               <tr>
+              <th>Appointment No</th>
                 <th>Patient Name</th>
                 <th>Doctor</th>
                 <th>Date</th>
-                <th>Payment</th>
                 <th>Address</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {appointments.map((appointment, index) => (
+            {appointments.map((appointment, index) => (
                 <tr key={index}>
+                  <td>{appointment.Appointment_id}</td>
                   <td>{appointment.pet_name}</td>
                   <td>Dr. {appointment.doctor_name}</td>
                   <td>{appointment.date}</td>
-                  <td>{appointment.payment}</td>
                   <td>{appointment.address}</td>
+                  <td>{appointment.status}</td>
                   <td>
                     <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
                       <input
                         type="radio"
                         className="btn-check"
                         name={`actionRadio-${index}`}
-                        id={`approveRadio-${index}`}
-                        checked={appointment.status === 'approve'}
-                        onChange={() => handleAction('approve', appointment)}
+                        id={`acceptRadio-${index}`}
+                        checked={appointment.status === 'accept'}
+                        onChange={() => handleAction('accept', appointment)}
                       />
-                      <label className="btn btn-outline-success" htmlFor={`approveRadio-${index}`}>
-                        Approve
+                      <label className="btn btn-outline-success" htmlFor={`acceptRadio-${index}`}>
+                        Accept
                       </label>
 
                       <input

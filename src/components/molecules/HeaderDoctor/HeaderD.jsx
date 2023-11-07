@@ -41,8 +41,9 @@ const HeaderDoctor = () => {
     
     const fetchAppointments = async () => {
     try {
-      const { data, error } = await supabase.from("Appointment").select("date, Description, appointment_type").eq('Doctor_id', docid1).gte('date', today)
-      .lte('date', nextSevenDays);;
+      const { data, error } = await supabase.from("Appointment").select("date, Description, appointment_type").eq('Doctor_id', docid1)
+      .eq('status','accept').gte('date', today)
+      .lte('date', nextSevenDays);
       if (error) {
         alert("Error fetching appointments:", error);
       } else {
