@@ -15,26 +15,77 @@ const ProductCard = ({ data }) => {
 
   const addtocart = async () => {
     try {
+      
+      const { data: productData, error: fetchError } = await supabase
+        .from('product1')
+        .select('department')
+        .eq('id', data.id);
+  
+      if (fetchError) {
+        alert('Error fetching product quantity:', fetchError);
+        toast.error('Failed to fetch product quantity');
+        return;
+      }
+  
+      const currentQuantity = productData[0]?.department || 0;
+  
+   
+      const updatedQuantity = currentQuantity - count;
+  
+      
+      if (updatedQuantity < 0) {
+        alert('Insufficient quantity available for this product');
+        toast.error('Insufficient quantity available');
+        return;
+      }
+  
+      
+      const updateResult = await supabase
+        .from('product1')
+        .upsert(
+          [
+            {
+              id: data.id,
+              department: updatedQuantity,
+            },
+          ],
+          { onConflict: ['id'] }
+        );
+  
+      if (updateResult.error) {
+        alert('Error updating product quantity:', updateResult.error);
+        toast.error('Failed to update the product quantity');
+        return;
+      }
+  
+      
       const orderData = {
         Order_Item_quantity: count,
-        Order_price: updateTotalPrice(),
+        Order_price: data.price,
         Order_Date: new Date().toISOString(),
         pet_product_id: data.id,
       };
-
-      const { data: order, error } = await supabase.from('Order_Item').insert([orderData]);
-
-      if (error) {
-       alert('Error saving order to the database:', error);
-        toast.error('Failed to save the order to the database');
-      } else {
-        alert('Order added to the database');
+  
+      
+      const { data: order, error: orderError } = await supabase
+        .from('Order_Item')
+        .insert([orderData]);
+  
+      if (orderError) {
+        alert('Error saving order:', orderError);
+        toast.error('Failed to save the order');
+        return;
       }
+  
+      alert('Order added to the database, and product quantity updated');
+      setshow(false)
     } catch (error) {
       alert('Error adding to cart:', error);
       toast.error('Failed to add to cart');
     }
   };
+  
+  
 
   return (
     <div className='product'>

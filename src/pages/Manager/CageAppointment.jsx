@@ -4,28 +4,30 @@ import supabase from '../../lib/helper/superbaseClient';
 function CageAppointment() {
   const [cageBookings, setCageBookings] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-
+  const currentDate = new Date();
+  const today = currentDate.toISOString().split("T")[0];
 
   useEffect(() => {
     async function fetchCageBookings() {
       try {
         const { data, error } = await supabase
           .from('Book_Cages')
-          .select('Cages_Id, Booked_Date, Pet_Id');
-
+          .select('Cages_Id, Booked_Date, Pet_Id')
+          .gt('Booked_Date', today)
+          .order('Cages_Id');
+  
         if (error) {
           console.error('Error fetching cage bookings:', error);
         } else {
-          
           setCageBookings(data);
         }
       } catch (error) {
         console.error('Error fetching cage bookings:', error);
       }
     }
-
+  
     fetchCageBookings();
-  }, []); 
+  }, []);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../../COMPONENTS/Product/ProductCard';
-
+import { useLocation } from 'react-router-dom';
 import supabase from '../../../../lib/helper/superbaseClient';
 
 
@@ -8,7 +8,8 @@ import supabase from '../../../../lib/helper/superbaseClient';
 const HomeProduct = () => {
 
  const [products, setProducts] = useState([]);
- 
+ const location = useLocation();
+  const cusId = location.state && location.state.cusId;
 
   useEffect(() => {
     

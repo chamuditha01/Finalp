@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../COMPONENTS/Navbar/Navbar';
 import './AuthPage.css';
 import supabase from '../../../../lib/helper/superbaseClient';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { AiOutlineAccountBook } from 'react-icons/ai';
+
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -71,7 +70,8 @@ const Signup = () => {
                 {
                     name: formData.name,
                     email: formData.email,
-                    password: formData.password
+                    password: formData.password,
+                    address:formData.address
                 }
             ]);
 
@@ -106,20 +106,22 @@ const Signup = () => {
                             <input type='text' name='lname' required />
                         </div>
                     </div>
-                    <div className='formgroup'>
-                        <label htmlFor='email'>Email</label>
-                        <input type='email' name='email' onChange={handleChange} required />
-                    </div>
+                    
 
                     <div className='form-group-row'>
                         <div className='formgroup'>
-                            <label htmlFor='password'>Password</label>
-                            <input type='password' name='password' onChange={handleChange} required />
+                            <label htmlFor='email'>Email</label>
+                            <input type='email' name='email' onChange={handleChange} required />
                         </div>
                         <div className='formgroup'>
-                            <label htmlFor='password'>Confirm Password</label>
-                            <input type='password' name='password' required />
+                        <label htmlFor='password'>Password</label>
+                            <input type='password' name='password' onChange={handleChange} required />
                         </div>
+                    </div>
+
+                    <div className='formgroup'>
+                        <label htmlFor='address'>Address</label>
+                        <input type='address' name='address' onChange={handleChange} required />
                     </div>
 
                     <Link to='/loginshop' className='stylenone'>

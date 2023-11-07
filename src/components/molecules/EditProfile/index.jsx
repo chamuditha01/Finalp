@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
-import img3 from './peakpx.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import NavbarProfileclick from '../NavbarProfileclick';
 import bg from './peakpx.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,40 +8,72 @@ import supabase from '../../../lib/helper/superbaseClient';
 const EditProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const PetId = location.state && location.state.PetId;
-  const [profileImage, setProfileImage] = useState(img3);
-  const [petName, setPetName] = useState('');
-  const [petAge, setPetAge] = useState(0);
-  const [petBreed, setPetBreed] = useState('unknown');
+  const petId = location.state && location.state.PetId;
+  const userId = location.state && location.state.userId;
 
-const fetchPetProfileData = async () => {
-  try {
-    const { data, error } = await supabase
-      .from('Pet_Profile')
-      .select('Pet_Name', 'Breed', 'Pet_Age')
-      .eq('Pet_Profile_id', PetId)
-      .single();
-
-    if (error) {
-      console('Error fetching pet profile data:', error);
-      return;
-    }
-
-    if (data) {
-      setPetName(data.Pet_Name);
-      setPetAge(data.Pet_Age);
-      setPetBreed(data.Breed || 'Unknown Breed');
-    }
-  } catch (error) {
-    console('Error fetching pet profile data:', error);
-  }
-};
+  const [profileData, setProfileData] = useState({
+    petName: '',
+    petType: 'Dog', 
+    petBreed: '',
+    petAge: 0, 
+  });
 
   useEffect(() => {
-    
+    if (petId) {
+      
+      supabase
+        .from('Pet_Profile')
+        .select('*')
+        .eq('Pet_Profile_id', petId)
+        .then(({ data, error }) => {
+          if (error) {
+            console.error('Error fetching profile data:', error);
+          } else if (data.length > 0) {
+            const profile = data[0]; 
+            setProfileData({
+              petName: profile.Pet_Name,
+              petType: profile.Pet_Type,
+              petBreed: profile.Breed,
+              petAge: profile.Pet_Age,
+            });
+          }
+        });
+    }
+  }, [petId]);
 
-    fetchPetProfileData();
-  }, [PetId]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData({
+      ...profileData,
+      [name]: value,
+    });
+  };
+
+  const updateProfile = async () => {
+    try {
+      
+      const { data, error } = await supabase
+        .from('Pet_Profile')
+        .update({
+          Pet_Name: profileData.petName,
+          Pet_Type: profileData.petType,
+          Breed: profileData.petBreed,
+          Pet_Age: profileData.petAge,
+        })
+        .eq('Pet_Profile_id', petId);
+
+      if (error) {
+        console.error('Error updating profile data:', error);
+      } else {
+      
+        console.log('Profile data updated:', data);
+        
+        navigate('/profile', { state: { userId } }); 
+      }
+    } catch (error) {
+      console.error('Error updating profile data:', error);
+    }
+  };
 
   return (
     <div
@@ -56,67 +85,83 @@ const fetchPetProfileData = async () => {
       <NavbarProfileclick />
       <h1 id="h1pro">Edit Profile</h1>
       <div className="pro1">
-        <h1 style={{textAlign:'center',marginTop:'40px'}}>Edit Profile</h1>
-        <br></br>
+        <h1 style={{ textAlign: 'center', marginTop: '40px' }}>Edit Profile</h1>
+        <br />
         <hr className="divider" />
         <label id="l1">Pet Name</label>
-        <br></br>
-        <input id="i11" type="text" value={petName} onChange={(e) => setPetName(e.target.value)} />
-        <br></br>
+        <br />
+        <input
+        style={{fontSize:'15px',fontWeight:'inherit'}}
+          id="i11"
+          type="text"
+          name="petName"
+          value={profileData.petName}
+          onChange={handleChange}
+        />
+        <br />
         <label id="l1">Pet Type</label>
-        <select id="i11" className="form-select" defaultValue="Dog">
-          <option selected>Choose...</option>
-          <option>Dog</option>
-          <option>Cat</option>
-          <option>Other</option>
+        <select
+        style={{fontSize:'15px',fontWeight:'inherit'}}
+          id="i11"
+          className="form-select"
+          name="petType"
+          value={profileData.petType}
+          onChange={handleChange}
+        >
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
+          <option value="Other">Other</option>
         </select>
 
         <label id="l1">Pet Breed</label>
-        <br></br>
+        <br />
         <input
+        style={{fontSize:'15px',fontWeight:'inherit'}}
           id="i11"
           type="text"
-          value={petBreed}
-          onChange={(e) => setPetBreed(e.target.value)}
+          name="petBreed"
+          value={profileData.petBreed}
+          onChange={handleChange}
         />
-        <br></br>
+        <br />
 
         <div className="col-12">
           <label htmlFor="inputage" id="l" className="form-label">
             Age
           </label>
           <input
+          style={{fontSize:'15px',fontWeight:'inherit'}}
             id="i11"
             type="number"
-            value={petAge}
-            onChange={(e) => setPetAge(e.target.value)}
+            name="petAge"
+            value={profileData.petAge}
+            onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="col-12">
-          <a href="/EditProfile">
-            <button
-              style={{
-                height: '50px',
-                width: '100px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                marginBottom: '10px',
-                fontStyle: 'italic',
-              }}
-              type="submit"
-              className="btn btn-primary"
-            >
-              Update
-            </button>
-          </a>
+          <button
+            style={{
+              height: '50px',
+              width: '100px',
+              borderRadius: '20px',
+              fontSize: '12px',
+              marginBottom: '10px',
+              fontStyle: 'italic',
+            }}
+            type="submit"
+            className="btn btn-primary"
+            onClick={updateProfile}
+          >
+            Update
+          </button>
         </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

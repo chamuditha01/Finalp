@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import supabase from "../../../lib/helper/superbaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
+import img from './animal.png'
 
 function PopupForm() {
   const navigate = useNavigate();
@@ -55,7 +56,8 @@ function PopupForm() {
     const { data, error } = await supabase
       .from("Cages")
       .select("Cages_id")
-      .eq("Cages_Status", status);
+      .eq("Cages_Status", status)
+      .order('Cages_id');
     if (error) {
       console.error("Error fetching cage numbers:", error);
     } else {
@@ -108,6 +110,7 @@ function PopupForm() {
               }}
               className="row g-3"
             >
+              <img style={{height:'100px',width:'100px',marginLeft:'90px'}} src={img} alt=""/>
               <h3 style={{ textAlign: "center", marginTop: "20px" }}>
                 Select a Date
               </h3>

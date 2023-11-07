@@ -58,7 +58,7 @@ function CagePopup() {
 
   const fetchCageBookings = async () => {
     try {
-      const { data, error } = await supabase.from('Cages').select();
+      const { data, error } = await supabase.from('Cages').select().order('Cages_id');;
       if (error) {
         console.error('Error fetching data:', error);
       } else {

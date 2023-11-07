@@ -7,11 +7,15 @@ import Navbar from '../../COMPONENTS/Navbar/Navbar'
 import './Home.css'
 import ProductsSlider from '../../COMPONENTS/Product/ProductsSlider'
 import Homeproduct from '../../COMPONENTS/Product/Homeproduct'
-import useLocalStorage from 'use-local-storage'
+import { useLocation } from 'react-router-dom';
 
 
 const Homeshop = () => {
 
+  const location = useLocation();
+  const cusId = location.state && location.state.cusId;
+
+  alert(cusId)
   
   return (
     

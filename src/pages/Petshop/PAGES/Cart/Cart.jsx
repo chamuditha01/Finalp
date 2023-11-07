@@ -13,9 +13,11 @@ import './OrderSucessfull.css'
 import { useRecoilState } from 'recoil'
 import { orderSuccessfulProvider } from '../../Providers/OrderSuccessfulProvider'
 import OrderSuccessful from '../../COMPONENTS/Order/OrderSuccessful'
+import supabase from '../../../../lib/helper/superbaseClient';
+import { useEffect } from 'react'
 
 const Cart = () => {
-  const [cartdata, setcartdata] = React.useState([])
+  
   const [subtotal, setsubtotal] = React.useState(0)
   const [shipping, setshipping] = React.useState(0)
   const [active, setactive] = React.useState(1)
@@ -24,61 +26,54 @@ const Cart = () => {
     new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   )
 
-  const getcartitemsfromlocalstorage = () => {
-    let cart = JSON.parse(localStorage.getItem('cart'))
-    if (cart) {
-      console.log(cart)
-      setcartdata(cart)
+  
 
-      let tempsubtotal = 0
-      cart.forEach(item => {
-        tempsubtotal += item.productdata.SalesPrice * item.quantity
-      })
-     
-      setsubtotal(tempsubtotal)
-      setshipping(80)
-      settax(tempsubtotal * 0.18 + 80 * 0.10)
-      setreloadnavbar(!reloadnavbar)
-    }
-    else {
-      console.log("Cart is empty")
-      setreloadnavbar(!reloadnavbar)
-    }
-  }
-
-  React.useEffect(() => {
-    getcartitemsfromlocalstorage()
-  }, [])
+  const [reloadnavbar, setreloadnavbar] = React.useState(false)
 
   const checklogin = () => {
     return true
   }
 
-  const [reloadnavbar, setreloadnavbar] = React.useState(false)
-  const removeitemfromcart = (index) => {
-    // alert(index)
-    let temp = [...cartdata]
-    temp.splice(index, 1)
-    setcartdata(temp)
-    localStorage.setItem('cart', JSON.stringify(temp))
-    getcartitemsfromlocalstorage()
-  }
+  
 
-  const savedaddress = [
-    {
-      AddressLine1: "Address Line 1",
-      AddressLine2: "Address Line 2",
-      AddressLine3: "Address Line 3",
-      postalcode: "123456"
-    },
-    {
-      AddressLine1: "Address Line 1",
-      AddressLine2: "Address Line 2",
-      AddressLine3: "Address Line 3",
-      postalcode: "123456"
-    }
-  ]
+  const [cartdata, setCartData] = useState([]);
+  
+  
+  const orderItems = cartdata.map(item => ({
+    orderId: item.Oder_Item_id,
+    quantity: item.Order_Item_quantity,
+    price: item.Order_price,
+    orderDate: item.Order_Date,
+    petProductId: item.pet_product_id,
+  }));
 
+  useEffect(() => {
+    const fetchDataFromDatabase = async () => {
+      try {
+        const { data, error } = await supabase.from('Order_Item').select('*');
+        if (error) {
+          console.error('Error fetching data from the database:', error);
+        } else {
+          setCartData(data);
+
+          // Calculate subtotal here
+          let tempSubtotal = 0;
+          data.forEach(item => {
+            tempSubtotal += item.Order_price * item.Order_Item_quantity;
+          });
+          setsubtotal(tempSubtotal);
+        }
+      } catch (error) {
+        console.error('Error in fetchDataFromDatabase:', error);
+      }
+    };
+
+    fetchDataFromDatabase();
+  }, []);
+
+
+
+  
 
   const [selectedorderid, setselectedorderid] = useState(0)
   const [ordersuccesscont, setordersuccesscont] = useRecoilState(orderSuccessfulProvider)
@@ -234,13 +229,13 @@ const Cart = () => {
                             >
                               <div className='cartproduct'
                                 onClick={() => {
-                                  window.location.href = `/product/${item.productdata.ProductId}`
+                                  window.location.href = `/product/${item.pet_product_id}`
                                 }}
                               >
-                                <img src={item.productdata.ProductImage[0].image}
-                                  alt={item.productdata.ProductName} />
+                                
+                                  
                                 <p>{
-                                  item.productdata.ProductName
+                                  item.pet_product_id
                                 }</p>
                               </div>
                             </td>
@@ -251,24 +246,17 @@ const Cart = () => {
                               <div className='quantity'>
                                 <button className='minus' style={{color:'black'}}
                                   onClick={() => {
-                                    let newcartdata = [...cartdata]
+                                    let cartdata = [...cartdata]
 
-                                    if (newcartdata[index].quantity > 1) {
-                                      newcartdata[index].quantity -= 1
-                                      setcartdata(newcartdata)
-                                      localStorage.setItem('cart', JSON.stringify(newcartdata))
-                                      getcartitemsfromlocalstorage()
+                                    if (cartdata[index].Order_Item_quantity > 1) {
+                                      
                                     }
                                   }}
                                 >-</button>
-                                <span>{item.quantity}</span>
+                                <span>{item.Order_Item_quantity}</span>
                                 <button className='plus' style={{color:'black'}}
                                   onClick={() => {
-                                    let newcartdata = [...cartdata]
-                                    newcartdata[index].quantity += 1
-                                    setcartdata(newcartdata)
-                                    localStorage.setItem('cart', JSON.stringify(newcartdata))
-                                    getcartitemsfromlocalstorage()
+                                    
                                   }}
                                 >+</button>
                               </div>
@@ -278,13 +266,13 @@ const Cart = () => {
                               data-label="Price"
                             >
                               <p>
-                                $ {item.productdata.SalesPrice ? item.productdata.SalesPrice.toFixed(2) : 0.00}
+                                Rs {item.Order_price}
                               </p>
                             </td>
 
                             <td>
-                              <p>$ {
-                                (item.productdata.SalesPrice * item.quantity).toFixed(2)
+                              <p>Rs {
+                                item.Order_price * item.Order_Item_quantity
                               }</p>
                             </td>
 
@@ -293,7 +281,7 @@ const Cart = () => {
                             >
                               <div className='delbtn'
                                 onClick={() => {
-                                  removeitemfromcart(index)
+                                  
                                 }}
                               >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -312,39 +300,17 @@ const Cart = () => {
                       <td></td>
                       <td className='totaltableleft'>Sub-Total</td>
                       <td className='totaltableright'>
-                        $ {subtotal.toFixed(2)}
+                        Rs {subtotal.toFixed(2)}
                       </td>
                     </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td className='totaltableleft'>Shipping</td>
-                      <td className='totaltableright'>
-                        $ {shipping.toFixed(2)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td className='totaltableleft'>Total</td>
-                      <td className='totaltableright'>
-                        $ {(subtotal + shipping).toFixed(2)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td className='totaltableleft'>Tax</td>
-                      <td className='totaltableright'>
-                        $ {tax.toFixed(2)}
-                      </td>
-                    </tr>
+                    
+                    
                     <tr>
                       <td></td>
                       <td></td>
                       <td className='totaltableleft'>Net-Total</td>
                       <td className='totaltableright'>
-                        $ {(tax + subtotal + shipping).toFixed(2)}
+                        Rs {( subtotal ).toFixed(2)}
                       </td>
                     </tr>
                   </tbody>
@@ -377,25 +343,7 @@ const Cart = () => {
             </div>
             <div className='previous'>
               <h2 className='mainhead1'>Previous Saved Address</h2>
-              {
-                savedaddress.length > 0 ?
-                  savedaddress.map((item, index) => {
-                    return (
-                      <div className='radio' key={index}>
-                        <input type='radio' name='address' id={index} />
-                        <span>
-                          {
-                            item.AddressLine1 + ', ' + item.AddressLine2 + ', ' + item.AddressLine3 + ', ' + item.postalcode
-                          }
-                        </span>
-                      </div>
-                    )
-                  })
-                  :
-                  <div className='emptyaddress'>
-                    <p>No address Found</p>
-                  </div>
-              }
+              
             </div>
             <h3>OR</h3>
             <div className='shippingadd'>

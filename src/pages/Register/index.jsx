@@ -58,12 +58,12 @@ const Register = () => {
           <div className="col-md-6">
             <section className="container w-100 text-light p-2">
               <form className="row g-3 p-3" onSubmit={handleSubmit}>
-                <div className="col-md-4">
+                <div className="col-md-6">
                   <label htmlFor="validationDefault01" className="form-label">First name</label>
                   <input type="text" className="form-control" name='firstName' value={formData.firstName}
             onChange={handleChange} id="firstName" required />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-6">
                   <label htmlFor="validationDefault02" className="form-label">Last name</label>
                   <input type="text" className="form-control" name='lastName' value={formData.lastName}
             onChange={handleChange} id="lastName" required />
