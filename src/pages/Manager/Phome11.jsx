@@ -13,6 +13,7 @@ import { useTheme } from '../../ThemeProvider';
 import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
+import Oderdetails from './Oderdetails';
 function Phome11() {
   const { darkMode, toggleDarkMode, colorMode, changeColorMode } = useTheme();
   const [popupOpen, setPopupOpen] = useState(null);
@@ -179,14 +180,24 @@ function Phome11() {
             </a>
             <BsFillBellFill className="card_icon" />
           </div>
+          
          
         </div>
+        <div className="card">
+          <div className="card-inner">
+            <a href="#" className="h3" onClick={() => togglePopup('Oderdetails')}>
+            Oder details <GiClick className="card_icon" />
+            </a>
+            <BsFillBellFill className="card_icon" />
+          </div></div>
+        
       </div>
 
       {popupOpen === 'Appointment' && <AppointmentPopup />}
       {popupOpen === 'Stokepopup' && <Stokepopup />}
       {popupOpen === 'Alertpopup' && <Alertpopup />}
       {popupOpen === 'HvisitPopup' && <Hvisitpopup />}
+      {popupOpen === 'Oderdetails' && <Oderdetails />}
       <h3 className="h1">Order Dashboard</h3>
       <div className="charts">
       <ResponsiveContainer width="100%" height="100%">
