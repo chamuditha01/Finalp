@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import './ProductCard.css';
 import supabase from '../../../../lib/helper/superbaseClient';
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, cusId }) => {
   const [show, setshow] = useState(false);
   const [count, setCount] = useState(1);
 
@@ -64,6 +64,8 @@ const ProductCard = ({ data }) => {
         Order_price: data.price,
         Order_Date: new Date().toISOString(),
         pet_product_id: data.id,
+        cusid:cusId,
+        status:'n'
       };
   
       

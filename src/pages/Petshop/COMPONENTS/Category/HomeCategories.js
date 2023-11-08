@@ -4,12 +4,28 @@ import img1 from '../../ASSETS/Images/1.png'
 import img5 from './black-cats-5958934_1920.png'
 import img6 from './dog-6976691_1920.png'
 import img7 from '../../ASSETS/Images/bird-silhouette-10.png'
+import { useNavigate } from 'react-router-dom';
 
 
 
 
+const HomeCategories = ({cusId }) => {
 
-const HomeCategories = () => {
+  const navigate = useNavigate(); 
+
+  const handlecat = () => {
+    
+    navigate('/Homecat', { state: { cusId } });
+  };
+  const handledog = () => {
+    
+    navigate('/Homedog', { state: { cusId } });
+  };
+  const handleother = () => {
+    
+    navigate('/Homeother', { state: { cusId } });
+  };
+
   return (
     <div className='homecategories'>
       <div className='container'>
@@ -18,7 +34,7 @@ const HomeCategories = () => {
           <h1>
             Cat Items
           </h1>
-          <a href='/Homecat'><button>Shop Now</button></a>
+          <a onClick={handlecat}><button>Shop Now</button></a>
         </div>
       </div>
       <div className='container'>
@@ -27,7 +43,7 @@ const HomeCategories = () => {
           <h1>
             Dog Items
           </h1>
-          <a href='/Homedog'><button>Shop Now</button></a>
+          <a onClick={handledog}><button>Shop Now</button></a>
         </div>
       </div>
       <div className='container'>
@@ -36,7 +52,7 @@ const HomeCategories = () => {
           <h1>
             Other Items
           </h1>
-          <a href='/Homeother'><button>Shop Now</button></a>
+          <a onClick={handleother}><button>Shop Now</button></a>
         </div>
       </div>
       

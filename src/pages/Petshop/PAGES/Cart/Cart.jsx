@@ -15,30 +15,27 @@ import { orderSuccessfulProvider } from '../../Providers/OrderSuccessfulProvider
 import OrderSuccessful from '../../COMPONENTS/Order/OrderSuccessful'
 import supabase from '../../../../lib/helper/superbaseClient';
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 
 const Cart = () => {
-  
+  const [productNames, setProductNames] = useState([]);
   const [subtotal, setsubtotal] = React.useState(0)
   const [shipping, setshipping] = React.useState(0)
   const [active, setactive] = React.useState(1)
+  const [productImage, setProductImage] = useState('');
   const [tax, settax] = React.useState(0)
   const [deliverydate, setdeliverydate] = React.useState(
     new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   )
-
-  
-
   const [reloadnavbar, setreloadnavbar] = React.useState(false)
+  const [cartdata, setCartData] = useState([]);
+  const location = useLocation();
+  const cusId = location.state && location.state.cusId;
 
   const checklogin = () => {
     return true
   }
 
-  
-
-  const [cartdata, setCartData] = useState([]);
-  
-  
   const orderItems = cartdata.map(item => ({
     orderId: item.Oder_Item_id,
     quantity: item.Order_Item_quantity,
@@ -46,32 +43,127 @@ const Cart = () => {
     orderDate: item.Order_Date,
     petProductId: item.pet_product_id,
   }));
-
+ 
   useEffect(() => {
+   
+    
+      
+
+
     const fetchDataFromDatabase = async () => {
       try {
-        const { data, error } = await supabase.from('Order_Item').select('*');
+        const { data, error } = await supabase.from('Order_Item').select('*').eq('cusid', cusId).eq('status','n');
         if (error) {
           console.error('Error fetching data from the database:', error);
         } else {
           setCartData(data);
-
-          // Calculate subtotal here
+    
           let tempSubtotal = 0;
+          const productImagePromises = [];
+    
           data.forEach(item => {
             tempSubtotal += item.Order_price * item.Order_Item_quantity;
+            const productImagePromise = supabase
+              .from('product1')
+              .select('image')
+              .eq('id', item.pet_product_id)
+              .then(result => {
+                if (!result.error && result.data.length > 0) {
+                  return result.data[0].image;
+                  
+                }
+                return ''; 
+              });
+    
+            productImagePromises.push(productImagePromise);
           });
+
+          const productnamePromises = [];
+    
+          data.forEach(item => {
+            
+            const productnamePromise = supabase
+              .from('product1')
+              .select('name')
+              .eq('id', item.pet_product_id)
+              .then(result => {
+                if (!result.error && result.data.length > 0) {
+                  return result.data[0].name;
+                  
+                }
+                return ''; 
+              });
+    
+              productnamePromises.push(productnamePromise);
+          });
+    
+          Promise.all(productImagePromises).then(imageUrls => {
+            
+            setProductImage(imageUrls);
+          });
+          Promise.all(productnamePromises).then(name => {
+            
+            setProductNames(name);
+          })
           setsubtotal(tempSubtotal);
         }
       } catch (error) {
         console.error('Error in fetchDataFromDatabase:', error);
       }
     };
-
+    
+   
     fetchDataFromDatabase();
   }, []);
 
-
+  const deleteCartItem = async (item) => {
+    try {
+      
+  
+      const { error } = await supabase.from('Order_Item').delete().eq('Oder_Item_id', item.Oder_Item_id);
+      if (error) {
+        console.error('Error deleting item:', error);
+      } else {
+        console.log('Item deleted successfully');
+  
+        
+        const { data: productData, error: productError } = await supabase
+          .from('product1')
+          .select('department')
+          .eq('id', item.pet_product_id); 
+  
+        if (productError) {
+          console.error('Error fetching product data:', productError);
+        } else {
+          
+  
+          
+          const newQuantity = productData[0].department + item.Order_Item_quantity;
+  
+          
+          const { error: updateError } = await supabase
+            .from('product1')
+            .upsert([
+              {
+                id: item.pet_product_id, 
+                department: newQuantity,
+              },
+            ]);
+  
+          if (updateError) {
+            console.error('Error updating product quantity:', updateError);
+          } else {
+            console.log('Product quantity updated successfully');
+           
+            window.location.reload();
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error in deleteCartItem:', error);
+    }
+  };
+  
 
   
 
@@ -79,7 +171,7 @@ const Cart = () => {
   const [ordersuccesscont, setordersuccesscont] = useRecoilState(orderSuccessfulProvider)
   return (
     <div>
-      <Navbar reloadnavbar={reloadnavbar} />
+      <Navbar cusId={cusId} reloadnavbar={reloadnavbar} />
       {
         ordersuccesscont && <OrderSuccessful orderid={selectedorderid} message={`Order Placed Successfully, Order ID: ${selectedorderid}`}  redirecto='userorders'/>
       }
@@ -93,7 +185,7 @@ const Cart = () => {
             active == 1 ?
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(1)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -105,7 +197,7 @@ const Cart = () => {
               :
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(1)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" >
@@ -120,7 +212,7 @@ const Cart = () => {
             active == 2 ?
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(2)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -134,7 +226,7 @@ const Cart = () => {
               :
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(2)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -150,7 +242,7 @@ const Cart = () => {
             active == 3 ?
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(3)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -164,7 +256,7 @@ const Cart = () => {
               :
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(3)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -178,7 +270,7 @@ const Cart = () => {
             active == 4 ?
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(4)
+                  cartdata.length > 0 && checklogin() 
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -191,7 +283,7 @@ const Cart = () => {
               :
               <div className='c11'
                 onClick={() => {
-                  cartdata.length > 0 && checklogin() && setactive(4)
+                  cartdata.length > 0 && checklogin()
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -214,6 +306,8 @@ const Cart = () => {
                   <thead>
                     <tr>
                       <th>Product</th>
+                      <th>Name</th>
+                      <th>Image</th>
                       <th>Quantity</th>
                       <th>Price</th>
                       <th>Total</th>
@@ -239,26 +333,31 @@ const Cart = () => {
                                 }</p>
                               </div>
                             </td>
-
+                            
+                              {productNames[index] && (
+                                <td style={{padding:'4px'}} data-label="Image">
+                                  {productNames[index]}
+                                 </td> 
+                              )}
+                           
+                            <td data-label="Image">
+                              {productImage[index] && (
+                                <img
+                                style={{marginLeft:'15px'}}
+                                  src={productImage[index]}
+                                  alt='Product Image'
+                                  width='100'
+                                  height='100'
+                                />
+                              )}
+                            </td>
                             <td
                               data-label="Quantity"
                             >
                               <div className='quantity'>
-                                <button className='minus' style={{color:'black'}}
-                                  onClick={() => {
-                                    let cartdata = [...cartdata]
-
-                                    if (cartdata[index].Order_Item_quantity > 1) {
-                                      
-                                    }
-                                  }}
-                                >-</button>
+                                
                                 <span>{item.Order_Item_quantity}</span>
-                                <button className='plus' style={{color:'black'}}
-                                  onClick={() => {
-                                    
-                                  }}
-                                >+</button>
+                                
                               </div>
                             </td>
 
@@ -281,7 +380,7 @@ const Cart = () => {
                             >
                               <div className='delbtn'
                                 onClick={() => {
-                                  
+                                  deleteCartItem(item); 
                                 }}
                               >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -298,6 +397,8 @@ const Cart = () => {
                     <tr>
                       <td></td>
                       <td></td>
+                      <td></td>
+                      <td></td>
                       <td className='totaltableleft'>Sub-Total</td>
                       <td className='totaltableright'>
                         Rs {subtotal.toFixed(2)}
@@ -306,6 +407,8 @@ const Cart = () => {
                     
                     
                     <tr>
+                      <td></td>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td className='totaltableleft'>Net-Total</td>
@@ -329,28 +432,17 @@ const Cart = () => {
 
         {
           active == 2 &&
-          <div className='shippingcont'>
-            <div className='selectdate'>
-              <h2 className='mainhead1'>Select Delivery Date</h2>
-              <input
-                min={new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                type='date'
-                value={deliverydate}
-                onChange={(e) => {
-                  setdeliverydate(e.target.value)
-                }}
-              />
-            </div>
+          <div className='shippingcont' style={{width:'760px'}}>
+            
             <div className='previous'>
-              <h2 className='mainhead1'>Previous Saved Address</h2>
+              <h2 className='mainhead1'> Address & Zip code</h2>
               
             </div>
-            <h3>OR</h3>
-            <div className='shippingadd'>
-              <input type='text' placeholder='Address Line 1' />
-              <input type='text' placeholder='Address Line 2' />
-              <input type='text' placeholder='Address Line 3' />
-              <input type='text' placeholder='Postal Code' />
+            
+            <div className='shippingadd' >
+              <input style={{width:'500px'}} type='text' placeholder='Address Line 1' />
+              
+              <input style={{width:'500px'}} type='text' placeholder='Postal Code' />
               <button>Save</button>
             </div>
 
@@ -391,13 +483,13 @@ const Cart = () => {
             <div className='c2'>
               <span>Net Total</span>
               &nbsp;&nbsp;
-              <span>$ {(subtotal + tax + shipping).toFixed(2)}</span>
+              <span>Rs {(subtotal + tax + shipping).toFixed(2)}</span>
             </div>
           </div>
         }
         {
           active == 4 &&
-          <div className='ordersuccessfull'>
+          <div className='ordersuccessfull' style={{width:'760px'}}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
             </svg>
@@ -459,11 +551,7 @@ const Cart = () => {
           <div className='btns'>
             
             <button className='nextbtn' style={{backgroundColor:'blue'}}
-              onClick={() => {
-                setselectedorderid(12345)
-                setordersuccesscont(true)
-              }}
-            >View Invoice</button>
+            ><a href='/Homeshop' style={{textDecoration:'none'}}>Go Back</a></button>
           </div>
         }
       </div>

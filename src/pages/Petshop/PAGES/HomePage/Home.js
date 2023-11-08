@@ -15,14 +15,14 @@ const Homeshop = () => {
   const location = useLocation();
   const cusId = location.state && location.state.cusId;
 
-  alert(cusId)
+  
   
   return (
     
     <div className='HOme'>
-      <Navbar reloadnavbar={false}/>
+      <Navbar cusId={cusId} reloadnavbar={false}/>
       <BannerSlider />
-      <HomeCategories />
+      <HomeCategories cusId={cusId} />
       
       <Footer1 />
 

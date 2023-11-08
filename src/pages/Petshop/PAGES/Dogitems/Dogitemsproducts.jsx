@@ -7,10 +7,13 @@ import Footer1 from '../../COMPONENTS/Footer/Footer1'
 import Footer2 from '../../COMPONENTS/Footer/Footer2'
 import Navbar from '../../COMPONENTS/Navbar/Navbar'
 import BannerSlider from '../../COMPONENTS/Banners/BannerSlider'
+import { useLocation } from 'react-router-dom';
 
+const Homedog = () => {
 
-const Homecat = () => {
-
+  
+  const location = useLocation();
+  const cusId = location.state && location.state.cusId;
  const [products, setProducts] = useState([]);
  const type="Dog items";
 
@@ -30,7 +33,7 @@ const Homecat = () => {
   }, []);
   return (
     <div className='HOme'>
-      <Navbar reloadnavbar={false}/>
+      <Navbar cusId={cusId} reloadnavbar={false}/>
       <BannerSlider />
      
       
@@ -38,7 +41,7 @@ const Homecat = () => {
 
       <div className="products">
         {products.map((product, index) => (
-          <ProductCard data={product} key={index} />
+          <ProductCard data={product} key={index}  cusId={cusId}/>
         ))}
       </div>
      
@@ -47,6 +50,6 @@ const Homecat = () => {
   )
 }
 
-export default Homecat
+export default Homedog
 
 

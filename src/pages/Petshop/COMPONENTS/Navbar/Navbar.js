@@ -7,30 +7,50 @@ import useLocalStorage from 'use-local-storage';
 import { MdDarkMode } from 'react-icons/md';
 import {  BsSun } from 'react-icons/bs';
 import { useTheme } from '../../../../ThemeProvider';
+import { useNavigate } from 'react-router-dom';
+import supabase from '../../../../lib/helper/superbaseClient';
 
-
-const Navbar = ({ reloadnavbar }) => {
+const Navbar = ({ reloadnavbar, cusId }) => {
   const [cartquantity, setcartquantity] = useState(0);
   const { darkMode, toggleDarkMode } = useTheme();
+  const navigate = useNavigate(); 
+  const [orderCount, setOrderCount] = useState(0); 
 
+  const handlecart = () => {
+    
+    navigate('/cart', { state: { cusId } });
+  };
 
+  const handlehome = () => {
+    
+    navigate('/Homeshop', { state: { cusId } });
+  };
 
-  const getcarttotalitems = () => {
-    let cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart) {
-      let total = 0;
-      cart.forEach((item) => {
-        total += item.quantity;
-      });
-      setcartquantity(total);
-    } else {
-      setcartquantity(0);
+  const fetchOrderCount = async () => {
+    try {
+      
+      const { data, error } = await supabase
+        .from('Order_Item')
+        .select('Oder_Item_id')
+        .eq('cusid', cusId);
+
+      if (!error) {
+        setOrderCount(data.length);
+      }
+    } catch (error) {
+      console.error('Error fetching order count:', error);
     }
   };
 
   useEffect(() => {
-    getcarttotalitems();
-  }, [reloadnavbar]);
+    
+    fetchOrderCount(); 
+
+    
+
+  }, [cusId]); 
+
+  
 
   return (
     <nav className={darkMode ? 'dark-mode' : ''}>
@@ -51,12 +71,12 @@ const Navbar = ({ reloadnavbar }) => {
 
         <div className='right'>
           <div className='cart'>
-            <span className='qty' style={{backgroundColor:'lightblue', width:'20px',height:'20px',borderColor:'blue', borderStyle:'solid', borderWidth:'1px'}}>{cartquantity}</span>
-            <Link to='/cart' className='stylenone'>
+            <span className='qty' style={{backgroundColor:'lightblue', width:'20px',height:'20px',borderColor:'blue', borderStyle:'solid', borderWidth:'1px'}}>{orderCount}</span>
+            <a onClick={handlecart}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
               </svg>
-            </Link>
+            </a>
           </div>
           <Dropdown>
             <Dropdown.Toggle variant="" id="dropdown-basic">
@@ -65,8 +85,6 @@ const Navbar = ({ reloadnavbar }) => {
               </svg>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="/loginshop">Login</Dropdown.Item>
-              <Dropdown.Item href="/signup">Signup</Dropdown.Item>
               <Dropdown.Item href="/user/accountsettings">Profile</Dropdown.Item>
               <Dropdown.Item href="/">Logout</Dropdown.Item>
             </Dropdown.Menu>
@@ -79,13 +97,13 @@ const Navbar = ({ reloadnavbar }) => {
         </div>
       </div>
       <div className='s2'>
-        <Link to='/Homeshop'>
-          <a>Home</a>
-        </Link>
-        <Link to='/about'>
+        
+          <a onClick={handlehome}>Home</a>
+        
+        <Link to=''>
           <a>About Us</a>
         </Link>
-        <Link to='/contact'>
+        <Link to=''>
           <a>Contact Us</a>
         </Link>
         
