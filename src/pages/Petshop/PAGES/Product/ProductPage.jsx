@@ -12,10 +12,15 @@ import ProductsSlider from '../../COMPONENTS/Product/ProductsSlider'
 import './ProductPage.css'
 import { useState } from 'react'
 import supabase from '../../../../lib/helper/superbaseClient'
-
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 const ProductPage = () => {
-    const { prodid } = useParams()
+    
+    const location = useLocation();
+const searchParams = new URLSearchParams(location.search);
+const { prodid } = useParams()
+const cusId = searchParams.get('cusId');
     const [imageset, setimageset] = React.useState(null)
     const [productdata, setproductdata] = React.useState([])
     const [activeimg, setactiveimg] = React.useState({})
@@ -27,8 +32,84 @@ const ProductPage = () => {
     const [productPrice, setproductPrice] = React.useState(false)
     const [productImage, setProductImage] = React.useState(false)
     const [productDescription, setProductDescription] = React.useState(false)
+
+
+    const addtocart = async () => {
+        try {
+          
+          const { data: productData, error: fetchError } = await supabase
+            .from('product1')
+            .select('department')
+            .eq('id', prodid);
+      
+          if (fetchError) {
+            alert('Error fetching product quantity:', fetchError);
+            toast.error('Failed to fetch product quantity');
+            return;
+          }
+      
+          const currentQuantity = productData[0]?.department || 0;
+      
+       
+          const updatedQuantity = currentQuantity - count;
+      
+          
+          if (updatedQuantity < 0) {
+            alert('Insufficient quantity available for this product');
+            toast.error('Insufficient quantity available');
+            return;
+          }
+      
+          
+          const updateResult = await supabase
+            .from('product1')
+            .upsert(
+              [
+                {
+                  id: prodid,
+                  department: updatedQuantity,
+                },
+              ],
+              { onConflict: ['id'] }
+            );
+      
+          if (updateResult.error) {
+            alert('Error updating product quantity:', updateResult.error);
+            toast.error('Failed to update the product quantity');
+            return;
+          }
+      
+          
+          const orderData = {
+            Order_Item_quantity: count,
+            Order_price: productPrice,
+            Order_Date: new Date().toISOString(),
+            pet_product_id: prodid,
+            cusid:cusId,
+            status:'n'
+          };
+      
+          
+          const { data: order, error: orderError } = await supabase
+            .from('Order_Item')
+            .insert([orderData]);
+      
+          if (orderError) {
+            alert('Error saving order:', orderError);
+            toast.error('Failed to save the order');
+            return;
+          }
+      
+          alert('Order added to the database, and product quantity updated');
+         
+        } catch (error) {
+          alert('Error adding to cart:', error);
+          toast.error('Failed to add to cart');
+        }
+      };
     
     useEffect(() => {
+        
         async function fetchProducts() {
           const { data, error } = await supabase
             .from('product1')
@@ -56,23 +137,29 @@ const ProductPage = () => {
         window.scrollTo(0, 0);
       }, []);
       
+      const navigate = useNavigate(); 
+
+  const handlelink = () => {
+    
+    navigate('/Homeshop', { state: { cusId } });
+  };
     
     
     return (
         <div className='productpage'>
             
 
-            <Navbar reloadnavbar={reloadnavbar}/>
+            <Navbar cusId={cusId} reloadnavbar={reloadnavbar}/>
 
             <div className='pc1'>
-                <Link to='/Homeshop'>
-                    <button className='goback'>
+               
+                    <button className='goback' onClick={handlelink}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                         </svg>
                         Go Back
                     </button>
-                </Link>
+                
 
 
                 <div className='c11'>
@@ -115,7 +202,7 @@ const ProductPage = () => {
                     <div className='btncont'>
                         <button style={{backgroundColor:'blue'}}
                             onClick={() => {
-                               
+                                addtocart()
                             }}
                         >
                             Add to Cart
