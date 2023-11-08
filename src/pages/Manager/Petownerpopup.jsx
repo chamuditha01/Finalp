@@ -15,7 +15,6 @@ const PetOwnersPopup = () => {
     phone: '',
     email: '',
     password: '',
-    Manager_id : '1',
     userId:''
   });
   const [isAdding, setIsAdding] = useState(false);
@@ -58,7 +57,7 @@ const PetOwnersPopup = () => {
         const { data: upsertData, error: upsertError } = await supabase.from('Pet_Owner1').upsert([
           {
             id: userId,
-            Manager_id: Manager_id
+            Manager_id:'1'
           }
         ]);
   
@@ -78,21 +77,29 @@ const PetOwnersPopup = () => {
   
 
   const handleAddPetOwner = async () => {
-    if (
-      newPetOwner.name &&
-      newPetOwner.address &&
-      newPetOwner.phone &&
-      newPetOwner.email &&
-      newPetOwner.password
-    ) {
+    
       try {
         
-        const { data, error } = await supabase.from('Customer').upsert([newPetOwner]);
+        const { data, error } = await supabase
+            .from('Customer')
+            .upsert([
+                {
+                    name: newPetOwner.name,
+                    email: newPetOwner.email,
+                    password: newPetOwner.password,
+                    phone:newPetOwner.phone,
+                    address:newPetOwner.address
+                }
+            ]);
         if (error) {
           alert('Error adding Pet Owner:', error);
-        } else {
+        } 
+        
+        else {
           
-          
+          fetchPetOwners();
+            handleLoginOwner(); 
+
             const emailParams = {
               to_email: newPetOwner.email,
               subject: 'Welcome to Pet Owner Portal',
@@ -110,8 +117,7 @@ const PetOwnersPopup = () => {
           
           
   
-            fetchPetOwners();
-            handleLoginOwner(); 
+            
         }
   
         setNewPetOwner({
@@ -124,9 +130,9 @@ const PetOwnersPopup = () => {
   
         setIsAdding(false);
       } catch (error) {
-        alert('An error occurred:', error);
+        console.log('An error occurred:', error);
       }
-    }
+    
   };
   
 

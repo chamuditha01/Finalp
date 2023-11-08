@@ -16,7 +16,7 @@ function NavbarProfileclick() {
   const userId = location.state && location.state.userId;
   const PetId = location.state && location.state.PetId;
   const [petName, setPetName] = useState('');
-  
+  const [petidd, setpetidd] = useState('');
 
   useEffect(() => {
     if (PetId) {
@@ -24,7 +24,7 @@ function NavbarProfileclick() {
       async function fetchPetName() {
         const { data, error } = await supabase
           .from('Pet_Profile')
-          .select('Pet_Name')
+          .select('Pet_Profile_id,Pet_Name')
           .eq('Pet_Profile_id', PetId)
           .single();
 
@@ -33,6 +33,7 @@ function NavbarProfileclick() {
         } else {
           if (data) {
             setPetName(data.Pet_Name);
+            setpetidd(data.Pet_Profile_id);
           }
         }
       }
@@ -100,7 +101,7 @@ function NavbarProfileclick() {
 
             {petName && (
         <div style={{color:'white',fontSize:'20px',fontWeight:'bold'}} class="nav-link active">
-          Pet Name: {petName}
+          Pet Name: {petName}[{petidd}]
         </div>
       )}
 
