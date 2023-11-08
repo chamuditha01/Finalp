@@ -48,7 +48,7 @@ const BannerSlider = () => {
                                 <div className='content'>
                                     <h1>{item.title}</h1>
                                     <span>{item.description}</span>
-                                    <a href='/Signup'><button>Register</button></a>
+                                   
                                 </div>
                             </div>
                         )

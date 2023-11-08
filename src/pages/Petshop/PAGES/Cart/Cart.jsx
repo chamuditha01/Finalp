@@ -42,6 +42,7 @@ const Cart = () => {
     price: item.Order_price,
     orderDate: item.Order_Date,
     petProductId: item.pet_product_id,
+    
   }));
  
   useEffect(() => {
@@ -164,9 +165,42 @@ const Cart = () => {
     }
   };
   
+  const handleProceed = () => {
+    
+    const orderData = {
+      Order_Date: new Date().toISOString(), 
+      Order_Total_Amount: subtotal, 
+      Order_Payment:subtotal,
+      address: address, 
+      cusid:cusId
+    };
 
+    
+    createOrder(orderData);
+  };
+  const createOrder = async (orderData) => {
+    try {
+      
+      const { data, error } = await supabase.from('Order').upsert([orderData]);
+      if (error) {
+        console.error('Error creating the order:', error);
+      } else {
+        
+        alert('Order created successfully');
+        setactive(4) 
+        
+      }
+    } catch (error) {
+      alert('Error in createOrder:', error);
+    }
+  };
+
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
   
-
+  const [address, setAddress] = useState('');
   const [selectedorderid, setselectedorderid] = useState(0)
   const [ordersuccesscont, setordersuccesscont] = useRecoilState(orderSuccessfulProvider)
   return (
@@ -440,7 +474,7 @@ const Cart = () => {
             </div>
             
             <div className='shippingadd' >
-              <input style={{width:'500px'}} type='text' placeholder='Address Line 1' />
+              <input style={{width:'500px'}} type='text' placeholder='Address' onChange={handleAddressChange}/>
               
               <input style={{width:'500px'}} type='text' placeholder='Postal Code' />
               <button>Save</button>
@@ -541,9 +575,9 @@ const Cart = () => {
             >Back</button>
             <button type="submit" className='nextbtn' style={{backgroundColor:'blue'}}
               onClick={() => {
-                checklogin() && setactive(4)
+                handleProceed() 
               }}
-            >Next</button>
+            >Proceed</button>
           </div>
         }
         {

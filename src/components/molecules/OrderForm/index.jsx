@@ -26,31 +26,50 @@ function PopupForm() {
   const handleConfirm = (event) => {
     event.preventDefault();
     if (PetId && selectedCageNumber && selectedDate) {
-      const data = [
-        {
-          Pet_Id: PetId,
-          Cages_Id: selectedCageNumber,
-          Booked_Date: selectedDate.toISOString(),
-        },
-      ];
-
+      
+      const databaseDate = new Date(selectedDate);
+      databaseDate.setDate(databaseDate.getDate() + 1);
+      
       supabase
         .from("Book_Cages")
-        .insert(data)
+        .select("Pet_Id")
+        .eq("Cages_Id", selectedCageNumber)
+        .eq("Booked_Date", databaseDate.toISOString()) 
         .then(({ data, error }) => {
           if (error) {
-            console.error("Error inserting data:", error);
+            console.error("Error checking if the cage is booked:", error);
+          } else if (data.length > 0) {
+            alert("This cage is already booked for the selected date.");
           } else {
-            alert("Data has been successfully inserted.");
-            togglePopup();
-            setSelectedDate(null);
-            setSelectedCageNumber(null);
+            const data = [
+              {
+                Pet_Id: PetId,
+                Cages_Id: selectedCageNumber,
+                Booked_Date: databaseDate.toISOString(),
+              },
+            ];
+  
+            supabase
+              .from("Book_Cages")
+              .insert(data)
+              .then(({ data, error }) => {
+                if (error) {
+                  console.error("Error inserting data:", error);
+                } else {
+                  alert("Data has been successfully inserted.");
+                  togglePopup();
+                  setSelectedDate(null);
+                  setSelectedCageNumber(null);
+                }
+              });
           }
         });
     } else {
       alert("Please select a date and cage before confirming.");
     }
   };
+  
+  
 
   const fetchCageNumbers = async () => {
     const { data, error } = await supabase

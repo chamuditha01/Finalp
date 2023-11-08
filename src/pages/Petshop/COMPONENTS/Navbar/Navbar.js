@@ -78,6 +78,9 @@ const Navbar = ({ reloadnavbar, cusId }) => {
               </svg>
             </a>
           </div>
+          <button className="icon-button icon" onClick={toggleDarkMode}>
+          {darkMode ? <BsSun className="white-icon" /> : <MdDarkMode />}
+        </button>
           <Dropdown>
             <Dropdown.Toggle variant="" id="dropdown-basic">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -89,9 +92,7 @@ const Navbar = ({ reloadnavbar, cusId }) => {
               <Dropdown.Item href="/">Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <button className="icon-button icon" onClick={toggleDarkMode}>
-          {darkMode ? <BsSun className="white-icon" /> : <MdDarkMode />}
-        </button>
+          
       
 
         </div>
