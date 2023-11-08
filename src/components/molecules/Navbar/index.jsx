@@ -46,11 +46,7 @@ function Navbar() {
                       Pet shop
                     </a>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Donation
-                    </a>
-                  </li>
+                  
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
