@@ -31,7 +31,7 @@ function Navbar() {
               <NavItems NavItem id={"nav1"} name={'Pet Shop'} path={'/loginshop'} />
               <li className="nav-item dropdown">
                 <a
-                style={{marginTop:'8px'}}
+                style={{marginTop:'8px',fontStyle:'italic'}}
                   className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
@@ -65,7 +65,7 @@ function Navbar() {
             <ul className="navbar-nav mb-2 mb-lg-0 right">
             
              
-              <NavItems NavItem id={"nav"} name={'Register'} path={'/register'} />
+            
               
               <NavItems NavItem id={"nav"} name={'Login'} path={'/login'}  />
               <a className="top" href="/login">

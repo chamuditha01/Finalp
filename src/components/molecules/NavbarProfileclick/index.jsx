@@ -76,27 +76,7 @@ function NavbarProfileclick() {
              
               <a id="nav" class="nav-link active" aria-current="page" style={{cursor:'pointer'}} onClick={handleProfileClick}>home</a>
               <PopupForm/>
-              <li className="nav-item dropdown">
-                <a
-                style={{marginTop:'8px'}}
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                 Menu
-                </a>
-                <ul className="dropdown-menu">
-                  
-                  <Menu name={'Donate'} path='/Donate'></Menu>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <Menu name={'Appointment'} path='/Appointment'></Menu>
-                  
-                </ul>
-              </li>
+              
             </ul>
 
             {petName && (
@@ -105,14 +85,8 @@ function NavbarProfileclick() {
         </div>
       )}
 
-      
             <ul className="navbar-nav mb-2 mb-lg-0 right">
              
-              
-              
-              
-              
-              
               <div class="btn-group">
                 <button type="button" class="btn btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img style={{marginRight:'15%'}} id="per" src={per} alt="" />

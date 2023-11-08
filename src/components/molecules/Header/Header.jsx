@@ -17,7 +17,7 @@ const Header = () => {
         <div className="header__content text__center text__light flex flex__center">
           <div className="header__content--left"></div>
           <div className="header__content--right">
-            <h1 className="header__title fw__6">WELCOME TO Dr.Pet HOSPITAL</h1>
+            <h1 className="header__title fw__6" style={{fontStyle:'italic'}}>WELCOME TO Dr.Pet HOSPITAL</h1>
             <p className="para__text">
               Dedicated to Pets and People Dr.Pet Animal hospital is dedicated
               to offer you a quality veterinary service at a reasonable price.
@@ -30,8 +30,8 @@ const Header = () => {
               companions throughout their lives. Please contact us on 0771289961
               for all your animal health care needs.
             </p>
-            <a href="/register" className="btn__blue">
-              Register Now
+            <a href="/login" className="btn__blue">
+              Get Started
             </a>
           </div>
         </div>
