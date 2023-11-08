@@ -48,8 +48,8 @@ const BannerSlider = () => {
                             <div className='imagecont' key={item.id}>
                                 <img src={item.image} alt='noimg' />
                                 <div className='content'>
-                                    <h1>{item.title}</h1>
-                                    <span>{item.description}</span>
+                                    <h1 style={{fontSize:'30px'}}>{item.title}</h1>
+                                    <span style={{fontSize:'15px'}}>{item.description}</span>
                                    
                                 </div>
                             </div>
