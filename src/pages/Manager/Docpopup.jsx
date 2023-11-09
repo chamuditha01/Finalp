@@ -84,7 +84,7 @@ const EmployeesPopup = () => {
       });
       const emailParams = {
         to_email: newEmployee.Email,
-        subject: 'Welcome to Pet Owner Portal',
+        subject: 'Welcome to Doctor Portal',
         message: `Welcome to Doctor Acoount! Your Passward is: ${newEmployee.Passward}`,
         email: `Welcome to  Doctor Acoount! Your email is: ${newEmployee.Email}`
       };

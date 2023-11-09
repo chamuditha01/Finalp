@@ -47,10 +47,6 @@ const Cart = () => {
  
   useEffect(() => {
    
-    
-      
-
-
     const fetchDataFromDatabase = async () => {
       try {
         const { data, error } = await supabase.from('Order_Item').select('*').eq('cusid', cusId).eq('status','n');
@@ -178,23 +174,46 @@ const Cart = () => {
     
     createOrder(orderData);
   };
+
   const createOrder = async (orderData) => {
     try {
-      
-      const { data, error } = await supabase.from('Order').upsert([orderData]);
+      const { data, error } = await supabase
+        .from('Order')
+        .insert([orderData]);
+  
       if (error) {
-        console.error('Error creating the order:', error);
+        alert('Error creating the order:', error);
       } else {
         
-        alert('Order created successfully');
-        setactive(4) 
-        
+        getLastRowId();
+        setactive(4);
       }
     } catch (error) {
       alert('Error in createOrder:', error);
     }
   };
-
+  
+  async function getLastRowId() {
+    try {
+      
+      const { data, error } = await supabase.from('Order').select('Order_id').order('Order_id', { ascending: false }).limit(1);
+  
+      if (error) {
+        throw error;
+      }
+  
+      // Extract the ID of the last row
+      const lastRowId = data[0].id;
+      console.log('ID of the last row:', lastRowId);
+  
+      return lastRowId;
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  }
+  
+  
+  
 
   const handleAddressChange = (e) => {
     setAddress(e.target.value);

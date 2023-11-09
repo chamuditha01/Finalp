@@ -11,16 +11,8 @@ const supabase = createClient("https://kjrjrvwfyjngatmeinsk.supabase.co","eyJhbG
 
 const Oderdetails = () => {
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({
-    id: null,
-    name: '',
-    Description: '',
-    department: '',
-    price: '',
-    productType: 'Cat items',
-    image: '',
-  });
-  const [isAdding, setIsAdding] = useState(false);
+ 
+  
 
   useEffect(() => {
     fetchProducts();
@@ -35,84 +27,7 @@ const Oderdetails = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewProduct({ ...newProduct, [name]: value });
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setNewProduct({ ...newProduct, image: imageUrl });
-    }
-  };
-
-  const handleImageDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setNewProduct({ ...newProduct, image: imageUrl });
-    }
-  };
-
-  const handleAddProduct = async () => {
-    if (newProduct.name && newProduct.department && newProduct.phone && newProduct.image) {
-      if (newProduct.id === null) {
-        const { data, error } = await supabase.from(tableName).upsert([
-          { ...newProduct, id: Date.now() },
-        ]);
-        if (error) {
-          console.error('Error adding product:', error);
-        } else {
-          if (data) {
-            setProducts([...products, data[0]]);
-          }
-        }
-      } else {
-        const { data, error } = await supabase.from(tableName).upsert([newProduct]);
-        if (error) {
-          console.error('Error updating product:', error);
-        } else {
-          if (data) {
-            const updatedProductIndex = products.findIndex((p) => p.id === newProduct.id);
-            if (updatedProductIndex !== -1) {
-              products[updatedProductIndex] = data[0];
-              setProducts([...products]);
-            }
-          }
-        }
-        
-        
-      }
-    }setNewProduct({
-          id: null,
-          name: '',
-          Description: '',
-          department: '',
-          price: '',
-          productType: 'Cat items',
-          image: '',
-        });
-        setIsAdding(false);
-        fetchProducts();
-  };
-
-  const handleEditProduct = (product) => {
-    setNewProduct({ ...product });
-    setIsAdding(true);
-  };
-
-  const handleDeleteProduct = async (id) => {
-    const { error } = await supabase.from(tableName).delete().eq('id', id);
-    if (error) {
-      console.error('Error deleting product:', error);
-    } else {
-      const updatedProducts = products.filter((product) => product.id !== id);
-      setProducts(updatedProducts);
-    }
-  };
+  
 
   return (
     <>
@@ -122,41 +37,14 @@ const Oderdetails = () => {
           <table className="table table-success table-striped">
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Product Type</th>
-                <th>Product Price</th>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>Quantity</th>
+                <th>Address</th>
+                <th>Cus Id</th>
               </tr>
             </thead>
             <tbody>
-              
-              
-               
-              
-             {products
-  .filter((product) => parseInt(product.department) < 20)
-  .map((product) => (
-    <tr key={product.id}>
-      <td>
-        <img
-          src={product.image}
-          alt={product.name}
-          width="50"
-          height="50"
-          style={{ objectFit: 'cover' }}
-        />
-      </td>
-      <td>{product.name}</td>
-      <td>{product.Description}</td>
-      <td>{product.department}</td>
-      <td>{product.productType}</td>
-      <td>{product.price}</td>
-      
-    </tr>
-  ))
-}
             </tbody>
           </table>
         </div>

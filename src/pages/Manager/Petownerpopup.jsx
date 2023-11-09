@@ -24,7 +24,7 @@ const PetOwnersPopup = () => {
   }, []);
 
   const fetchPetOwners = async () => {
-    const { data, error } = await supabase.from('Customer').select();
+    const { data, error } = await supabase.from('Customer').select().order('Customer_id');
     if (error) {
       console.error('Error fetching data:', error);
     } else {
@@ -46,7 +46,7 @@ const PetOwnersPopup = () => {
         .eq('email', newPetOwner.email);
   
       if (customerError) {
-        alert('Error querying Customer data: ' + customerError.message);
+        console.error('Error querying Customer data: ' + customerError.message);
         return;
       }
   
@@ -62,15 +62,15 @@ const PetOwnersPopup = () => {
         ]);
   
         if (upsertError) {
-          console('Error inserting data into Pet_Owner1:', upsertError);
+          console.error('Error inserting data into Pet_Owner1:', upsertError);
         } else {
-          console('Data inserted successfully into Pet_Owner1:', upsertData);
+          console.error('Data inserted successfully into Pet_Owner1:', upsertData);
         }
       } else {
-        alert('User not found with the provided email.');
+        console.error('User not found with the provided email.');
       }
     } catch (error) {
-      alert('An error occurred:', error);
+      console.error('An error occurred:', error);
     }
   };
   
@@ -92,7 +92,7 @@ const PetOwnersPopup = () => {
                 }
             ]);
         if (error) {
-          alert('Error adding Pet Owner:', error);
+          console.log('Error adding Pet Owner:', error);
         } 
         
         else {

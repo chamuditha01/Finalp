@@ -233,11 +233,11 @@ const Stokepopup = () => {
                   <td>{product.productType}</td>
                   <td>{product.price}</td>
                   <td>
-                    <button className="btn btn-primary edit" onClick={() => handleEditProduct(product)}>
+                    <button className="btn btn-primary " onClick={() => handleEditProduct(product)}>
                       Edit
                     </button>
                     <button
-                      className="btn btn-danger delete"
+                      className="btn btn-danger "
                       onClick={() => handleDeleteProduct(product.id)}
                     >
                       Delete

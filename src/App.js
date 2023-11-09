@@ -78,7 +78,6 @@ function App() {
               <Route path="/Homeother" element={<Homeother />} />
               <Route path="/Homedog" element={<Homedog />} />
               <Route path="/Notify" element={<ContactUs/>}/>
-              
             </Routes>
           </BrowserRouter>
         </RecoilRoot>
