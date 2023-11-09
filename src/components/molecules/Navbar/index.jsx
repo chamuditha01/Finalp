@@ -29,34 +29,7 @@ function Navbar() {
               <NavItems NavItem id={"nav1"} name={'Home'} path={'/'} />
               <NavItems NavItem id={"nav1"} name={'Service'} path={'/service'} />
               <NavItems NavItem id={"nav1"} name={'Pet Shop'} path={'/loginshop'} />
-              <li className="nav-item dropdown">
-                <a
-                style={{marginTop:'8px',fontStyle:'italic'}}
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                 Menu
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="/loginshop">
-                      Pet shop
-                    </a>
-                  </li>
-                  
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Blog
-                    </a>
-                  </li>
-                </ul>
-              </li>
+              
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0 right">
             
