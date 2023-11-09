@@ -38,17 +38,18 @@
 }
 
 .bannerslider .imagecont h1 {
-    font-size: 2.0rem;
-    font-weight: 200;
+    font-size: 3.0rem;
+    font-weight: 100;
     margin-bottom: 5px;
     width: 70%;
 }
 
 .bannerslider .imagecont span {
-    font-size: 1.3rem;
+    font-size: 3.0rem;
     font-weight: 100;
     margin-bottom: 5px;
     width: 70%;
+    
 }
 
 
