@@ -261,13 +261,7 @@ const Login = () => {
                     <input type="password" className="form-control" id="Passward" name='Passward' onChange={handleInputChange} required />
                   </div>
                 </div>
-                <div className="col-12">
-                   <p className="text-center">
-                  <a href="#" onClick={toggleForgotPassword}>
-                      Forgot Password?
-                    </a>
-                  </p>
-                </div>
+               
                 <div className="col-12 d-flex justify-content-center">
                   <button type="submit" className="btn btn-primary mx-2" onClick={handleSubmit}>
                     Log in
@@ -281,7 +275,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ForgotPasswordModal isOpen={forgotPasswordOpen} onClose={toggleForgotPassword} />
+    
     </div>
   );
 };
