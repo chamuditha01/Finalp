@@ -101,15 +101,13 @@ const Navbar = ({ reloadnavbar, cusId }) => {
         
           <a onClick={handlehome}>Home</a>
         
-        <Link to='/Homecat'>
-          <a>Cat item</a>
+        <Link to=''>
+          <a>About Us</a>
         </Link>
-        <Link to='/Homedog'>
-          <a>Dog item</a>
+        <Link to=''>
+          <a>Contact Us</a>
         </Link>
-        <Link to='/Homeother'>
-          <a>Other item</a>
-        </Link>
+        
         
       </div>
     </nav>
