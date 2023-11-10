@@ -1,37 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { FaImage } from 'react-icons/fa';
-import { createClient } from '@supabase/supabase-js';
+import supabase from '../../lib/helper/superbaseClient';
 import './dt.css';
 
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_API_KEY';
-const tableName = 'product1';
-
-const supabase = createClient("https://kjrjrvwfyjngatmeinsk.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqcmpydndmeWpuZ2F0bWVpbnNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY3ODQ4MTcsImV4cCI6MjAxMjM2MDgxN30.6gqrC0IfJVrgS-Bipm9kf0bYP_g3r2y4dk4mfUK7o-M");
-
 const Oderdetails = () => {
-  const [products, setProducts] = useState([]);
- 
-  
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
-    fetchProducts();
+    fetchOrderItems();
   }, []);
 
-  const fetchProducts = async () => {
-    const { data, error } = await supabase.from(tableName).select('*');
-    if (error) {
-      console.error('Error fetching products:', error);
-    } else {
-      setProducts(data);
+  const fetchOrderItems = async () => {
+    try {
+      const { data, error } = await supabase.from('Order_Item').select('*');
+      if (error) {
+        console.error('Error fetching order items:', error);
+      } else {
+        const itemsWithAddresses = await Promise.all(
+          data.map(async (item) => {
+            const customerAddress = await fetchCustomerAddress(item.cusid);
+            return {
+              ...item,
+              address: customerAddress,
+            };
+          })
+        );
+        setOrderItems(itemsWithAddresses);
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching order items:', error.message);
     }
   };
 
-  
+  const fetchCustomerAddress = async (cusid) => {
+    try {
+      const { data, error } = await supabase
+        .from('Customer')
+        .select('address')
+        .eq('Customer_id', cusid);
+
+      if (error) {
+        console.error('Error fetching customer address:', error);
+        return 'N/A';
+      } else {
+        return data.length > 0 ? data[0].address : 'N/A';
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching customer address:', error.message);
+      return 'N/A';
+    }
+  };
 
   return (
     <>
-      <h1 className="h1">Oder details</h1>
+      <h1 className="h1">Order Details</h1>
       <div className="center-table-content">
         <div className="table-responsive">
           <table className="table table-success table-striped">
@@ -41,10 +62,19 @@ const Oderdetails = () => {
                 <th>Product Id</th>
                 <th>Quantity</th>
                 <th>Address</th>
-                <th>Cus Id</th>
+                <th>Customer Id</th>
               </tr>
             </thead>
             <tbody>
+              {orderItems.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.Oder_Item_id}</td>
+                  <td>{item.pet_product_id}</td>
+                  <td>{item.Order_Item_quantity}</td>
+                  <td>{item.address}</td>
+                  <td>{item.cusid}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -54,5 +84,3 @@ const Oderdetails = () => {
 };
 
 export default Oderdetails;
-
-

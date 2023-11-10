@@ -145,7 +145,7 @@ const PetOwnersPopup = () => {
         fetchPetOwners(); 
       }
     } catch (error) {
-      alert('An error occurred:', error);
+      console.error('An error occurred:', error);
     }
   };
   
