@@ -33,7 +33,7 @@ import Homedog from "./pages/Petshop/PAGES/Dogitems/Dogitemsproducts";
 import Homeother from "./pages/Petshop/PAGES/Otheritems/Otheritemsproducts";
 import Homeshop from "./pages/Petshop/PAGES/HomePage/Home";
 import { RecoilRoot } from "recoil";
-import Notify, { ContactUs } from "./components/molecules/Notification";
+import  { ContactUs } from "./components/molecules/Notification";
 import HeaderPetDashboard from "./components/molecules/HeaderPetDashboard/Header";
 import { ThemeProvider } from './ThemeProvider'; 
 

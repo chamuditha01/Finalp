@@ -39,7 +39,8 @@ function Phome11() {
     try {
       const { data, error } = await supabase
         .from('Order_Item')
-        .select('Oder_Item_id');
+        .select('Oder_Item_id')
+        .neq('status', 'n')
   
       if (error) {
         console.error('Error fetching stock quantity:', error);
@@ -95,7 +96,8 @@ function Phome11() {
           const { data, error } = await supabase
             .from('Order_Item')
             .select('Oder_Item_id')
-            .eq('Order_Date', formattedDate);
+            .eq('Order_Date', formattedDate)
+            .neq('status', 'n')
   
           if (!error) {
             clinicAppointments.push({ date: formattedDate, count: data.length });
