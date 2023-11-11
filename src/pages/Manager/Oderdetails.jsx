@@ -11,7 +11,7 @@ const Oderdetails = () => {
 
   const fetchOrderItems = async () => {
     try {
-      const { data, error } = await supabase.from('Order_Item').select('*');
+      const { data, error } = await supabase.from('Order_Item').select('*').neq('status', 'n');;
       if (error) {
         console.error('Error fetching order items:', error);
       } else {
@@ -68,7 +68,7 @@ const Oderdetails = () => {
             <tbody>
               {orderItems.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.Oder_Item_id}</td>
+                  <td>{item.status}</td>
                   <td>{item.pet_product_id}</td>
                   <td>{item.Order_Item_quantity}</td>
                   <td>{item.address}</td>

@@ -69,7 +69,7 @@ fetchCustomerAddress();
           console.error("Error fetching the last inserted ID:", lastInsertedError);
         } else {
           const insertedAppointmentId = lastInsertedRecord[0].Appointment_id;
-          console.error("Last inserted ID:", insertedAppointmentId);
+          alert(insertedAppointmentId);
   
           if (appointmentData.appointment_type === "Clinic") {
             

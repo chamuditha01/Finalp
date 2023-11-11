@@ -32,7 +32,8 @@ const Navbar = ({ reloadnavbar, cusId }) => {
       const { data, error } = await supabase
         .from('Order_Item')
         .select('Oder_Item_id')
-        .eq('cusid', cusId);
+        .eq('cusid', cusId)
+        .eq('status', 'n');
 
       if (!error) {
         setOrderCount(data.length);

@@ -161,56 +161,73 @@ const Cart = () => {
     }
   };
   
-  const handleProceed = () => {
-    
-    const orderData = {
-      Order_Date: new Date().toISOString(), 
-      Order_Total_Amount: subtotal, 
-      Order_Payment:subtotal,
-      address: address, 
-      cusid:cusId
-    };
-
-    
-    createOrder(orderData);
-  };
-
-  const createOrder = async (orderData) => {
-    try {
-      const { data, error } = await supabase
-        .from('Order')
-        .insert([orderData]);
   
-      if (error) {
-        alert('Error creating the order:', error);
-      } else {
-        
-        getLastRowId();
-        setactive(4);
-      }
-    } catch (error) {
-      alert('Error in createOrder:', error);
-    }
-  };
-  
-  async function getLastRowId() {
+
+  async function handleProceed() {
     try {
+      const appointmentDate = new Date();
       
-      const { data, error } = await supabase.from('Order').select('Order_id').order('Order_id', { ascending: false }).limit(1);
+      appointmentDate.setDate(appointmentDate.getDate() + 1);
+     
+      const { data, error } = await supabase.from("Order").upsert([
+        {
+          Order_Date: appointmentDate,
+          Order_Total_Amount: subtotal,
+          Order_Payment: subtotal,
+          address:address,
+          cusid: cusId,
+          
+        },
+      ]);
   
       if (error) {
-        throw error;
+       console.error("Error saving appointment:", error);
+      } else {
+        console.error("oredr saved successfully.");
+  
+        const { data: lastInsertedRecord, error: lastInsertedError } = await supabase
+          .from("Order")
+          .select("Order_id")
+          .order("Order_id", { ascending: false })
+          .limit(1);
+  
+        if (lastInsertedError) {
+          console.error("Error fetching the last inserted ID:", lastInsertedError);
+        } else {
+          const insertedAppointmentId = lastInsertedRecord[0].Order_id;
+          console.error(insertedAppointmentId);
+          handleitem(insertedAppointmentId)
+          
+        }
       }
-  
-      // Extract the ID of the last row
-      const lastRowId = data[0].id;
-      console.log('ID of the last row:', lastRowId);
-  
-      return lastRowId;
     } catch (error) {
-      console.error('Error fetching data:', error.message);
+      console.error("Error saving appointment:", error);
     }
   }
+  async function handleitem(insertedAppointmentId) {
+    try {
+    
+  
+      const { data, error } = await supabase
+        .from("Order_Item")
+        .update({ status: insertedAppointmentId })
+        .eq('cusid', cusId)
+        .eq('status', 'n');
+  
+      if (error) {
+        console.error('Error updating Order_Item status:', error);
+      } else {
+       console.error('Order_Item status updated successfully');
+        setactive(4)
+      
+      }
+    } catch (error) {
+      console.error('Error updating Order_Item status:', error);
+    }
+  }
+  
+ 
+
   
   
   
