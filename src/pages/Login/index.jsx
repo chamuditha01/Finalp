@@ -7,6 +7,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ForgotPasswordModal from '../popup';
 import supabase from '../../lib/helper/superbaseClient';
+import Swal from 'sweetalert2'
+
+// or via CommonJS
+
 
 const Login = () => {
   const navigate = useNavigate(); 
@@ -29,6 +33,14 @@ const Login = () => {
   };  const handleUsernameChange = (e) => {
     setSelectedUsername(e.target.value);
   };
+
+  const handleexit =(e)=>{
+    Swal.fire({
+      title: "Good job!",
+      text: "You clicked the button!",
+      icon: "success"
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
